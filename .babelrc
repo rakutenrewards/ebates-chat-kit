@@ -1,3 +1,7 @@
 {
-  "presets": ["env"]
+  "presets": [
+    ["env", { "debug": true }],
+    "react"
+  ],
+  "plugins": ["transform-class-properties"]
 }

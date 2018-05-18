@@ -25,7 +25,8 @@ export default {
         "react"
       ],
       plugins: [
-        "external-helpers"
+        "external-helpers",
+        "transform-class-properties"
       ]
     }),
     cjs(),
