@@ -1,3 +1,4 @@
 import Chat from './components/Chat.js';
+import { Message } from './components/Message.js'
 
-export default Chat;
+export { Chat, Message };

@@ -1,11 +1,5 @@
-Chat example:
+`Chat` contains the entire chat window functionality.
 
 ```js
 <Chat pizza="🍕" />
-```
-
-and some sentence
-
-```js
-<Chat pizza="burger" />
 ```
