@@ -3,6 +3,7 @@ import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
 import cjs from 'rollup-plugin-commonjs';
 import uglify from 'rollup-plugin-uglify';
+import globals from 'rollup-plugin-node-globals'
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -12,9 +13,26 @@ export default {
   watch: {
     include: 'src/**/*.*'
   },
-  output: {
-    file: 'dist/ebatesChatKit.js',
-    format: 'cjs'
+  sourcemap: true,
+  output: [
+    {
+      file: 'dist/ebatesChatKit.js',
+      format: 'cjs'
+    },
+    {
+      file: 'dist/ebatesChatKit.umd.js',
+      format: 'umd',
+      name: 'EbatesChatKit'
+    },
+    {
+      file: 'dist/ebatesChatKit.es.js',
+      format: 'es'
+    }
+  ],
+  external: ['react', 'react-dom'],
+  globals: {
+    react: 'React',
+    'react-dom': 'ReactDOM'
   },
   plugins: [
     babel({
@@ -26,10 +44,17 @@ export default {
       ],
       plugins: [
         "external-helpers",
-        "transform-class-properties"
+        "transform-class-properties",
+        "babel-plugin-styled-components"
       ]
     }),
-    cjs(),
+    cjs({
+      include: 'node_modules/**',
+      namedExports: {
+          'node_modules/react-is/index.js': ['isValidElementType']
+        }
+    }),
+    globals(),
     resolve()
   ]
 };
