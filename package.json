@@ -8,7 +8,9 @@
     "test:watch": "jest --watch",
     "prebuild": "rimraf dist",
     "build": "rollup -c",
-    "watch": "rollup -c --watch"
+    "watch": "rollup -c --watch",
+    "docs": "npx styleguidist build",
+    "docs:serve": "npx styleguidist server"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -28,6 +30,7 @@
     "eslint-plugin-react": "^7.8.2",
     "eslint-watch": "^3.1.4",
     "jest": "^22.4.3",
+    "lodash": "^4.17.10",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
