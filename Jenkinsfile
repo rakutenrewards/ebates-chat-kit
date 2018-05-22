@@ -47,7 +47,7 @@ node {
               echo "Deploying to ${gcsBucket} ..."
               sh "gsutil rsync -r dist gs://${gcsBucket}/bubbles"
               sh "gsutil rsync -r styleguide gs://${gcsBucket}/bubbles"
-              sh "gsutil acl ch -u AllUsers:R gs://${gcsBucket}/*"
+              sh "gsutil acl ch -r -u AllUsers:R gs://${gcsBucket}/*"
               sh "gcloud compute url-maps invalidate-cdn-cache ${gcsBucket}-lb --path \"/bubbles/*\" --async --project ${edcEnv}"
             }
           }
