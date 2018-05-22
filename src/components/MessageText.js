@@ -9,7 +9,7 @@ const StyledText = styled.div`
   overflow-wrap:
   break-word;
   max-width:100%;
-  padding:5px;
+  padding: 6px 12px 6px 12px;
 `;
 
 export class MessageText extends React.Component {
