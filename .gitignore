@@ -61,3 +61,5 @@ typings/
 
 # next.js build output
 .next
+/styleguide/build
+/styleguide/index.html
