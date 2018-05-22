@@ -2,6 +2,7 @@
   "name": "ebates-chat-kit",
   "version": "1.0.0",
   "scripts": {
+    "start": "concurrently \"yarn lint:watch\" \"yarn test:watch\" \"yarn watch\"",
     "lint": "eslint src/**/*.js",
     "lint:watch": "esw src/**/*.js -w",
     "test": "jest",
