@@ -1,28 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import _ from 'lodash';
 
 const AvatarWrapper = styled.div`
-  display:flex;flex-direction:column;flex-shrink:0;align-items:center;text-align:center;font-size:0.7em;line-height:1.6em;
-  minWidth: 15px;
+  display:flex;
+  flex-direction:column;
+  flex-shrink:0;
+  align-items:center;
+  text-align:center;
+  font-size:0.7em;
+  line-height:1.6em;
+  margin: ${props => props.isOwn ? '0 0 0 10px' : '0 10px 0 0'};
 `;
 
+const StyledAvatar = styled.div`
+  text-align:left;
+  background-color: rgba(0, 0, 0, .05);
+  border-radius:50%;
+  overflow:hidden;
+  img {
+    display:block;
+    width: 32px;
+  }
+`;
 
 class Avatar extends React.Component {
   static propTypes = {
+    /** Message author's name. */
+    authorName: PropTypes.string,
     /** Message author's avatar URL. */
-    avatar: PropTypes.string,
+    avatarUrl: PropTypes.string,
     /** Letter to represent the avatar in case image is missing */
-    letter: PropTypes.string
+    letter: PropTypes.string,
+    /** Avatar size (width and height) */
+	  size: PropTypes.string,
+	  /** Override component's styles */
+	  style: PropTypes.shape()
   }
 
   render() {
-    const { avatar, letter, className } = this.props;
+    const { authorName, avatarUrl, letter } = this.props;
 
-    if (avatar) {
-      return (<div className={className}><img src={avatar} /></div>);
-    } else if (letter) {
-      return (<div className={className}><span>{letter}</span></div>);
+    if (avatarUrl) {
+      return (<StyledAvatar {...this.props}><img title={authorName} src={avatarUrl} /></StyledAvatar>);
+    }
+    else if (letter) {
+      return (<StyledAvatar {...this.props}><span>{letter}</span></StyledAvatar>);
     }
 
     if (process.env.NODE_ENV === 'development') {
@@ -32,25 +56,24 @@ class Avatar extends React.Component {
   }
 }
 
-const StyledAvatar = styled(Avatar)`
-  border-width:1px; border-style:solid; border-radius:50%;
-  text-align:left;
-  img {
-    display:block;
-    border-radius:50%;
-  }
-`;
-
 const StyledMessage = styled.div`
   display:flex;
   align-items:flex-start;
   font-size:0.9em;
   margin:0.3em;
   max-width:100%;
-`;
-
-const MessageMeta = styled.div`
-  slign: ${props => props.isOwn ? 'right' : 'left'}
+  ${props => {
+    const { isOwn, theme } = props;
+    if (!theme) {
+      return {};
+    }
+    const { Message, OwnMessage } = theme;
+    const style = isOwn ? _.merge({}, Message, OwnMessage) : Message;
+    console.log('style.horizontalAlign is ', style.horizontalAlign);
+    return {
+      flexDirection: style.horizontalAlign === 'left' ? 'row' : 'row-reverse'
+    };
+  }}
 `;
 
 const Content = styled.div`
@@ -59,34 +82,106 @@ const Content = styled.div`
   overflow:hidden;
 `;
 
-const Time = styled.div`
-  font-size:0.8em;
+const computeBorderRadius = function (sharpBorderRadius, ovalBorderRadius, isOwn) {
+  const reorder = function reorder(order, arr) {
+    return order.map((position) => {
+      return arr[position];
+    });
+  };
+
+  const flipStyleHorizontally = reorder.bind(null, [1, 0, 3, 2]);
+	const childIndex = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'single';
+
+	const borderRadiusMap = {
+		single: [sharpBorderRadius, ovalBorderRadius, ovalBorderRadius, ovalBorderRadius],
+		first: [ovalBorderRadius, ovalBorderRadius, ovalBorderRadius, sharpBorderRadius],
+		middle: [sharpBorderRadius, ovalBorderRadius, ovalBorderRadius, sharpBorderRadius],
+		last: [sharpBorderRadius, ovalBorderRadius, ovalBorderRadius, ovalBorderRadius]
+	};
+	const style = borderRadiusMap[childIndex];
+	const result = (isOwn ? flipStyleHorizontally(style) : style).join(' ');
+  return result;
+};
+
+const StyledBubble = styled.div`
+  border:1px solid rgba(0,0,0,0.05);
+  display:inline-block;
+  max-width:100%;
+  margin-bottom:0.1em;
+  ${props => {
+      const { isOwn, theme: { Bubble, OwnBubble, Message } } = props;
+      const themeCustomCSS = isOwn ? _.merge({}, Bubble.css, OwnBubble.css) : Bubble.css;
+      const borderRadius = { borderRadius: computeBorderRadius(Message.sharpBorderRadius, Message.ovalBorderRadius, props.isOwn, props.namedIndex) };
+      const styleExtras = Object.assign(
+        {},
+        themeCustomCSS,
+        borderRadius
+      );
+      return styleExtras;
+    }
+  };
+
+  img {
+    max-width:100%;
+    display:block;
+  }
 `;
 
-
-export class Message extends React.Component {
+class Bubble extends React.Component {
   static propTypes = {
-    /** Message author's avatar URL. */
-    avatar: PropTypes.string,
-    /** Message author - agent (left side) or visitor (right side) */
+    children: PropTypes.node,
     isOwn: PropTypes.bool,
-    /** Message date */
-    date: PropTypes.string,
-    /** Specifies how to render the message within a group of messages */
-    style: PropTypes.oneOf(['single', 'first', 'last']),
-    /** Message children components */
-    children: PropTypes.node
+    namedIndex: PropTypes.string,
+    theme: PropTypes.shape()
   }
 
   render() {
-    const { isOwn, avatar, children } = this.props;
+    const { children } = this.props;
     return (
-      <StyledMessage>
-        <AvatarWrapper isOwn={isOwn} >
-          <StyledAvatar avatar={avatar} />
+      <StyledBubble {...this.props}>
+        {children}
+      </StyledBubble>
+    );
+  }
+}
+
+export class Message extends React.Component {
+  static propTypes = {
+    /** Message author's name */
+    authorName: PropTypes.string,
+    authorOpened: PropTypes.bool,
+    /** Message author's avatar URL. */
+    avatarUrl: PropTypes.string,
+    /** Message children components */
+    children: PropTypes.node,
+    /** Message date */
+    date: PropTypes.string,
+    /** Message author - agent (left side) or visitor (right side) */
+    isOwn: PropTypes.bool,
+    onClick: PropTypes.func,
+    showMetaOnClick: PropTypes.bool,
+    /** Specifies how to render the message within a group of messages */
+    style: PropTypes.oneOf(['single', 'first', 'last'])
+  }
+
+  static defaultProps = {
+	   onClick: function onClick() {}
+  }
+
+  render() {
+    const { authorName, isOwn, avatarUrl, children } = this.props;
+
+    const childrenWithProps = React.Children.map(children, child => React.cloneElement(child, { isOwn }));
+
+    return (
+      <StyledMessage {...this.props}>
+        <AvatarWrapper isOwn={isOwn}>
+          <Avatar authorName={authorName} avatarUrl={avatarUrl} />
         </AvatarWrapper>
         <Content>
-          {children}
+          <Bubble isOwn={isOwn}>
+            {childrenWithProps}
+          </Bubble>
         </Content>
       </StyledMessage>
     );

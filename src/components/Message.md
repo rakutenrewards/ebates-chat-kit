@@ -1,7 +1,13 @@
 Example 1:
 
 ```js
-<Message authorName="Jenni" avatar="https://randomuser.me/api/portraits/women/82.jpg" isOwn={false} >
-  <MessageText>Hey there!</MessageText>
+<Message authorName="Jack" avatarUrl="https://randomuser.me/api/portraits/lego/2.jpg" isOwn={false} >
+  <MessageText>Here?</MessageText>
+</Message>
+<Message authorName="Joe" avatarUrl="https://randomuser.me/api/portraits/lego/6.jpg" isOwn={true} >
+  <MessageText>Whats up?</MessageText>
+</Message>
+<Message authorName="Jack" avatarUrl="https://randomuser.me/api/portraits/lego/2.jpg" isOwn={false} >
+  <MessageText>All good man!</MessageText>
 </Message>
 ```
