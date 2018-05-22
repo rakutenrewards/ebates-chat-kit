@@ -20,17 +20,38 @@ export class MessageGroup extends React.Component {
     isOwn: PropTypes.bool
   }
 
+  static defaultProps = {
+    isOwn: false
+  }
+
+  getIndexName(index, length) {
+    if (index === 0 && length === 1) {
+      return 'single';
+    }
+
+    if (index === 0) {
+      return 'first';
+    }
+    if (index === length-1) {
+      return 'last';
+    }
+
+    return 'middle';
+  }
+
   render() {
-    const { authorName, avatarUrl, children } = this.props;
+    const { authorName, avatarUrl, isOwn, children } = this.props;
     return (
       <StyledMessageGroup>
         {React.Children.map(children, (child, childIndex) => {
-          console.log("child is =", child.props);
-          const newProps = {
+          const childIndexName = this.getIndexName(childIndex, children.length);
+          const newProps = Object.assign({}, child.props, {
             childIndex,
+            childIndexName,
             avatarUrl,
-            authorName
-          };
+            authorName,
+            isOwn
+          });
 
           return React.cloneElement(child, newProps);
         })}

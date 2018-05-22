@@ -69,7 +69,6 @@ const StyledMessage = styled.div`
     }
     const { Message, OwnMessage } = theme;
     const style = isOwn ? _.merge({}, Message, OwnMessage) : Message;
-    console.log('style.horizontalAlign is ', style.horizontalAlign);
     return {
       flexDirection: style.horizontalAlign === 'left' ? 'row' : 'row-reverse'
     };
@@ -82,7 +81,7 @@ const Content = styled.div`
   overflow:hidden;
 `;
 
-const computeBorderRadius = function (sharpBorderRadius, ovalBorderRadius, isOwn) {
+const computeBorderRadius = function (sharpBorderRadius, ovalBorderRadius, isOwn, childIndexName = 'single') {
   const reorder = function reorder(order, arr) {
     return order.map((position) => {
       return arr[position];
@@ -90,7 +89,6 @@ const computeBorderRadius = function (sharpBorderRadius, ovalBorderRadius, isOwn
   };
 
   const flipStyleHorizontally = reorder.bind(null, [1, 0, 3, 2]);
-	const childIndex = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'single';
 
 	const borderRadiusMap = {
 		single: [sharpBorderRadius, ovalBorderRadius, ovalBorderRadius, ovalBorderRadius],
@@ -98,7 +96,7 @@ const computeBorderRadius = function (sharpBorderRadius, ovalBorderRadius, isOwn
 		middle: [sharpBorderRadius, ovalBorderRadius, ovalBorderRadius, sharpBorderRadius],
 		last: [sharpBorderRadius, ovalBorderRadius, ovalBorderRadius, ovalBorderRadius]
 	};
-	const style = borderRadiusMap[childIndex];
+	const style = borderRadiusMap[childIndexName];
 	const result = (isOwn ? flipStyleHorizontally(style) : style).join(' ');
   return result;
 };
@@ -111,7 +109,8 @@ const StyledBubble = styled.div`
   ${props => {
       const { isOwn, theme: { Bubble, OwnBubble, Message } } = props;
       const themeCustomCSS = isOwn ? _.merge({}, Bubble.css, OwnBubble.css) : Bubble.css;
-      const borderRadius = { borderRadius: computeBorderRadius(Message.sharpBorderRadius, Message.ovalBorderRadius, props.isOwn, props.namedIndex) };
+      console.log("props.childIndexName ", props);
+      const borderRadius = { borderRadius: computeBorderRadius(Message.sharpBorderRadius, Message.ovalBorderRadius, props.isOwn, props.childIndexName) };
       const styleExtras = Object.assign(
         {},
         themeCustomCSS,
@@ -131,7 +130,7 @@ class Bubble extends React.Component {
   static propTypes = {
     children: PropTypes.node,
     isOwn: PropTypes.bool,
-    namedIndex: PropTypes.string,
+    childIndexName: PropTypes.string,
     theme: PropTypes.shape()
   }
 
@@ -161,7 +160,7 @@ export class Message extends React.Component {
     onClick: PropTypes.func,
     showMetaOnClick: PropTypes.bool,
     /** Specifies how to render the message within a group of messages */
-    style: PropTypes.oneOf(['single', 'first', 'last'])
+    style: PropTypes.oneOf(['single', 'first', 'middle', 'last'])
   }
 
   static defaultProps = {
@@ -179,7 +178,7 @@ export class Message extends React.Component {
           <Avatar authorName={authorName} avatarUrl={avatarUrl} />
         </AvatarWrapper>
         <Content>
-          <Bubble isOwn={isOwn}>
+          <Bubble {...this.props}>
             {childrenWithProps}
           </Bubble>
         </Content>
