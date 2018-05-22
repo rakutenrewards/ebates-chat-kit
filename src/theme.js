@@ -18,11 +18,6 @@ export const parseCompleteStyles = (props, componentName, propsParser) => {
 };
 
 export const defaultTheme = {
-  // vars: {
-  //   'primary-color': '#427fe1',
-	// 	'secondary-color': '#fbfbfb',
-	// 	'tertiary-color': '#fff'
-  // },
   Avatar: {
 
   },
@@ -49,5 +44,8 @@ export const defaultTheme = {
   OwnMessage: {
     secondaryTextColor: '#000',
     horizontalAlign: 'right'
-  }
+  },
+  MessageGroup: {
+		css: {}
+	}
 };
