@@ -29,7 +29,7 @@ node {
       withEnv(["EDC_ENV=${edcEnv}", "CI=true", "NODE_ENV=${nodeEnv}"]) {
         withCredentials([string(credentialsId: 'FIREBASE_TOKEN', variable: 'FIREBASE_TOKEN')]) {
           stage('Prepare') {
-            sh 'npm install --global yarn'
+            sh 'npm install --global yarn rollup'
             sh 'NODE_ENV=development yarn install'
           }
           stage('Test') {
