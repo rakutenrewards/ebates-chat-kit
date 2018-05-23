@@ -3,9 +3,16 @@ const { createConfig, babel, postcss } = require('webpack-blocks');
 
 module.exports = {
   webpackConfig: createConfig([babel(), postcss()]),
-  title: "Ebates Chat Kit Documentation",
+  title: "Ebates Chat Kit",
   styleguideComponents: {
-    Wrapper: path.join(__dirname, 'styleguide/ThemeWrapper')
+    Wrapper: path.join(__dirname, 'styleguide/ThemeWrapper'),
+    LogoRenderer: path.join(__dirname, 'styleguide/LogoRenderer')
+  },
+  theme: {
+    color: {
+      link: '#fff',
+      sidebarBackground: '#20A441'
+    }
   },
   ribbon: {
     url: 'https://github.com/ebates-edc/ebates-chat-kit',
