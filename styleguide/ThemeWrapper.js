@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { defaultTheme } from '../src/theme';
 
-export default class ThemeWrapper extends Component {
+export default class ThemeWrapper extends React.Component {
   render() {
     return (
       <ThemeProvider theme={defaultTheme}>

@@ -7,6 +7,21 @@ module.exports = {
   styleguideComponents: {
     Wrapper: path.join(__dirname, 'styleguide/ThemeWrapper')
   },
+  ribbon: {
+    url: 'https://github.com/ebates-edc/ebates-chat-kit',
+    text: 'Fork me on GitHub'
+  },
+  sections: [
+    {
+      name: 'Introduction',
+      content: 'docs/introduction.md'
+    },
+    {
+      name: 'UI Components',
+      content: 'docs/ui.md',
+      components: 'src/components/*.js'
+    }
+  ],
   template: {
     head: {
       links: [
