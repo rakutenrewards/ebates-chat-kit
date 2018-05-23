@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import Styled from 'rsg-components/Styled';
 
 const styles = ({ fontFamily, color }) => ({
-	logo: {
-		display: 'flex',
-		alignItems: 'center',
-		margin: 0,
-		fontFamily: fontFamily.base,
-		fontSize: 18,
-		fontWeight: 'normal',
-		color: color.baseBackground
-	},
-	image: {
-		width: '150px'
-	}
+  logo: {
+    alignItems: 'center',
+    margin: 0,
+    fontFamily: fontFamily.base,
+    fontSize: 18,
+    fontWeight: 'normal',
+    color: color.baseBackground,
+    textAlign: 'center'
+  },
+  image: {
+    width: '150px'
+  }
 });
 
 export function LogoRenderer({ classes, children }) {
