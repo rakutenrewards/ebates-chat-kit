@@ -186,23 +186,3 @@ export class Message extends React.Component {
     );
   }
 }
-
-
-// export class MessageGroup extends React.Component {
-//   static propTypes = {
-//     /** Message author's avatar URL. */
-//     avatar: PropTypes.string,
-//     /** Message author - agent (left side) or visitor (right side) */
-//     isOwn: PropTypes.boolean,
-//     /** Message children components */
-//     children: PropTypes.node
-//   }
-//
-//   render() {
-//     return (
-//       <div>
-//       Helloe World! Foooo
-//       </div>
-//     );
-//   }
-// }

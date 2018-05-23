@@ -1,6 +1,9 @@
 import _  from 'lodash';
 
-export const parseCompleteStyles = (props, componentName, propsParser) => {
+const identityop = (v) => { return v; };
+
+
+export const parseCompleteStyles = (props, componentName, propsParser = identityop) => {
 	const { theme, style } = props
 	const themeProps = theme[componentName] || {};
 
@@ -14,7 +17,7 @@ export const parseCompleteStyles = (props, componentName, propsParser) => {
     style
   );
 
-  return Object.assign({}, theme.vars, themeProps.vars || {}, merged)
+  return Object.assign({}, theme.vars, themeProps.vars || {}, merged);
 };
 
 export const defaultTheme = {
@@ -47,5 +50,15 @@ export const defaultTheme = {
   },
   MessageGroup: {
 		css: {}
+	},
+  TextComposer: {
+		inputColor: '#000',
+		css: {},
+		Icon: {
+			color: '#aaa'
+		},
+		IconButton: {
+			activeColor: '#427fe1'
+		}
 	}
 };
