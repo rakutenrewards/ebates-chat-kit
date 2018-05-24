@@ -1,4 +1,6 @@
 import Chat from './components/Chat.js';
-import { Message } from './components/Message.js'
+import MessageComponents from './components/Message';
 
-export { Chat, Message };
+const components = Object.assign({}, MessageComponents, { Chat });
+
+export default components;

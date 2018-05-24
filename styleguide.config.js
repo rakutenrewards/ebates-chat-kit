@@ -26,7 +26,13 @@ module.exports = {
     {
       name: 'UI Components',
       content: 'docs/ui.md',
-      components: 'src/components/*.js'
+      components: 'src/components/*.js',
+      sections: [
+        {
+          name: 'Message',
+          components: 'src/components/Message/*.js'
+        }
+      ]
     }
   ],
   template: {

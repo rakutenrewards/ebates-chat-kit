@@ -109,7 +109,6 @@ const StyledBubble = styled.div`
   ${props => {
       const { isOwn, theme: { Bubble, OwnBubble, Message } } = props;
       const themeCustomCSS = isOwn ? _.merge({}, Bubble.css, OwnBubble.css) : Bubble.css;
-      console.log("props.childIndexName ", props);
       const borderRadius = { borderRadius: computeBorderRadius(Message.sharpBorderRadius, Message.ovalBorderRadius, props.isOwn, props.childIndexName) };
       const styleExtras = Object.assign(
         {},
@@ -144,7 +143,7 @@ class Bubble extends React.Component {
   }
 }
 
-export class Message extends React.Component {
+export default class Message extends React.Component {
   static propTypes = {
     /** Message author's name */
     authorName: PropTypes.string,
