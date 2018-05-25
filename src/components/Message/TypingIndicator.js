@@ -20,7 +20,7 @@ const StyledSpan = styled.span`
   height: 8px;
   width: 8px;
   float: left;
-  margin: 0 1px;
+  margin: 5px 1px;
   background-color: #5B5B5B;
   display: block;
   border-radius: 50%;
