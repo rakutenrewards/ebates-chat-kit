@@ -17,10 +17,12 @@ export class MessageGroup extends React.Component {
     /** Message children components */
     children: PropTypes.node,
     /** Message author - agent (left side) or visitor (right side) */
-    isOwn: PropTypes.bool
+    isOwn: PropTypes.bool,
+    showAvatar: PropTypes.oneOf(['first', 'last', 'each'])
   }
 
   static defaultProps = {
+    showAvatar: 'last',
     isOwn: false
   }
 
@@ -40,17 +42,22 @@ export class MessageGroup extends React.Component {
   }
 
   render() {
-    const { authorName, avatarUrl, isOwn, children } = this.props;
+    const { authorName, avatarUrl, isOwn, children, showAvatar } = this.props;
     return (
       <StyledMessageGroup>
         {React.Children.map(children, (child, childIndex) => {
           const childIndexName = this.getIndexName(childIndex, children.length);
+          let shouldShowAvatar = (showAvatar === 'first' && childIndex === 0) ||
+                                 (showAvatar === 'last' && childIndex === children.length -1) ||
+                                 (showAvatar === 'each');
+
           const newProps = Object.assign({}, child.props, {
             childIndex,
             childIndexName,
             avatarUrl,
             authorName,
-            isOwn
+            isOwn,
+            showAvatar: shouldShowAvatar
           });
 
           return React.cloneElement(child, newProps);

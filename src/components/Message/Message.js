@@ -12,6 +12,7 @@ const AvatarWrapper = styled.div`
   font-size:0.7em;
   line-height:1.6em;
   margin: ${props => props.isOwn ? '0 0 0 10px' : '0 10px 0 0'};
+  min-width: ${props => props.theme.Avatar.size};
 `;
 
 const StyledAvatar = styled.div`
@@ -21,7 +22,7 @@ const StyledAvatar = styled.div`
   overflow:hidden;
   img {
     display:block;
-    width: 32px;
+    width: ${props => props.theme.Avatar.size};
   }
 `;
 
@@ -150,6 +151,8 @@ export default class Message extends React.Component {
     authorOpened: PropTypes.bool,
     /** Message author's avatar URL. */
     avatarUrl: PropTypes.string,
+    /** Should show the user's avatar? */
+    showAvatar: PropTypes.bool,
     /** Message children components */
     children: PropTypes.node,
     /** Message date */
@@ -163,18 +166,19 @@ export default class Message extends React.Component {
   }
 
   static defaultProps = {
-	   onClick: function onClick() {}
+    showAvatar: true,
+	  onClick: function onClick() {}
   }
 
   render() {
-    const { authorName, isOwn, avatarUrl, children } = this.props;
+    const { authorName, isOwn, avatarUrl, showAvatar, children } = this.props;
 
     const childrenWithProps = React.Children.map(children, child => React.cloneElement(child, { isOwn }));
 
     return (
       <StyledMessage {...this.props}>
         <AvatarWrapper isOwn={isOwn}>
-          <Avatar authorName={authorName} avatarUrl={avatarUrl} />
+          {showAvatar ? <Avatar authorName={authorName} avatarUrl={avatarUrl} /> : null}
         </AvatarWrapper>
         <Content>
           <Bubble {...this.props}>
