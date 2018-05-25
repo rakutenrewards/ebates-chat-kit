@@ -22,7 +22,7 @@ export const parseCompleteStyles = (props, componentName, propsParser = identity
 
 export const defaultTheme = {
   Avatar: {
-    size: '32px'
+    size: '28px'
   },
   Bubble: {
     css: {
