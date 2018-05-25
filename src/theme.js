@@ -28,7 +28,7 @@ export const defaultTheme = {
     css: {
       backgroundColor: '#F4F4F4',
       color: '#333333',
-      fontFamily: "Proxima Nova"
+      fontFamily: `"Proxima Nova", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif`
     }
   },
   OwnBubble: {

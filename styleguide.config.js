@@ -40,6 +40,10 @@ module.exports = {
       links: [
         {
           rel: 'stylesheet',
+          href: 'https://www.ebates.com/global_files/fonts/fonts.1.1.7.min.css'
+        },
+        {
+          rel: 'stylesheet',
           href: 'https://fonts.googleapis.com/icon?family=Material+Icons'
         }
       ]
