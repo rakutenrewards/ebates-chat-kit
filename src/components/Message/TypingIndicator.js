@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 
 const blink = keyframes`
@@ -22,7 +21,7 @@ const StyledSpan = styled.span`
   width: 8px;
   float: left;
   margin: 0 1px;
-  background-color: #9E9EA1;
+  background-color: #5B5B5B;
   display: block;
   border-radius: 50%;
   opacity: 0.4;

@@ -26,17 +26,18 @@ export const defaultTheme = {
   },
   Bubble: {
     css: {
-      backgroundColor: '#f1f0f0'
+      backgroundColor: '#F4F4F4',
+      color: '#333333',
+      fontFamily: "Proxima Nova"
     }
   },
   OwnBubble: {
     css: {
-      backgroundColor: '#427fe1',
+      backgroundColor: '#666666',
 			color: '#fff'
     }
   },
   Message: {
-		secondaryTextColor: '#000',
 		horizontalAlign: 'left',
 		sharpBorderRadius: '0.3em',
 		ovalBorderRadius: '1.4em',
@@ -45,7 +46,6 @@ export const defaultTheme = {
     }
 	},
   OwnMessage: {
-    secondaryTextColor: '#000',
     horizontalAlign: 'right'
   },
   MessageGroup: {

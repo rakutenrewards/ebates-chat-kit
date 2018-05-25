@@ -8,7 +8,7 @@ Example 1:
   <MessageText>Whats up?</MessageText>
 </Message>
 <Message authorName="Jack" avatarUrl="https://randomuser.me/api/portraits/lego/2.jpg" isOwn={false} >
-  <MessageText>All good man!</MessageText>
+  <MessageText>All good man! 😂</MessageText>
 </Message>
 ```
 
