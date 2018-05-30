@@ -48,6 +48,12 @@ export const defaultTheme = {
   OwnMessage: {
     horizontalAlign: 'right'
   },
+  MessageTitle: {
+    css: {}
+  },
+  MessageMedia: {
+    css: {}
+  },
   MessageGroup: {
 		css: {}
 	},

@@ -107,6 +107,7 @@ const StyledBubble = styled.div`
   display:inline-block;
   max-width:100%;
   margin-bottom:0.1em;
+  overflow: hidden;
   ${props => {
       const { isOwn, theme: { Bubble, OwnBubble, Message } } = props;
       const themeCustomCSS = isOwn ? _.merge({}, Bubble.css, OwnBubble.css) : Bubble.css;
