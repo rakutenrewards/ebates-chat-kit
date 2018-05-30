@@ -8,6 +8,7 @@ const StyledQuickReply = styled.button`
   font-size: 1em;
   font-weight: 400;
   word-break: break-word;
+  background-color: rgb(255, 255, 255);
   color: ${props => props.theme.QuickReply.color};
   border-width: 1px;
   border-style: solid;
