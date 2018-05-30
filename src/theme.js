@@ -51,6 +51,10 @@ export const defaultTheme = {
   MessageGroup: {
 		css: {}
 	},
+  QuickReply: {
+    color: '#427fe1',
+    css: {}
+  },
   TextComposer: {
 		inputColor: '#000',
 		css: {},

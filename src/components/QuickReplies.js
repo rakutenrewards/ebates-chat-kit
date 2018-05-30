@@ -6,11 +6,9 @@ const noop = () => {};
 
 const StyledQuickReply = styled.button`
   font-size: 1em;
-  box-shadow: rgba(32, 34, 40, 0.05) 0px 0.1em 0.1em 0px;
   font-weight: 400;
   word-break: break-word;
-  background-color: rgb(255, 255, 255);
-  color: rgb(66, 127, 225);
+  color: ${props => props.theme.QuickReply.color};
   border-width: 1px;
   border-style: solid;
   transition: box-shadow 0.1s, color 0.1s, border-color 0.2s;
@@ -18,11 +16,12 @@ const StyledQuickReply = styled.button`
   border-radius: 1.4em;
   overflow: hidden;
   padding: 0.375em 1em 0.5em;
-  border-color: rgb(66, 127, 225);
+  border-color: ${props => props.theme.QuickReply.color};
   &:focus {
     outline:0;
   }
   &:hover { transform: scale(1.05); }
+  ${props => props.theme.QuickReply.css}
 `;
 
 class QuickReply extends React.Component {
