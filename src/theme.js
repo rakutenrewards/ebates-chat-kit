@@ -52,7 +52,7 @@ export const defaultTheme = {
 		css: {}
 	},
   QuickReply: {
-    color: '#427fe1',
+    color: '#23AE4A',
     css: {}
   },
   TextComposer: {
@@ -62,7 +62,7 @@ export const defaultTheme = {
 			color: '#aaa'
 		},
 		IconButton: {
-			activeColor: '#427fe1'
+			activeColor: '#23AE4A'
 		}
 	}
 };
