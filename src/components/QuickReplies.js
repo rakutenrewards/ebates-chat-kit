@@ -81,7 +81,7 @@ export class QuickReplies extends React.Component {
 
   render() {
     const { replies } = this.props;
-    const replyControls =  replies.map((r) => (<QuickReply value={r} onSelect={this._handleOnSelect}/>));
+    const replyControls =  replies.map((r) => (<QuickReply key={r} value={r} onSelect={this._handleOnSelect}/>));
     return (
       <StyledQuickReplies>
         {replyControls}
