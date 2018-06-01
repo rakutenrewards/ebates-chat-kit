@@ -8,7 +8,7 @@ const StyledMessageGroup = styled.div`
   ${props => props.theme.MessageGroup.css}
 `;
 
-export class MessageGroup extends React.Component {
+export default class MessageGroup extends React.Component {
   static propTypes = {
     /** Message author's name */
     authorName: PropTypes.string,

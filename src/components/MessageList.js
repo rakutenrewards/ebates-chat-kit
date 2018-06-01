@@ -27,7 +27,7 @@ const StyledMessageList = styled.div`
 export default class MessageList extends React.Component {
   static propTypes = {
     /** Children of the list */
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     /** Prop used as function ref to the underlaying DOM element */
     innerRef: PropTypes.func,
     /** Callback hooked into list's scroll event */
@@ -53,10 +53,11 @@ export default class MessageList extends React.Component {
     return (
       <StyledMessageList onScroll={this._handleScroll} {...this.props}>
         {React.Children.map(children, (child) => {
+          if (!child) {
+            return null;
+          }
           return (
-            <MessageListItem>
-              {child}
-            </MessageListItem>
+            <MessageListItem>{child}</MessageListItem>
           );
         })}
       </StyledMessageList>

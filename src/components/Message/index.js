@@ -1,7 +1,11 @@
-import Message from './Message.js';
-import MessageText from './MessageText.js';
+import Message from './Message';
+import MessageText from './MessageText';
+import MessageMedia from './MessageMedia';
+import MessageTitle from './MessageTitle';
 
-export default {
+export {
   Message,
-  MessageText
+  MessageText,
+  MessageMedia,
+  MessageTitle
 };

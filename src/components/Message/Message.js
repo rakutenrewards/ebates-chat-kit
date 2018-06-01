@@ -173,8 +173,7 @@ export default class Message extends React.Component {
 
   render() {
     const { authorName, isOwn, avatarUrl, showAvatar, children } = this.props;
-
-    const childrenWithProps = React.Children.map(children, child => React.cloneElement(child, { isOwn }));
+    const childrenWithProps = React.Children.map(children, child => child && React.cloneElement(child, { isOwn }));
 
     return (
       <StyledMessage {...this.props}>

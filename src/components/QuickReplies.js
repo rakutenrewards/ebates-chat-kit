@@ -60,7 +60,7 @@ const StyledQuickReplies = styled.div`
   justify-content: center;
 `;
 
-export class QuickReplies extends React.Component {
+export default class QuickReplies extends React.Component {
   static propTypes = {
     replies: PropTypes.arrayOf(PropTypes.string),
     onSelect: PropTypes.func
