@@ -39,16 +39,15 @@ class QuickReply extends React.Component {
     super(props);
 
     this._handleOnClick = () => {
-      const { value } = this.props;
-      console.log("QuickReply value selected: ", value);
-      this.props.onSelect(value);
+      const { value, onSelect } = this.props;
+      onSelect(value);
     };
   }
 
   render() {
     const { value } = this.props;
     return (
-      <StyledQuickReply type="button" value={value} onClick={this._handleReplyClick}>{value}</StyledQuickReply>
+      <StyledQuickReply type="button" value={value} onClick={this._handleOnClick}>{value}</StyledQuickReply>
     );
   }
 }
@@ -74,14 +73,13 @@ export default class QuickReplies extends React.Component {
     super(props);
 
     this._handleOnSelect = (value) => {
-      console.log("QuickReply value selected: ", value);
       this.props.onSelect(value);
     };
   }
 
   render() {
     const { replies } = this.props;
-    const replyControls =  replies.map((r) => (<QuickReply key={r} value={r} onSelect={this._handleOnSelect}/>));
+    const replyControls =  replies.map((r, idx) => (<QuickReply key={`reply-${idx}-${r}`} value={r} onSelect={this._handleOnSelect}/>));
     return (
       <StyledQuickReplies>
         {replyControls}
