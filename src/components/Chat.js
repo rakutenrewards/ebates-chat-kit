@@ -239,7 +239,7 @@ export default class Chat extends React.Component {
 
       const firstMessage = group[0];
       const groupProps = {
-        key: groupIndex,
+        key: `messagegroup-${groupIndex}`,
         authorName: firstMessage.isOwn ? ownAuthor.name : otherAuthor.name,
         avatarUrl: firstMessage.isOwn ? ownAuthor.avatarUrl : otherAuthor.avatarUrl,
         isOwn: firstMessage.isOwn
@@ -253,14 +253,16 @@ export default class Chat extends React.Component {
     };
 
     this._renderMessage = (message, messageIndex) => {
+      const key = `message-${messageIndex}`;
+
       if (message.hasOwnProperty('quickReplies')) {
         return (
-          <QuickReplies replies={message.quickReplies} />
+          <QuickReplies key={key} replies={message.quickReplies} />
         );
       }
 
       return (
-        <Message key={`message-${messageIndex}`}>
+        <Message key={key}>
           {message.title && <MessageTitle title={message.title} subtitle={message.subtitle} />}
           {message.imageUrl && (
             <MessageMedia>
