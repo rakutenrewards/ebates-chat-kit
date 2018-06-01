@@ -35,6 +35,10 @@
     {
       isOwn: true,
       text: "🤤"
+    },
+    {
+      isOwn: false,
+      quickReplies: ["yes", "no", "maybe"]
     }
   ]}
   />

@@ -238,7 +238,6 @@ export default class Chat extends React.Component {
       const { ownAuthor, otherAuthor } = this.props;
 
       const firstMessage = group[0];
-      console.log("firstMessage: ", firstMessage);
       const groupProps = {
         key: groupIndex,
         authorName: firstMessage.isOwn ? ownAuthor.name : otherAuthor.name,
@@ -248,22 +247,30 @@ export default class Chat extends React.Component {
 
       return (
         <MessageGroup {...groupProps}>
-          {group.map((message, messageIndex) => (
-            <Message key={`message-${messageIndex}`}>
-              {message.title && <MessageTitle title={message.title} subtitle={message.subtitle} />}
-              {message.imageUrl && (
-                <MessageMedia>
-                  <img src={message.imageUrl} />
-                </MessageMedia>
-							)}
-              {message.text && <MessageText>{message.text}</MessageText>}
-              />}
-            </Message>
-          ))}
+          {group.map(this._renderMessage)}
         </MessageGroup>
       );
     };
 
+    this._renderMessage = (message, messageIndex) => {
+      if (message.hasOwnProperty('quickReplies')) {
+        return (
+          <QuickReplies replies={message.quickReplies} />
+        );
+      }
+
+      return (
+        <Message key={`message-${messageIndex}`}>
+          {message.title && <MessageTitle title={message.title} subtitle={message.subtitle} />}
+          {message.imageUrl && (
+            <MessageMedia>
+              <img src={message.imageUrl} />
+            </MessageMedia>
+          )}
+          {message.text && <MessageText>{message.text}</MessageText>}
+        </Message>
+      );
+    };
   }
 
   render() {
