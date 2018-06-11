@@ -59,6 +59,7 @@ export const defaultTheme = {
 	},
   QuickReply: {
     color: '#23AE4A',
+    colorInactive: '#666666',
     css: {}
   },
   TextComposer: {

@@ -5,6 +5,8 @@ import cjs from 'rollup-plugin-commonjs';
 import uglify from 'rollup-plugin-uglify';
 import globals from 'rollup-plugin-node-globals'
 
+import pkg from './package.json'
+
 const isProduction = process.env.NODE_ENV === 'production';
 
 const commonOutput = {
@@ -14,7 +16,7 @@ const commonOutput = {
     'react-dom': 'ReactDOM',
     'styled-components': 'styled'
   }
-}
+};
 
 
 export default {
@@ -24,18 +26,18 @@ export default {
   },
   output: [
     {
-      file: 'dist/ebatesChatKit.js',
+      file: pkg.main,
       format: 'cjs',
       ...commonOutput
     },
+    // {
+    //   file: 'dist/index.umd.js',
+    //   format: 'umd',
+    //   name: 'EbatesChatKit',
+    //   ...commonOutput
+    // },
     {
-      file: 'dist/ebatesChatKit.umd.js',
-      format: 'umd',
-      name: 'EbatesChatKit',
-      ...commonOutput
-    },
-    {
-      file: 'dist/ebatesChatKit.es.js',
+      file: pkg.module,
       format: 'es',
       ...commonOutput
     }
@@ -55,12 +57,7 @@ export default {
         "babel-plugin-styled-components"
       ]
     }),
-    cjs({
-      include: 'node_modules/**',
-      namedExports: {
-          'node_modules/react-is/index.js': ['isValidElementType']
-        }
-    }),
+    cjs(),
     globals(),
     resolve()
   ]

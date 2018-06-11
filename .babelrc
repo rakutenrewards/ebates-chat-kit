@@ -1,6 +1,6 @@
 {
   "presets": [
-    ["env", { "debug": false }],
+    ["env", { "modules": false, "debug": false }],
     "react"
   ],
   "plugins": [

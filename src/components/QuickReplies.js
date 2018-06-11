@@ -9,7 +9,8 @@ const StyledQuickReply = styled.button`
   font-weight: 400;
   word-break: break-word;
   background-color: rgb(255, 255, 255);
-  color: ${props => props.theme.QuickReply.color};
+  color: ${props => props.active ? props.theme.QuickReply.color : props.theme.QuickReply.colorInactive};
+  border-color: ${props => props.active ? props.theme.QuickReply.color : props.theme.QuickReply.colorInactive};
   border-width: 1px;
   border-style: solid;
   transition: box-shadow 0.1s, color 0.1s, border-color 0.2s;
@@ -17,7 +18,6 @@ const StyledQuickReply = styled.button`
   border-radius: 1.4em;
   overflow: hidden;
   padding: 0.375em 1em 0.5em;
-  border-color: ${props => props.theme.QuickReply.color};
   &:focus {
     outline:0;
   }
@@ -28,10 +28,12 @@ const StyledQuickReply = styled.button`
 class QuickReply extends React.Component {
   static propTypes = {
     value: PropTypes.string.isRequired,
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func,
+    active: PropTypes.bool
   };
 
   static defaultProps = {
+    active: true,
     onSelect: noop
   };
 
@@ -45,9 +47,9 @@ class QuickReply extends React.Component {
   }
 
   render() {
-    const { value } = this.props;
+    const { active, value } = this.props;
     return (
-      <StyledQuickReply type="button" value={value} onClick={this._handleOnClick}>{value}</StyledQuickReply>
+      <StyledQuickReply type="button" active={active} value={value} onClick={this._handleOnClick}>{value}</StyledQuickReply>
     );
   }
 }
@@ -62,24 +64,37 @@ const StyledQuickReplies = styled.div`
 export default class QuickReplies extends React.Component {
   static propTypes = {
     replies: PropTypes.arrayOf(PropTypes.string),
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func,
+    active: PropTypes.bool
   }
 
   static defaultProps = {
+    active: true,
     onSelect: noop
   }
 
   constructor(props) {
     super(props);
 
+    this.state = {
+      active: props.active
+    };
+
     this._handleOnSelect = (value) => {
-      this.props.onSelect(value);
+      const { active } = this.state;
+      if (active) {
+        this.setState({
+          active: false
+        });
+        this.props.onSelect(value);
+      }
     };
   }
 
   render() {
     const { replies } = this.props;
-    const replyControls =  replies.map((r, idx) => (<QuickReply key={`reply-${idx}-${r}`} value={r} onSelect={this._handleOnSelect}/>));
+    const { active } = this.state;
+    const replyControls =  replies.map((r, idx) => (<QuickReply key={`reply-${idx}-${r}`} active={active} value={r} onSelect={this._handleOnSelect}/>));
     return (
       <StyledQuickReplies>
         {replyControls}

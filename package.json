@@ -2,6 +2,11 @@
   "name": "ebates-chat-kit",
   "version": "1.0.0",
   "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "concurrently \"yarn lint:watch\" \"yarn test:watch\" \"yarn watch\"",
     "lint": "eslint src/**/*.js",
@@ -56,5 +61,6 @@
     "watchPathIgnorePatterns": [
       "<rootDir>/node_modules/"
     ]
-  }
+  },
+  "dependencies": {}
 }

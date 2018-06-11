@@ -219,6 +219,13 @@ export default class Chat extends React.Component {
       messages: props.messages
     };
 
+    this.addMessage = (msg) => {
+      const { messages } = this.state;
+      this.setState({
+        messages: [...messages, msg]
+      });
+    };
+
     this._onSend = (value) => {
       console.log("Chat got value ", value, Components);
       const newMsg = {
@@ -257,7 +264,7 @@ export default class Chat extends React.Component {
 
       if (message.hasOwnProperty('quickReplies')) {
         return (
-          <QuickReplies key={key} replies={message.quickReplies} />
+          <QuickReplies key={key} replies={message.quickReplies} onSelect={this._onSend} />
         );
       }
 
@@ -272,6 +279,11 @@ export default class Chat extends React.Component {
           {message.text && <MessageText>{message.text}</MessageText>}
         </Message>
       );
+    };
+
+    this._handleQuickReply = (reply) => {
+      console.log("_handleQuickReply ", reply);
+      // this.
     };
   }
 
@@ -302,4 +314,6 @@ export default class Chat extends React.Component {
       </ThemeProvider>
     );
   }
+
+
 }
