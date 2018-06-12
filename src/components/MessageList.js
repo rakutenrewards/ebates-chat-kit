@@ -74,7 +74,7 @@ export default class MessageList extends React.Component {
 
     return (
       <StyledMessageList onScroll={this._handleScroll} {...this.props}>
-        <StayScrolled component="div" style={{'overflow-y':'scroll', height:'100%', width:'100%'}}>
+        <StayScrolled component="div" style={{overflowY:'scroll', height:'100%', width:'100%'}}>
           {React.Children.map(children, (child) => {
             if (!child) {
               return null;
