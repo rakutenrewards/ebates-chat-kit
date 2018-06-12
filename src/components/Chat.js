@@ -7,7 +7,7 @@ import _ from 'lodash';
 import MessageList from './MessageList';
 import MessageGroup from './MessageGroup';
 import QuickReplies from './QuickReplies';
-import { Message, MessageText, MessageMedia, MessageTitle, TypingIndicator } from './Message';
+import { Message, MessageText, MessageMedia, MessageTitle, MessageButtons, MessageButton, TypingIndicator } from './Message';
 import { defaultTheme } from '../theme';
 
 const noop = () => {};
@@ -310,10 +310,15 @@ export default class Chat extends React.Component {
           {message.title && <MessageTitle title={message.title} subtitle={message.subtitle} />}
           {message.imageUrl && (
             <MessageMedia>
-              <img src={message.imageUrl} />
+              {message.url ? <a href={message.url}><img src={message.imageUrl} /></a> : <img src={message.imageUrl} />}
             </MessageMedia>
           )}
           {message.text && <MessageText>{message.text}</MessageText>}
+          {message.buttons && (
+            <MessageButtons>
+              {message.buttons.map(b => (<MessageButton>{b.label}</MessageButton>))}
+            </MessageButtons>
+          )}
         </Message>
       );
     };

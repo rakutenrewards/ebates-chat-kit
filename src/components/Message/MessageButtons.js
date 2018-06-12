@@ -56,7 +56,7 @@ const StyledMessageButtons = styled.div`
     border-radius:0;
   }
   ${props => {
-    const { isOwn, childIndexName, theme: { Message, MessageButtons }} = props.theme;
+    const { isOwn, childIndexName, theme: { Message, MessageButtons }} = props;
 
     const computedParentBorderRadius = computeBorderRadius(Message.sharpBorderRadius, Message.ovalBorderRadius, isOwn, childIndexName);
     const ownBorderRadius = computeChildBorderRadius(computedParentBorderRadius, childIndexName);
