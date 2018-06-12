@@ -63,13 +63,7 @@ export const defaultTheme = {
     css: {}
   },
   MessageList: {
-    css: {
-      position: 'absolute',
-      top: '0',
-      left: '0',
-      right: '0',
-      bottom: '40px'
-    }
+    css: {}
   },
   TextComposer: {
 		inputColor: '#000',
