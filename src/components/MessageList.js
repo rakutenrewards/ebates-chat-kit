@@ -15,15 +15,10 @@ class MessageListItem extends React.Component {
   };
 
   componentDidMount() {
-    const { stayScrolled, scrollBottom } = this.props;
-
+    const { stayScrolled } = this.props;
     // Make the parent StayScrolled component scroll down if it was already scrolled
     stayScrolled();
-
-    // Make the parent StayScrolled component scroll down, even if not completely scrolled down
-    // scrollBottom();
   }
-
 
   render() {
     const { children } = this.props;
