@@ -139,7 +139,7 @@ class TextComposer extends React.Component {
   }
 
   _send() {
-    if (!this._canSend) {
+    if (!this._canSend()) {
       return false;
     }
 
