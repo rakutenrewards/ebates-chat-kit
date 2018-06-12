@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 const StyledMessageGroup = styled.div`
   margin-bottom:1em;
+  overflow : auto;
   ${props => props.theme.MessageGroup.css}
 `;
 

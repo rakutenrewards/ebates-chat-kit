@@ -1,14 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import StayScrolled, { scrolled } from 'react-stay-scrolled';
 import _ from 'lodash';
 
 const noop = () => {};
 
 class MessageListItem extends React.Component {
   static propTypes = {
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+    // Injected by StayScrolled
+    stayScrolled: PropTypes.func,
+    scrollBottom: PropTypes.func
   };
+
+  componentDidMount() {
+    const { stayScrolled, scrollBottom } = this.props;
+
+    // Make the parent StayScrolled component scroll down if it was already scrolled
+    stayScrolled();
+
+    // Make the parent StayScrolled component scroll down, even if not completely scrolled down
+    // scrollBottom();
+  }
+
 
   render() {
     const { children } = this.props;
@@ -18,10 +33,18 @@ class MessageListItem extends React.Component {
   }
 }
 
+const ScrolledMessageListItem = scrolled(MessageListItem);
+
 const StyledMessageList = styled.div`
-  padding:0.5em;
-  overflow-y:auto;
-  height:100%;
+  padding: 0.5em;
+
+  ${props => {
+    const { theme: { MessageList: messageListTheme } } = props;
+
+    return Object.assign({},
+      messageListTheme.css
+    );
+  }}
 `;
 
 export default class MessageList extends React.Component {
@@ -40,7 +63,6 @@ export default class MessageList extends React.Component {
 
   constructor(props) {
     super(props);
-    this.ref = React.createRef();
 
     this._handleScroll = _.throttle((event) => {
       this.props.onScroll(event);
@@ -52,14 +74,16 @@ export default class MessageList extends React.Component {
 
     return (
       <StyledMessageList onScroll={this._handleScroll} {...this.props}>
-        {React.Children.map(children, (child) => {
-          if (!child) {
-            return null;
-          }
-          return (
-            <MessageListItem>{child}</MessageListItem>
-          );
-        })}
+        <StayScrolled component="div" style={{'overflow-y':'scroll', height:'100%', width:'100%'}}>
+          {React.Children.map(children, (child) => {
+            if (!child) {
+              return null;
+            }
+            return (
+              <ScrolledMessageListItem>{child}</ScrolledMessageListItem>
+            );
+          })}
+        </StayScrolled>
       </StyledMessageList>
     );
   }

@@ -4,10 +4,10 @@ const identityop = (v) => { return v; };
 
 
 export const parseCompleteStyles = (props, componentName, propsParser = identityop) => {
-	const { theme, style } = props
+	const { theme, style } = props;
 	const themeProps = theme[componentName] || {};
 
-  const parser = propsParser ? propsParser : (v) => { return v; }
+  const parser = propsParser ? propsParser : (v) => { return v; };
 
 	// TODO: should it be possible to specify common props in theme object?
   const merged = _.merge(
@@ -61,6 +61,15 @@ export const defaultTheme = {
     color: '#23AE4A',
     colorInactive: '#666666',
     css: {}
+  },
+  MessageList: {
+    css: {
+      position: 'absolute',
+      top: '0',
+      left: '0',
+      right: '0',
+      bottom: '40px'
+    }
   },
   TextComposer: {
 		inputColor: '#000',

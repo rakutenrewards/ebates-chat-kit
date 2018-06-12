@@ -1,4 +1,4 @@
-import React, { Components } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
 import TextArea from "react-textarea-autosize";
@@ -7,7 +7,7 @@ import _ from 'lodash';
 import MessageList from './MessageList';
 import MessageGroup from './MessageGroup';
 import QuickReplies from './QuickReplies';
-import { Message, MessageText, MessageMedia, MessageTitle } from './Message';
+import { Message, MessageText, MessageMedia, MessageTitle, TypingIndicator } from './Message';
 import { defaultTheme } from '../theme';
 
 const noop = () => {};
@@ -67,6 +67,9 @@ const StyledTextComposer = styled.div`
   padding:0.5em;
   background:#fff;
   border-top:1px solid rgba(0,0,0,0.1);
+
+  position: absolute;
+  bottom: 0; left:0; right: 0;
 
   ${props => {
     const { theme: { TextComposer: textComposerTheme } } = props;
@@ -191,6 +194,8 @@ class TextComposer extends React.Component {
 
 const StyledChat = styled.div`
   font-family: "Proxima Nova", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+  width:100%; height:100%;
+
 `;
 
 export default class Chat extends React.Component {
@@ -205,29 +210,58 @@ export default class Chat extends React.Component {
         name: PropTypes.string.isRequired,
         avatarUrl: PropTypes.string.isRequired
       }).isRequired,
+    onSend: PropTypes.func,
     /** Theme to use for chat. */
     theme: PropTypes.object
   }
 
   static defaultProps = {
-    theme: defaultTheme
+    theme: defaultTheme,
+    messages: [],
+    onSend: () => {}
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      messages: props.messages
+      typingIndicator: false,
+      messages: props.messages,
+      pendingMessages: []
     };
 
-    this.addMessage = (msg) => {
-      const { messages } = this.state;
-      this.setState({
-        messages: [...messages, msg]
-      });
+    this.turnTypingIndicatorOn = () => {
+      this.setState({ typingIndicator: true });
     };
+
+    this.addMessage = (msg, typing=false) => {
+      const { messages, pendingMessages } = this.state;
+
+      if (!typing) {
+        this.setState({
+          typingIndicator: false,
+          messages: [...messages, msg]
+        });
+        return;
+      }
+
+      this.setState({
+        typingIndicator: true,
+        pendingMessages: [...pendingMessages, msg]
+      });
+      this._applyPendingMessages();
+    };
+
+    this._applyPendingMessages = _.debounce(() => {
+      const { messages, pendingMessages } = this.state;
+      this.setState({
+        typingIndicator: false,
+        messages: [...messages, ...pendingMessages],
+        pendingMessages: []
+      });
+    }, 350);
 
     this._onSend = (value) => {
-      console.log("Chat got value ", value, Components);
+      const { onSend } = this.props;
       const newMsg = {
         text: value,
         isOwn: true
@@ -235,6 +269,8 @@ export default class Chat extends React.Component {
       const { messages } = this.state;
       messages.push(newMsg);
       this.setState({ messages });
+
+      onSend(value);
     };
 
     this._renderGroup = (group, groupIndex) => {
@@ -288,8 +324,8 @@ export default class Chat extends React.Component {
   }
 
   render() {
-    const { theme } = this.props;
-    const { messages } = this.state;
+    const { otherAuthor, theme } = this.props;
+    const { messages, typingIndicator } = this.state;
 
     const parsedMessages = messages.reduce((result, current) => {
       const prev = result[result.length-1];
@@ -306,6 +342,7 @@ export default class Chat extends React.Component {
         <StyledChat>
           <MessageList>
             {parsedMessages.filter(group => group.length > 0).map(this._renderGroup)}
+            {typingIndicator ?  <Message authorName={otherAuthor.name} avatarUrl={otherAuthor.avatarUrl} isOwn={false} ><TypingIndicator /></Message>: null}
           </MessageList>
           <TextComposer onSend={this._onSend}>
             <TextInput />
@@ -314,6 +351,4 @@ export default class Chat extends React.Component {
       </ThemeProvider>
     );
   }
-
-
 }
