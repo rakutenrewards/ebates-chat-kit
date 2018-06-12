@@ -57,6 +57,13 @@ export const defaultTheme = {
   MessageGroup: {
 		css: {}
 	},
+  MessageButtons: {
+		css: {}
+	},
+  MessageButton: {
+    primaryColor: '#666666',
+    secondaryColor: '#666666'
+  },
   QuickReply: {
     color: '#23AE4A',
     colorInactive: '#666666',

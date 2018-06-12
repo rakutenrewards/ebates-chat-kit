@@ -3,7 +3,7 @@ import MessageList from './components/MessageList';
 import MessageGroup from './components/MessageGroup';
 import QuickReplies from './components/QuickReplies';
 import * as MessageControls from './components/Message';
-import defaultTheme from './theme';
+import { defaultTheme } from './theme';
 
 const themes = {
   default: defaultTheme

@@ -102,6 +102,7 @@ const computeBorderRadius = function (sharpBorderRadius, ovalBorderRadius, isOwn
   return result;
 };
 
+
 const StyledBubble = styled.div`
   border:1px solid rgba(0,0,0,0.05);
   display:inline-block;

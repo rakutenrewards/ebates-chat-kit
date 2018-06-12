@@ -68,9 +68,6 @@ const StyledTextComposer = styled.div`
   background:#fff;
   border-top:1px solid rgba(0,0,0,0.1);
 
-  position: absolute;
-  bottom: 0; left:0; right: 0;
-
   ${props => {
     const { theme: { TextComposer: textComposerTheme } } = props;
     return Object.assign({},
@@ -226,11 +223,18 @@ export default class Chat extends React.Component {
     this.state = {
       typingIndicator: false,
       messages: props.messages,
-      pendingMessages: []
+      pendingMessages: [],
+      quickReplies: []
     };
 
     this.turnTypingIndicatorOn = () => {
       this.setState({ typingIndicator: true });
+    };
+
+    this.setQuickReplies = (replies) => {
+      this.setState({
+        quickReplies: replies
+      });
     };
 
     this.addMessage = (msg, typing=false) => {
@@ -246,6 +250,7 @@ export default class Chat extends React.Component {
 
       this.setState({
         typingIndicator: true,
+        quickReplies: [],
         pendingMessages: [...pendingMessages, msg]
       });
       this._applyPendingMessages();
@@ -266,9 +271,11 @@ export default class Chat extends React.Component {
         text: value,
         isOwn: true
       };
-      const { messages } = this.state;
-      messages.push(newMsg);
-      this.setState({ messages });
+
+      this.setState({
+        messages: [...this.state.messages, newMsg],
+        quickReplies: []
+      });
 
       onSend(value);
     };
@@ -298,12 +305,6 @@ export default class Chat extends React.Component {
     this._renderMessage = (message, messageIndex) => {
       const key = `message-${messageIndex}`;
 
-      if (message.hasOwnProperty('quickReplies')) {
-        return (
-          <QuickReplies key={key} replies={message.quickReplies} onSelect={this._onSend} />
-        );
-      }
-
       return (
         <Message key={key}>
           {message.title && <MessageTitle title={message.title} subtitle={message.subtitle} />}
@@ -325,7 +326,7 @@ export default class Chat extends React.Component {
 
   render() {
     const { otherAuthor, theme } = this.props;
-    const { messages, typingIndicator } = this.state;
+    const { messages, typingIndicator, quickReplies } = this.state;
 
     const parsedMessages = messages.reduce((result, current) => {
       const prev = result[result.length-1];
@@ -343,6 +344,7 @@ export default class Chat extends React.Component {
           <MessageList>
             {parsedMessages.filter(group => group.length > 0).map(this._renderGroup)}
             {typingIndicator ?  <Message authorName={otherAuthor.name} avatarUrl={otherAuthor.avatarUrl} isOwn={false} ><TypingIndicator /></Message>: null}
+            {quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSend} active={true} /> : null}
           </MessageList>
           <TextComposer onSend={this._onSend}>
             <TextInput />
