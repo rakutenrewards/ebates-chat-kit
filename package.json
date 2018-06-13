@@ -1,6 +1,6 @@
 {
   "name": "ebates-chat-kit",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
