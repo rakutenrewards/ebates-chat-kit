@@ -43,9 +43,13 @@ node {
           }
           if (edcEnv != 'test') {
             stage('Deploy') {
+              withCredentials([string(credentialsId: 'FURY_PUSH_URL', variable: 'FURY_PUSH_URL')]) {
+                echo "Pushing to GemFury"
+                sh 'yarn deploy:gemfury'
+              }
+
               def gcsBucket = "${edcEnv}-chat"
-              echo "Deploying to ${gcsBucket} ..."
-              sh "gsutil rsync -r dist gs://${gcsBucket}/bubbles"
+              echo "Deploying Styleguide to ${gcsBucket} ..."
               sh "gsutil rsync -r styleguide gs://${gcsBucket}/bubbles"
               sh "gsutil acl ch -r -u AllUsers:R gs://${gcsBucket}/*"
               sh "gcloud compute url-maps invalidate-cdn-cache ${gcsBucket}-lb --path \"/bubbles/*\" --async --project ${edcEnv}"
