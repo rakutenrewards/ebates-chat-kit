@@ -25,9 +25,7 @@ const StyledMessageButton = styled.button`
 
   ${props => {
     const color = props.primary ? props.theme.MessageButton.primaryColor : props.theme.MessageButton.secondaryColor;
-    console.log("color is ", color);
     const darkerColor = darken(0.2, color);
-    console.log("darkerColor is ", darkerColor);
 
     return {
       borderColor: color,

@@ -143,7 +143,6 @@ class TextComposer extends React.Component {
     const { value } = this.state;
     const trimmedValue = _.trimEnd(value);
 
-    console.log("Sending value: ", trimmedValue);
     this.props.onSend(trimmedValue);
     this.setState({ value: ''});
     return true;
@@ -321,11 +320,6 @@ export default class Chat extends React.Component {
           )}
         </Message>
       );
-    };
-
-    this._handleQuickReply = (reply) => {
-      console.log("_handleQuickReply ", reply);
-      // this.
     };
   }
 
