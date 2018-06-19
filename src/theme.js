@@ -29,12 +29,22 @@ export const defaultTheme = {
       backgroundColor: '#F4F4F4',
       color: '#333333',
       fontFamily: `"Proxima Nova", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif`
+    },
+    links: {
+      css: {
+        color: '#333333'
+      }
     }
   },
   OwnBubble: {
     css: {
       backgroundColor: '#666666',
 			color: '#fff'
+    },
+    links: {
+      css: {
+        color: '#fff'
+      }
     }
   },
   Message: {

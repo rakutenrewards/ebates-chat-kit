@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Autolinker from "autolinker";
 
 /** @component */
 const StyledText = styled.div`
@@ -10,17 +11,64 @@ const StyledText = styled.div`
   break-word;
   max-width:100%;
   padding: 6px 12px 6px 12px;
+  a {
+    cursor: pointer;
+    text-decoration: underline;
+    ${props => props.isOwn ? props.theme.OwnBubble.links.css : props.theme.Bubble.links.css};
+  }
 `;
 
 export class MessageText extends React.Component {
   static propTypes = {
-	   children: PropTypes.node
+	   children: PropTypes.node,
+     autolink: PropTypes.bool,
+     isOwn: PropTypes.bool
+  }
+
+  static defaultProps = {
+    autolink: true
   }
 
   render() {
-    const { children } = this.props;
+    const { children, autolink, isOwn } = this.props;
+
+    if (!autolink) {
+      return (
+        <StyledText isOwn={isOwn}>{children}</StyledText>
+      );
+    }
+
+    let autolinker = new Autolinker( {
+        urls : {
+          schemeMatches : true,
+          wwwMatches    : true,
+          tldMatches    : true
+        },
+        email       : true,
+        phone       : true,
+        mention     : false,
+        hashtag     : false,
+
+        stripPrefix : false,
+        stripTrailingSlash : true,
+        newWindow   : true,
+
+        truncate : {
+            length   : 0,
+            location : 'end'
+        },
+        className : ''
+    });
+
+
     return (
-      <StyledText>{children}</StyledText>
+      <StyledText isOwn={isOwn}>{React.Children.map(children, (child) => {
+        if (typeof child === "string") {
+          return (<span dangerouslySetInnerHTML={{__html:autolinker.link(child)}} />);
+        }
+
+        return child;
+      })}</StyledText>
     );
   }
 }

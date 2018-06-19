@@ -21,6 +21,7 @@
     "deploy:gemfury": "node ./scripts/deploy-gemfury.sh"
   },
   "devDependencies": {
+    "autolinker": "^1.6.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
