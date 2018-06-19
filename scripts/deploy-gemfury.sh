@@ -13,14 +13,15 @@ function updateVersionNumber() {
 
   const packageJSON = JSON.stringify(pkg, null, 2);
   fs.writeFileSync('package.json', `${packageJSON}\n`, 'utf-8');
+  return pkg.version;
 }
 
 async function run() {
   try {
     console.log("Updating the package's version number...");
-    updateVersionNumber();
+    var newVersion = updateVersionNumber();
 
-    console.log('Deploying to Gemfury...');
+    console.log('Deploying ' + newVersion + ' to Gemfury...');
     await exec('curl -F package=@$(npm pack) ${FURY_PUSH_URL}');
 
     console.log('Reseting the version change in package.json ...');
