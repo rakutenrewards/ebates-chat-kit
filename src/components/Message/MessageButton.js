@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { darken } from 'polished';
 
-const StyledMessageButton = styled.button`
+const StyledMessageButton = styled.a`
+  display:block;
+  text-align: center;
   border-width:1px 0 0 0;
   border-style:solid;
   font-size:1em;
   padding:0.6em;
   transition:box-shadow 0.1s,color 0.1s,border-color 0.2s;
-  width:100%;
+  background: #fff;
 
   &:hover{
     cursor:pointer;
