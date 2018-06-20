@@ -1,3 +1,6 @@
+# We use yarn
+package-lock.json
+
 dist/
 
 # Logs
