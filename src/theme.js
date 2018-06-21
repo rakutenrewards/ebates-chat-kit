@@ -74,6 +74,12 @@ export const defaultTheme = {
     primaryColor: '#666666',
     secondaryColor: '#666666'
   },
+  MessageItems: {
+    css: {}
+  },
+  MessageItem: {
+    css: {}
+  },
   QuickReply: {
     color: '#23AE4A',
     colorInactive: '#666666',

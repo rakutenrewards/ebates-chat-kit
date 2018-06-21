@@ -13,6 +13,12 @@ Example 1:
 <Message authorName="Joe" avatarUrl="https://randomuser.me/api/portraits/lego/6.jpg" isOwn={true} >
   <MessageText>Look! it even detects links like this - https://developerzen.com - and email emails like this@gmail.com</MessageText>
 </Message>
+<Message authorName="Jack" avatarUrl="https://randomuser.me/api/portraits/lego/2.jpg" isOwn={false} >
+  <MessageItems>
+    <MessageItem title="Vegetables" subtitle="From the farm to your fork this that and something else" image="http://via.placeholder.com/250x250" />
+    <MessageItem title="Fruits" subtitle="Our selection is the largest" image="http://via.placeholder.com/250x250" />
+  </MessageItems>
+</Message>
 ```
 
 
