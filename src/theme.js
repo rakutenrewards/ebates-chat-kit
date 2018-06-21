@@ -62,7 +62,10 @@ export const defaultTheme = {
     css: {}
   },
   MessageMedia: {
-    css: {}
+    css: {},
+    caption: {},
+    title: {},
+    subtitle: {}
   },
   MessageGroup: {
 		css: {}
@@ -78,7 +81,13 @@ export const defaultTheme = {
     css: {}
   },
   MessageItem: {
-    css: {}
+    css: {},
+    title: {},
+    subtitle: {},
+    text: {},
+    imageContainer: {},
+    image: {},
+    button: {}
   },
   QuickReply: {
     color: '#23AE4A',
