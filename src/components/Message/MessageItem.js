@@ -11,23 +11,18 @@ const StyledMessageItem = styled.div`
   white-space: pre-line;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  max-width: 100%;
   padding: 6px 12px;
-  ${(props) => {
-    return props.theme.MessageItem.css;
-  }}
+  ${props => props.theme.MessageItem.css }
 `;
 
 const StyledMessageItemTitle = styled.div`
-  font-size: 1.25em;
+  font-size: 1.1em;
+  font-weight: 500;
   text-align: left;
   white-space: pre-line;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  max-width: 100%;
-  ${(props) => {
-    return props.theme.MessageItem.css;
-  }}
+  ${props => props.theme.MessageItem.title }
 `;
 
 const StyledMessageItemSubtitle = styled.div`
@@ -36,29 +31,62 @@ const StyledMessageItemSubtitle = styled.div`
   white-space: pre-line;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  max-width: 100%;
-  ${(props) => {
-    return props.theme.MessageItem.css;
-  }}
+  color: #555555;
+  padding-top: 3px;
+  padding-bottom: 9px;
+  ${props => props.theme.MessageItem.subtitle }
 `;
 
 const FlexContainer = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Text = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  align-self: flex-start;
+  padding: 6px 0px;
+  ${props => props.theme.MessageItem.text }
 `;
 
-const Image = styled.div`
-  min-width: 75px;
-  max-width: 75px;
-  min-height: 75px;
-  max-height: 75px;
+const ImageContainer = styled.div`
   margin: 0px 10px;
   margin-left: auto;
+  display: flex
+  flex-shrink: 0;
+  flex-grow: 0;
+  min-width: 75px;
+  min-height: 75px;
+  ${props => props.theme.MessageItem.imageContainer }
+`;
+
+const Image = styled.img`
+  border-radius: 5px;
+  ${props => props.theme.MessageItem.image }
+`;
+
+const Button = styled.a`
+  color: #2196f3;
+  border: 1px solid;
+  border-color: #2196f3;
+  border-radius: 3px;
+
+  justify-content: center;
+  height: 36px;
+  line-height: 24px;
+  margin-bottom: 8px;
+  padding-bottom: 5px;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 5px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  ${props => props.theme.MessageItem.button }
 `;
 
 export class MessageItem extends React.Component {
@@ -75,10 +103,9 @@ export class MessageItem extends React.Component {
           <Text>
             <StyledMessageItemTitle>{this.props.title}</StyledMessageItemTitle>
             <StyledMessageItemSubtitle>{this.props.subtitle}</StyledMessageItemSubtitle>
+            { (this.props.buttonText || this.props.buttonUrl) ? <Button href={this.props.buttonUrl}>{this.props.buttonText}</Button> : null}
           </Text>
-          <Image>
-            <img src={this.props.image} style={{ borderRadius: '5px' }} />
-          </Image>
+          { this.props.image ? <ImageContainer><Image src={this.props.image} width="75px" height="75px" /></ImageContainer> : null}
         </FlexContainer>
       </StyledMessageItem>
     );
