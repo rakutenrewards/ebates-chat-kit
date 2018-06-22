@@ -4,7 +4,9 @@
   </a>
 </p>
 <p align="center">
-  <img src="https://img.shields.io/travis/ebates-inc/ebates-chat-kit.svg">
+  <a href="https://travis-ci.org/ebates-inc/ebates-chat-kit"><img src="https://img.shields.io/travis/ebates-inc/ebates-chat-kit.svg" alt="Travis Build Status"></a>
+  <a href="https://www.npmjs.com/package/ebates-chat-kit"><img src="https://img.shields.io/npm/v/ebates-chat-kit.svg" alt="Version"></a>
+  <a href="https://www.npmjs.com/package/ebates-chat-kit"><img src="https://img.shields.io/npm/l/ebates-chat-kit.svg" alt="License"></a>
 </p>
 
 <h1 align="center">Ebates Chat Kit</h1>
