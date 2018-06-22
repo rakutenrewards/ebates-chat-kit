@@ -1,16 +1,14 @@
-import sillyAdd, { sillyMult } from "./foo";
+import Chat from './components/Chat.js';
+import MessageList from './components/MessageList';
+import MessageGroup from './components/MessageGroup';
+import QuickReplies from './components/QuickReplies';
+import * as MessageControls from './components/Message';
+import { defaultTheme } from './theme';
 
-const wowMath = (x, y) => {
-  const sumExpression = sillyAdd(x, y);
-  const { left, right, product } = sillyMult({ x, y });
-
-  const multExpression = `${left} * ${right} = ${product}`;
-
-  const allTheMath = `${sumExpression} ... and ${multExpression}`;
-
-  console.log(allTheMath);
+const themes = {
+  default: defaultTheme
 };
 
-wowMath(7, 5);
+const components = Object.assign({}, MessageControls, { Chat, MessageList, MessageGroup, QuickReplies, themes });
 
-export default wowMath;
+export default components;

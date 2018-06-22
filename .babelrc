@@ -1,3 +1,10 @@
 {
-  "presets": ["env"]
+  "presets": [
+    ["env", { "debug": false }],
+    "react"
+  ],
+  "plugins": [
+    "transform-class-properties",
+    "babel-plugin-styled-components"
+  ]
 }

@@ -1,10 +1,22 @@
 
 import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
-import uglify from 'rollup-plugin-uglify';
+import cjs from 'rollup-plugin-commonjs';
+// import uglify from 'rollup-plugin-uglify';
+import globals from 'rollup-plugin-node-globals';
 
-const isProduction = process.env.NODE_ENV === 'production';
+import pkg from './package.json';
 
+// const isProduction = process.env.NODE_ENV === 'production';
+
+const commonOutput = {
+  sourcemap: true,
+  globals: {
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    'styled-components': 'styled'
+  }
+};
 
 
 export default {
@@ -12,19 +24,35 @@ export default {
   watch: {
     include: 'src/**/*.*'
   },
-  output: {
-    file: 'dist/ebatesChatKit.js',
-    format: 'cjs'
-  },
+  output: [
+    {
+      file: pkg.main,
+      format: 'cjs',
+      ...commonOutput
+    },
+    {
+      file: pkg.module,
+      format: 'es',
+      ...commonOutput
+    }
+  ],
+  external: ['react', 'react-dom', 'styled-components'],
   plugins: [
-    resolve(),
     babel({
+      babelrc: false,
       exclude: 'node_modules/**', // only transpile our source code
       presets: [
-        [ "env", { modules: false } ]
+        [ "env", { modules: false } ],
+        "react"
       ],
-      plugins: ["external-helpers"],
-      babelrc: false
-    })
+      plugins: [
+        "external-helpers",
+        "transform-class-properties",
+        "babel-plugin-styled-components"
+      ]
+    }),
+    cjs(),
+    globals(),
+    resolve()
   ]
 };

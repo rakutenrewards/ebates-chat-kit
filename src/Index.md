@@ -1,0 +1,2 @@
+Ebates Chat Kit
+---------------

@@ -1,0 +1,35 @@
+language: node_js
+
+node_js:
+  - "8"
+
+cache:
+  directories:
+    - "node_modules"
+
+install:
+  - npm install -g yarn rollup
+  - yarn install
+
+script:
+  - yarn lint
+  - yarn test
+  - yarn build
+  - yarn docs
+  - npm run deploy:npm
+
+deploy:
+  - provider: npm
+    email: $NPM_EMAIL
+    api_key: $NPM_TOKEN
+    skip_cleanup: true
+    on:
+      branch: master
+  - provider: pages
+    skip-cleanup: true
+    github-token: $GITHUB_TOKEN
+    local-dir: styleguide
+    keep-history: true
+    skip_cleanup: true
+    on:
+      branch: master
