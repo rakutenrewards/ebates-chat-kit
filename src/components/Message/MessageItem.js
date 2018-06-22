@@ -7,6 +7,7 @@ const StyledMessageItem = styled.div`
   text-align: left;
   border-width: 1px 0 0 0;
   border-style: solid;
+  border-color: #cccccc;
   font-size: 1em;
   white-space: pre-line;
   word-wrap: break-word;
