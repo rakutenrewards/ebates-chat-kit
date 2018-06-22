@@ -22,7 +22,6 @@ const StyledMessageItemTitle = styled.div`
   white-space: pre-line;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  ${props => props.theme.MessageItem.title }
 `;
 
 const StyledMessageItemSubtitle = styled.div`
@@ -34,7 +33,6 @@ const StyledMessageItemSubtitle = styled.div`
   color: #555555;
   padding-top: 3px;
   padding-bottom: 9px;
-  ${props => props.theme.MessageItem.subtitle }
 `;
 
 const FlexContainer = styled.div`
@@ -49,7 +47,6 @@ const Text = styled.div`
   text-overflow: ellipsis;
   align-self: flex-start;
   padding: 6px 0px;
-  ${props => props.theme.MessageItem.text }
 `;
 
 const ImageContainer = styled.div`
@@ -60,12 +57,20 @@ const ImageContainer = styled.div`
   flex-grow: 0;
   min-width: 75px;
   min-height: 75px;
-  ${props => props.theme.MessageItem.imageContainer }
 `;
 
 const Image = styled.img`
   border-radius: 5px;
-  ${props => props.theme.MessageItem.image }
+  height: 75px;
+  width: 75px;
+  ${props => {
+    const imageHeight = props.theme.MessageItem.imageHeight || '75px';
+    const imageWidth = props.theme.MessageItem.imageWidth || '75px';
+    return {
+      height: imageHeight,
+      weight: imageWidth
+    };
+  } }
 `;
 
 const Button = styled.a`
@@ -78,15 +83,11 @@ const Button = styled.a`
   height: 36px;
   line-height: 24px;
   margin-bottom: 8px;
-  padding-bottom: 5px;
-  padding-left: 6px;
-  padding-right: 6px;
-  padding-top: 5px;
+  padding: 5px 6px;
   position: relative;
   text-align: center;
   text-decoration: none;
   white-space: nowrap;
-  ${props => props.theme.MessageItem.button }
 `;
 
 export class MessageItem extends React.Component {
@@ -105,7 +106,7 @@ export class MessageItem extends React.Component {
             <StyledMessageItemSubtitle>{this.props.subtitle}</StyledMessageItemSubtitle>
             { (this.props.buttonText || this.props.buttonUrl) ? <Button href={this.props.buttonUrl}>{this.props.buttonText}</Button> : null}
           </Text>
-          { this.props.image ? <ImageContainer><Image src={this.props.image} width="75px" height="75px" /></ImageContainer> : null}
+          { this.props.image ? <ImageContainer><Image src={this.props.image} /></ImageContainer> : null}
         </FlexContainer>
       </StyledMessageItem>
     );

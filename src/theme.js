@@ -82,12 +82,8 @@ export const defaultTheme = {
   },
   MessageItem: {
     css: {},
-    title: {},
-    subtitle: {},
-    text: {},
-    imageContainer: {},
-    image: {},
-    button: {}
+    imageHeight: '75px',
+    imageWidth: '75px'
   },
   QuickReply: {
     color: '#23AE4A',
