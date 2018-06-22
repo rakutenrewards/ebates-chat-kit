@@ -48,6 +48,7 @@ export const defaultTheme = {
     }
   },
   Message: {
+    cardMaxWidth: '300px',
     horizontalAlign: 'left',
     sharpBorderRadius: '0.3em',
     ovalBorderRadius: '1.4em',
@@ -62,10 +63,7 @@ export const defaultTheme = {
     css: {}
   },
   MessageMedia: {
-    css: {},
-    caption: {},
-    title: {},
-    subtitle: {}
+    css: {}
   },
   MessageGroup: {
     css: {}

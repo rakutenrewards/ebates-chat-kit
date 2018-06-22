@@ -16,7 +16,7 @@ const StyledMessageItem = styled.div`
 `;
 
 const StyledMessageItemTitle = styled.div`
-  font-size: 1.1em;
+  font-size: 14px;
   font-weight: 500;
   text-align: left;
   white-space: pre-line;
@@ -25,7 +25,7 @@ const StyledMessageItemTitle = styled.div`
 `;
 
 const StyledMessageItemSubtitle = styled.div`
-  font-size: 1em;
+  font-size: 0.8em;
   text-align: left;
   white-space: pre-line;
   word-wrap: break-word;
@@ -46,14 +46,16 @@ const Text = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   align-self: flex-start;
+  margin-right: auto;
   padding: 6px 0px;
 `;
 
 const ImageContainer = styled.div`
   margin: 0px 10px;
   margin-left: auto;
-  display: flex
+  display: flex;
   flex-shrink: 0;
+  padding-left: 10px;
   flex-grow: 0;
   min-width: 75px;
   min-height: 75px;
@@ -78,12 +80,12 @@ const Button = styled.a`
   border: 1px solid;
   border-color: #2196f3;
   border-radius: 3px;
-
+  font-size: 14px;
   justify-content: center;
-  height: 36px;
+  height: 30px;
   line-height: 24px;
   margin-bottom: 8px;
-  padding: 5px 6px;
+  padding: 3px 5px;
   position: relative;
   text-align: center;
   text-decoration: none;

@@ -14,13 +14,13 @@ Example 1:
   <MessageText>Look! it even detects links like this - https://developerzen.com - and email addresses` like this@gmail.com</MessageText>
 </Message>
 <Message authorName="Jack" avatarUrl="https://randomuser.me/api/portraits/lego/2.jpg" isOwn={false} >
-  <MessageMedia title="New Hires" subtitle="Meet our new hires!">
-    <img src="https://images.unsplash.com/photo-1525422847952-7f91db09a364" />
+  <MessageMedia title="Top News" subtitle="Lots of very important things happened">
+    <img src="https://images.unsplash.com/photo-1453945619913-79ec89a82c51" />
   </MessageMedia>
   <MessageItems>
-    <MessageItem title="Annie Alexander" subtitle="Hello, I am new at this company" image="https://randomuser.me/api/portraits/women/28.jpg" />
-    <MessageItem title="Bryan White" buttonUrl="" buttonText="Read More" subtitle="I have been here since the beginning! I am a very cool guy! I like stuff!" image="https://randomuser.me/api/portraits/men/28.jpg" />
-    <MessageItem title="Shady Dude" subtitle="I dont have an image at all. No one knows who I am, but I have the longest bio for some odd reason. Maybe I want another line of text, who knows?" />
+    <MessageItem title="Man Saves Cat" subtitle="A cat was rescued by a man after being stuck in a tree for 3 hours" image="https://randomuser.me/api/portraits/men/28.jpg" />
+    <MessageItem title="Woman Saves Man Saving Cat" buttonUrl="" buttonText="Read More" subtitle="A woman rescued a man and a cat who were stuck in a tree for 6 hours." image="https://randomuser.me/api/portraits/women/28.jpg" />
+    <MessageItem title="Where are our city's firefighters?" subtitle="Several cats have been stuck in trees in the past week and firefighters are no where to be seen. What are they doing? Should the city impose a mandatory training for firefighters?" />
   </MessageItems>
 </Message>
 ```

@@ -6,7 +6,7 @@ const StyledMedia = styled.div`
   overflow:hidden;
   img{
     display:block;
-    max-width:400px;
+    max-width: ${props => props.theme.Message.cardMaxWidth};
     height:auto;
     margin:0 auto;
   }
@@ -17,16 +17,13 @@ const ImageContainer = styled.div`
   position: relative;
 `;
 
-const Caption = styled.div`
+const TitleContainer = styled.div`
   position: absolute;
   bottom: 8px;
-  left: 16px;
+  left: 6px;
   color: #ffffff;
-  font-size: 30px;
-  background: rgba(0, 0, 0, 0.75);
-  border-radius: 3px;
-  text-align: center;
-  padding: 0px 10px 5px 10px;
+  font-size: 16px;
+  padding: 5px 6px;
   ${props => props.theme.MessageMedia.caption}
 `;
 
@@ -36,8 +33,9 @@ const Title = styled.div`
 `;
 
 const Subtitle = styled.div`
-  font-weight: 100;
-  font-size: 0.6em;
+  font-weight: 200;
+  letter-spacing: 1px;
+  font-size: 0.8em;
   ${props => props.theme.MessageMedia.subtitle}
 `;
 
@@ -51,10 +49,10 @@ export class MessageMedia extends React.Component {
     return (
       <ImageContainer>
         <StyledMedia>{children}</StyledMedia>
-        <Caption>
+        <TitleContainer>
           <Title>{this.props.title}</Title>
           <Subtitle>{this.props.subtitle}</Subtitle>
-        </Caption>
+        </TitleContainer>
       </ImageContainer>
     );
   }
