@@ -1,6 +1,8 @@
 # We use yarn
 package-lock.json
 
+.DS_Store
+
 dist/
 
 # Logs

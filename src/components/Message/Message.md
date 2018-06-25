@@ -11,7 +11,7 @@ Example 1:
   <MessageText>All good man! 😂</MessageText>
 </Message>
 <Message authorName="Joe" avatarUrl="https://randomuser.me/api/portraits/lego/6.jpg" isOwn={true} >
-  <MessageText>Look! it even detects links like this - https://developerzen.com - and email emails like this@gmail.com</MessageText>
+  <MessageText>Look! it even detects links like this - https://developerzen.com - and email addresses` like this@gmail.com</MessageText>
 </Message>
 ```
 
