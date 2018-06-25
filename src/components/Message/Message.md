@@ -34,7 +34,7 @@ With Media:
   </MessageMedia>
   <MessageButtons>
     <MessageButton label="Go to recipe..." primary />
-    <MessageButton label="More" />
+    <MessageButton label="More" onClick={(l) => alert(l)} />
   </MessageButtons>
 </Message>
 ```

@@ -41,16 +41,26 @@ const StyledMessageButton = styled.a`
 `;
 
 class MessageButton extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this._handleOnClick = () => {
+      const { label, onClick } = this.props;
+      onClick(label);
+    };
+  }
+
   static propTypes = {
     /** Button's label */
     label: PropTypes.string,
-    primary: PropTypes.bool
+    primary: PropTypes.bool,
+    onClick: PropTypes.func
   };
 
   render() {
     const { label } = this.props;
     return (
-      <StyledMessageButton>{label}</StyledMessageButton>
+      <StyledMessageButton onClick={this._handleOnClick}>{label}</StyledMessageButton>
     );
   }
 }
