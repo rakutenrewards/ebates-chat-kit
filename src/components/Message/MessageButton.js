@@ -45,14 +45,15 @@ class MessageButton extends React.Component {
     super(props);
 
     this._handleOnClick = () => {
-      const { label, onClick } = this.props;
-      onClick(label);
+      const { label, value, onClick } = this.props;
+      onClick(label, value);
     };
   }
 
   static propTypes = {
     /** Button's label */
     label: PropTypes.string,
+    value: PropTypes.string,
     primary: PropTypes.bool,
     onClick: PropTypes.func
   };

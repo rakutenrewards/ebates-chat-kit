@@ -34,7 +34,7 @@ With Media:
   </MessageMedia>
   <MessageButtons>
     <MessageButton label="Go to recipe..." primary />
-    <MessageButton label="More" onClick={(l) => alert(l)} />
+    <MessageButton label="More" value="more-button" onClick={(l, v) => alert(`"${l}" with value of "${v}"`)} />
   </MessageButtons>
 </Message>
 ```
