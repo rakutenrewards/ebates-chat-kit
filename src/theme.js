@@ -86,7 +86,9 @@ export const defaultTheme = {
   QuickReply: {
     color: '#23AE4A',
     colorInactive: '#666666',
-    css: {}
+    css: {
+      fontFamily: `"Proxima Nova", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif`
+    }
   },
   MessageList: {
     css: {}
