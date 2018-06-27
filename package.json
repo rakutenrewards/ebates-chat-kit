@@ -18,7 +18,6 @@
     "watch": "rollup -c --watch",
     "docs": "npx styleguidist build",
     "docs:serve": "npx styleguidist server",
-    "deploy:gemfury": "node ./scripts/deploy-gemfury.sh",
     "deploy:npm": "node ./scripts/deploy-npm.sh"
   },
   "devDependencies": {
