@@ -22,6 +22,7 @@ async function run() {
     var newVersion = updateVersionNumber();
 
     console.log(chalk`{green DONE!}`);
+    console.log(`Updating to version ${newVersion}`);
   } catch (error) {
     const message = error.message.trim().replace(/\n +/g, '\n');
     const stack = error.stack.replace(error.message, '');
