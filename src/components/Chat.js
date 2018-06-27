@@ -70,10 +70,7 @@ const StyledTextComposer = styled.div`
 
   ${props => {
     const { theme: { TextComposer: textComposerTheme } } = props;
-    return Object.assign({},
-      { color: textComposerTheme.inputColor },
-      textComposerTheme.css
-    );
+    return Object.assign({ color: textComposerTheme.inputColor }, textComposerTheme.css);
   }}
 `;
 
