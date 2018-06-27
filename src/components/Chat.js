@@ -203,6 +203,7 @@ export default class Chat extends React.Component {
         name: PropTypes.string.isRequired,
         avatarUrl: PropTypes.string.isRequired
       }).isRequired,
+    onFocus: PropTypes.func,
     onSend: PropTypes.func,
     /** Theme to use for chat. */
     theme: PropTypes.object
@@ -211,7 +212,8 @@ export default class Chat extends React.Component {
   static defaultProps = {
     theme: defaultTheme,
     messages: [],
-    onSend: () => {}
+    onSend: () => {},
+    onFocus: () => {}
   }
 
   constructor(props) {
@@ -321,7 +323,7 @@ export default class Chat extends React.Component {
   }
 
   render() {
-    const { otherAuthor, theme } = this.props;
+    const { otherAuthor, onFocus, theme } = this.props;
     const { messages, typingIndicator, quickReplies } = this.state;
 
     const parsedMessages = messages.reduce((result, current) => {
@@ -342,7 +344,7 @@ export default class Chat extends React.Component {
             {typingIndicator ?  <Message authorName={otherAuthor.name} avatarUrl={otherAuthor.avatarUrl} isOwn={false} ><TypingIndicator /></Message>: null}
             {quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSend} active={true} /> : null}
           </MessageList>
-          <TextComposer onSend={this._onSend}>
+          <TextComposer onSend={this._onSend} onFocus={onFocus}>
             <TextInput />
           </TextComposer>
         </StyledChat>
