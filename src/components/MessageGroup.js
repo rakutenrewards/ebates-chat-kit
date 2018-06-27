@@ -4,7 +4,7 @@ import styled from 'styled-components';
 // import _ from 'lodash';
 
 const StyledMessageGroup = styled.div`
-  margin-bottom:1em;
+  margin-bottom:0.4em;
   overflow : auto;
   ${props => props.theme.MessageGroup.css}
 `;
