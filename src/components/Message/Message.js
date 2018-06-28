@@ -17,7 +17,6 @@ const AvatarWrapper = styled.div`
 
 const StyledAvatar = styled.div`
   text-align:left;
-  background-color: rgba(0, 0, 0, .05);
   border-radius:50%;
   overflow:hidden;
   img {

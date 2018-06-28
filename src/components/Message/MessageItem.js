@@ -17,7 +17,7 @@ const StyledMessageItem = styled.div`
 `;
 
 const StyledMessageItemTitle = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   text-align: left;
   white-space: pre-line;
@@ -81,7 +81,7 @@ const Button = styled.a`
   border: 1px solid;
   border-color: #2196f3;
   border-radius: 3px;
-  font-size: 14px;
+  font-size: 16px;
   justify-content: center;
   height: 30px;
   line-height: 24px;
