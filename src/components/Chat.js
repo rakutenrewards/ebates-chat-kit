@@ -316,7 +316,7 @@ export default class Chat extends React.Component {
           {message.text && <MessageText>{message.text}</MessageText>}
           {message.buttons && (
             <MessageButtons>
-              {message.buttons.map(b => (<MessageButton label={b.label} value={b.value} onClick={b.onClick} />))}
+              {message.buttons.map((b, bidx) => (<MessageButton key={`${key}-button-${bidx}`} label={b.label} value={b.value} onClick={b.onClick} />))}
             </MessageButtons>
           )}
         </Message>
