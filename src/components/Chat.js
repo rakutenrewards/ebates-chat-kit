@@ -206,6 +206,7 @@ export default class Chat extends React.Component {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onSend: PropTypes.func,
+    onButtonClick: PropTypes.func,
     /** Theme to use for chat. */
     theme: PropTypes.object
   }
@@ -215,7 +216,8 @@ export default class Chat extends React.Component {
     messages: [],
     onSend: () => {},
     onFocus: () => {},
-    onBlur: () => {}
+    onBlur: () => {},
+    onButtonClick: () => {}
   }
 
   constructor(props) {
@@ -304,6 +306,7 @@ export default class Chat extends React.Component {
 
     this._renderMessage = (groupKey, message, messageIndex) => {
       const key = `${groupKey}-message-${messageIndex}`;
+      const { onButtonClick } = this.props;
 
       return (
         <Message key={key}>
@@ -316,7 +319,7 @@ export default class Chat extends React.Component {
           {message.text && <MessageText>{message.text}</MessageText>}
           {message.buttons && (
             <MessageButtons>
-              {message.buttons.map((b, bidx) => (<MessageButton key={`${key}-button-${bidx}`} label={b.label} value={b.value} onClick={b.onClick} />))}
+              {message.buttons.map((b, bidx) => (<MessageButton key={`${key}-button-${bidx}`} label={b.label} value={b.value} onClick={onButtonClick} />))}
             </MessageButtons>
           )}
         </Message>
