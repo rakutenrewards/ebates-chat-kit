@@ -296,13 +296,13 @@ export default class Chat extends React.Component {
 
       return (
         <MessageGroup {...groupProps}>
-          {group.map(this._renderMessage)}
+          {group.map((message, messageIndex) => {this._renderMessage(groupProps.key, message, messageIndex);})}
         </MessageGroup>
       );
     };
 
-    this._renderMessage = (message, messageIndex) => {
-      const key = `message-${messageIndex}`;
+    this._renderMessage = (groupKey, message, messageIndex) => {
+      const key = `${groupKey}-message-${messageIndex}`;
 
       return (
         <Message key={key}>
