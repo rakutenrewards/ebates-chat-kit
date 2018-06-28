@@ -296,7 +296,7 @@ export default class Chat extends React.Component {
 
       return (
         <MessageGroup {...groupProps}>
-          {group.map((message, messageIndex) => {this._renderMessage(groupProps.key, message, messageIndex);})}
+          {group.map(_.partial(this._renderMessage, groupProps.key))}
         </MessageGroup>
       );
     };
