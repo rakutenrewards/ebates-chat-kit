@@ -46,7 +46,9 @@ class MessageButton extends React.Component {
 
     this._handleOnClick = () => {
       const { label, value, onClick } = this.props;
-      onClick(label, value);
+      if (onClick) {
+        onClick(label, value);
+      }
     };
   }
 
