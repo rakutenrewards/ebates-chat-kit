@@ -1,9 +1,10 @@
 {
   "presets": [
-    ["env", { "debug": false }],
+    ["env", { "debug": false, "modules": false }],
     "react"
   ],
   "plugins": [
+    "external-helpers",
     "transform-class-properties",
     "babel-plugin-styled-components"
   ]

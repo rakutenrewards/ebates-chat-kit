@@ -31,7 +31,7 @@ class MessageListItem extends React.Component {
 const ScrolledMessageListItem = scrolled(MessageListItem);
 
 const StyledMessageList = styled.div`
-  padding: 0.5em;
+  padding: 0 0.5em 0.5em 0.5em;
 
   ${props => {
     const { theme: { MessageList: messageListTheme } } = props;
