@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import StayScrolled, { scrolled } from 'react-stay-scrolled';
 import _ from 'lodash';
 
 const noop = () => {};
@@ -27,8 +26,6 @@ class MessageListItem extends React.Component {
     );
   }
 }
-
-const ScrolledMessageListItem = scrolled(MessageListItem);
 
 const StyledMessageList = styled.div`
   padding: 0 0.5em 0.5em 0.5em;
@@ -69,16 +66,16 @@ export default class MessageList extends React.Component {
 
     return (
       <StyledMessageList onScroll={this._handleScroll} {...this.props}>
-        <StayScrolled component="div" style={{overflowY:'scroll', height:'100%', width:'100%'}}>
+        <div component="div" style={{overflowY:'scroll', height:'100%', width:'100%'}}>
           {React.Children.map(children, (child) => {
             if (!child) {
               return null;
             }
             return (
-              <ScrolledMessageListItem>{child}</ScrolledMessageListItem>
+              <div>{child}</div>
             );
           })}
-        </StayScrolled>
+        </div>
       </StyledMessageList>
     );
   }
