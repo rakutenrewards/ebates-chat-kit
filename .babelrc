@@ -3,8 +3,12 @@
     ["env", { "debug": false, "modules": false }],
     "react"
   ],
+  "env": {
+    "test": {
+      "presets": [["env"], "react"]
+    }
+  },
   "plugins": [
-    "external-helpers",
     "transform-class-properties",
     "babel-plugin-styled-components"
   ]
