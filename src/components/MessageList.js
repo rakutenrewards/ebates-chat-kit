@@ -6,7 +6,7 @@ import _ from 'lodash';
 const noop = () => {};
 
 const StyledMessageList = styled.div`
-  padding: 0 0.5em 0.5em 0.5em;
+  padding: 0 0 0.5em 0.5em;
 
   ${props => {
     const { theme: { MessageList: messageListTheme } } = props;
