@@ -55,7 +55,7 @@ class TextInput extends React.Component {
     return (
       <TextComposer.Context.Consumer>
         {context =>
-          <StyledInput {...this._contextToInputContext(this.props, context)} />
+          <StyledInput {...this._contextToInputContext(this.props, context)} autoFocus={true} />
         }
       </TextComposer.Context.Consumer>
     );
@@ -309,7 +309,7 @@ export default class Chat extends React.Component {
       const { onButtonClick } = this.props;
 
       return (
-        <Message key={key}>
+        <Message key={key} onLoad={this.scrollToBottom}>
           {message.title && <MessageTitle title={message.title} subtitle={message.subtitle} />}
           {message.imageUrl && (
             <MessageMedia>
@@ -325,6 +325,18 @@ export default class Chat extends React.Component {
         </Message>
       );
     };
+  }
+
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "instant", block: 'end', inline: 'end' });
+  }
+  
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
   }
 
   render() {
@@ -348,6 +360,7 @@ export default class Chat extends React.Component {
             {parsedMessages.filter(group => group.length > 0).map(this._renderGroup)}
             {typingIndicator ?  <Message authorName={otherAuthor.name} avatarUrl={otherAuthor.avatarUrl} isOwn={false} ><TypingIndicator /></Message>: null}
             {quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSend} active={true} /> : null}
+            <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
           <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur}>
             <TextInput />
