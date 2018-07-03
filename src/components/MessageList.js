@@ -5,28 +5,6 @@ import _ from 'lodash';
 
 const noop = () => {};
 
-class MessageListItem extends React.Component {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    // Injected by StayScrolled
-    stayScrolled: PropTypes.func,
-    scrollBottom: PropTypes.func
-  };
-
-  componentDidMount() {
-    const { stayScrolled } = this.props;
-    // Make the parent StayScrolled component scroll down if it was already scrolled
-    stayScrolled();
-  }
-
-  render() {
-    const { children } = this.props;
-    return (
-      <div>{children}</div>
-    );
-  }
-}
-
 const StyledMessageList = styled.div`
   padding: 0 0.5em 0.5em 0.5em;
 
