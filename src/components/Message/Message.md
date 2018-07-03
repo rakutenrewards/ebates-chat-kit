@@ -28,9 +28,9 @@ With Media:
 
 ```js
 <Message>
-  <MessageTitle title="Ribs are amazing!" subtitle="Get the recipe while you can..." />
+  <MessageTitle title="4% Cash Back" subtitle="There's currently 4% Cash Back at TOMS! and this is a very long text" />
   <MessageMedia>
-    <img src="https://search.chow.com/thumbnail/1280/800/www.chowstatic.com/assets/2014/09/30741_easy_bbq_baby_back_ribs_3000x2000.jpg" />
+    <img src="https://static.ebates.com/img/store/10105/toms.jpg" />
   </MessageMedia>
   <MessageButtons>
     <MessageButton label="Go to recipe..." primary />

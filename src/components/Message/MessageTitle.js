@@ -13,8 +13,12 @@ const Subtitle = styled.div`
   opacity:0.7;
 `;
 
-const StyledMessageTitle = styled.div`
+const TitltContainer = styled.div`
   padding: 0.6em;
+`;
+
+const StyledMessageTitle = styled.div`
+  max-width: ${props => props.theme.Message.cardMaxWidth};
   ${props => props.theme.MessageTitle.css}
 `;
 
@@ -28,8 +32,10 @@ export class MessageTitle extends React.Component {
     const { title, subtitle } = this.props;
     return (
       <StyledMessageTitle>
-        <Title>{title}</Title>
-        <Subtitle>{subtitle}</Subtitle>
+        <TitltContainer>
+          <Title>{title}</Title>
+          <Subtitle>{subtitle}</Subtitle>
+        </TitltContainer>
       </StyledMessageTitle>
     );
   }
