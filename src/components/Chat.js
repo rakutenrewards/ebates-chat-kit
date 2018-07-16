@@ -229,6 +229,9 @@ export default class Chat extends React.Component {
       quickReplies: []
     };
 
+    this.parentScroll = React.createRef();
+    this._setParentScroll = this._setParentScroll.bind(this);
+
     this.turnTypingIndicatorOn = () => {
       this.setState({ typingIndicator: true });
     };
@@ -328,7 +331,7 @@ export default class Chat extends React.Component {
   }
 
   scrollToBottom = () => {
-    this.messagesEnd.scrollIntoView({ behavior: "instant", block: 'end', inline: 'end' });
+    this.parentScroll.scrollTop = this.messagesEnd.offsetTop;
   }
   
   componentDidMount() {
@@ -337,6 +340,10 @@ export default class Chat extends React.Component {
 
   componentDidUpdate() {
     this.scrollToBottom();
+  }
+
+  _setParentScroll(el) {
+    this.parentScroll = el;
   }
 
   render() {
@@ -356,7 +363,7 @@ export default class Chat extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <StyledChat>
-          <MessageList>
+          <MessageList scrollRef={this._setParentScroll}>
             {parsedMessages.filter(group => group.length > 0).map(this._renderGroup)}
             {typingIndicator ?  <Message authorName={otherAuthor.name} avatarUrl={otherAuthor.avatarUrl} isOwn={false} ><TypingIndicator /></Message>: null}
             {quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSend} active={true} /> : null}
