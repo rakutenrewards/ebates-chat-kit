@@ -191,7 +191,7 @@ const StyledChat = styled.div`
 
 `;
 
-const StyledSpinnerContainer = styled('div')`
+ const StyledSpinnerContainer = styled('div')`
   transform-style: preserve-3d;
   height: 20px;
   padding: 10px;
@@ -371,11 +371,11 @@ export default class Chat extends React.Component {
           });
           setTimeout(() => {
             this.setState({
-              paginateCounter: this.state.paginateCounter + 10,
+              paginateCounter: this.state.paginateCounter + this.props.paginate,
               paginateLoading: false,
               scrollPosition: bottomOffset
             });
-          }, 1000);
+          }, 500);
         }
       }
     }, 16);
