@@ -262,6 +262,15 @@ export default class Chat extends React.Component {
         quickReplies: replies
       });
     };
+    
+    this.addMessages = (msgs) => {
+      const { messages } = this.state;
+      this.setState({
+        typingIndicator: false,
+        messages: [...messages, ...msgs],
+        scrollPosition: null
+      });
+    };
 
     this.addMessage = (msg, typing=false) => {
       const { messages, pendingMessages, paginateCounter } = this.state;
