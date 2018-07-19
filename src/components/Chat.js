@@ -432,7 +432,14 @@ export default class Chat extends React.Component {
           </StyledSpinnerContainer>
         );
       }
-      return (<div style={{ height: '40px' }} ref={(el) => { this.messagesTop = el; }} />);
+
+      if (this.state.messages.length > this.state.paginateCounter) {
+        return (
+          <div style={{ height: '20px', padding: '10px' }} ref={(el) => { this.messagesTop = el; }} />
+        );
+      }
+
+      return null;
     };
 
     return (
