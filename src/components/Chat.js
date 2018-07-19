@@ -362,7 +362,7 @@ export default class Chat extends React.Component {
         const rect = this.messagesTop.getBoundingClientRect();
         const elemTop = rect.top;
         const elemBottom = rect.bottom;
-        const isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
+        const isVisible = elemTop < window.innerHeight && elemBottom >= 0;
   
         const bottomOffset = this.messagesBottom.offsetTop;
         if (isVisible && this.state.paginateCounter < this.state.messages.length) {
