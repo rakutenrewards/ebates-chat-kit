@@ -270,7 +270,7 @@ export default class Chat extends React.Component {
         this.setState({
           typingIndicator: false,
           messages: [...messages, msg],
-          paginateCounter: paginateCounter + 1,
+          paginateCounter: paginateCounter + 1 || null,
           scrollPosition: null
         });
         return;
@@ -382,7 +382,7 @@ export default class Chat extends React.Component {
   }
 
   scrollToBottom = () => {
-    if (!this.state.paginateLoading && !this.state.scrollPosition) {
+    if ((!this.state.paginateLoading && !this.state.scrollPosition) || !this.props.paginate) {
       this.parentScroll.scrollTop = this.messagesBottom.offsetTop;
     }
   }
@@ -393,7 +393,7 @@ export default class Chat extends React.Component {
 
   componentDidUpdate() {
     this.scrollToBottom();
-    if (this.state.scrollPosition && !this.state.paginateLoading) {
+    if ((this.state.scrollPosition && !this.state.paginateLoading) && this.props.paginate) {
       this.parentScroll.scrollTop = this.messagesBottom.offsetTop - this.state.scrollPosition;
     }
   }
@@ -403,11 +403,16 @@ export default class Chat extends React.Component {
   }
 
   render() {
-    const { otherAuthor, onFocus, onBlur, theme } = this.props;
+    const { otherAuthor, onFocus, onBlur, theme, paginate } = this.props;
     const { messages, typingIndicator, quickReplies, paginateLoading, paginateCounter } = this.state;
 
     const index = Math.max(messages.length - paginateCounter + 1, 0);
-    const splicedMessages = messages.slice(index);
+    let splicedMessages;
+    if (paginate) {
+      splicedMessages = messages.slice(index);
+    } else {
+      splicedMessages = messages;
+    }
     
     const parsedMessages = splicedMessages.reduce((result, current) => {
       const prev = result[result.length-1];
@@ -433,7 +438,7 @@ export default class Chat extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <StyledChat>
-          <MessageList scrollRef={this._setParentScroll} onScroll={this._onScroll}>
+          <MessageList scrollRef={this._setParentScroll} onScroll={this.props.paginate ? this._onScroll : noop}>
             {scroller()}
             {parsedMessages.filter(group => group.length > 0).map(this._renderGroup)}
             {typingIndicator ?  <Message authorName={otherAuthor.name} avatarUrl={otherAuthor.avatarUrl} isOwn={false} ><TypingIndicator /></Message>: null}
