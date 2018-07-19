@@ -191,6 +191,24 @@ const StyledChat = styled.div`
 
 `;
 
+const StyledSpinnerContainer = styled('div')`
+  transform-style: preserve-3d;
+  height: 20px;
+  padding: 10px;
+`;
+
+const StyledSpinner = styled('div')`
+  border: 2px solid #23ae4a;
+  border-top: 2px solid #ffffff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  animation: spin .6s linear infinite;
+`;
+
 export default class Chat extends React.Component {
   static propTypes = {
     /** Messages to display */
@@ -225,6 +243,9 @@ export default class Chat extends React.Component {
     this.state = {
       typingIndicator: false,
       messages: props.messages,
+      paginateCounter: props.paginate,
+      paginateLoading: false,
+      scrollPosition: null,
       pendingMessages: [],
       quickReplies: []
     };
@@ -243,12 +264,14 @@ export default class Chat extends React.Component {
     };
 
     this.addMessage = (msg, typing=false) => {
-      const { messages, pendingMessages } = this.state;
+      const { messages, pendingMessages, paginateCounter } = this.state;
 
       if (!typing) {
         this.setState({
           typingIndicator: false,
-          messages: [...messages, msg]
+          messages: [...messages, msg],
+          paginateCounter: paginateCounter + 1,
+          scrollPosition: null
         });
         return;
       }
@@ -256,16 +279,19 @@ export default class Chat extends React.Component {
       this.setState({
         typingIndicator: true,
         quickReplies: [],
-        pendingMessages: [...pendingMessages, msg]
+        pendingMessages: [...pendingMessages, msg],
+        scrollPosition: null
       });
       this._applyPendingMessages();
     };
 
     this._applyPendingMessages = _.debounce(() => {
-      const { messages, pendingMessages } = this.state;
+      const { messages, pendingMessages, paginateCounter } = this.state;
       this.setState({
         typingIndicator: false,
         messages: [...messages, ...pendingMessages],
+        paginateCounter: paginateCounter + 1 || null,
+        scrollPosition: null,
         pendingMessages: []
       });
     }, 350);
@@ -279,6 +305,8 @@ export default class Chat extends React.Component {
 
       this.setState({
         messages: [...this.state.messages, newMsg],
+        paginateCounter: this.state.paginateCounter + 1 || null,
+        scrollPosition: null,
         quickReplies: []
       });
 
@@ -328,18 +356,46 @@ export default class Chat extends React.Component {
         </Message>
       );
     };
+
+    this._onScroll = _.throttle(() => {
+      if (this.messagesTop) {
+        const rect = this.messagesTop.getBoundingClientRect();
+        const elemTop = rect.top;
+        const elemBottom = rect.bottom;
+        const isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
+  
+        const bottomOffset = this.messagesBottom.offsetTop;
+        if (isVisible && this.state.paginateCounter < this.state.messages.length) {
+          this.setState({
+            paginateLoading: true
+          });
+          setTimeout(() => {
+            this.setState({
+              paginateCounter: this.state.paginateCounter + 10,
+              paginateLoading: false,
+              scrollPosition: bottomOffset
+            });
+          }, 1000);
+        }
+      }
+    }, 16);
   }
 
   scrollToBottom = () => {
-    this.parentScroll.scrollTop = this.messagesEnd.offsetTop;
+    if (!this.state.paginateLoading && !this.state.scrollPosition) {
+      this.parentScroll.scrollTop = this.messagesBottom.offsetTop;
+    }
   }
-  
+
   componentDidMount() {
     this.scrollToBottom();
   }
 
   componentDidUpdate() {
     this.scrollToBottom();
+    if (this.state.scrollPosition && !this.state.paginateLoading) {
+      this.parentScroll.scrollTop = this.messagesBottom.offsetTop - this.state.scrollPosition;
+    }
   }
 
   _setParentScroll(el) {
@@ -348,9 +404,12 @@ export default class Chat extends React.Component {
 
   render() {
     const { otherAuthor, onFocus, onBlur, theme } = this.props;
-    const { messages, typingIndicator, quickReplies } = this.state;
+    const { messages, typingIndicator, quickReplies, paginateLoading, paginateCounter } = this.state;
 
-    const parsedMessages = messages.reduce((result, current) => {
+    const index = Math.max(messages.length - paginateCounter + 1, 0);
+    const splicedMessages = messages.slice(index);
+    
+    const parsedMessages = splicedMessages.reduce((result, current) => {
       const prev = result[result.length-1];
       if (!prev.length || prev[prev.length - 1].isOwn === current.isOwn) {
         result[result.length - 1].push(current);
@@ -360,14 +419,26 @@ export default class Chat extends React.Component {
       return result;
     }, [[]]);
 
+    const scroller = () => {
+      if (paginateLoading) {
+        return (
+          <StyledSpinnerContainer>
+            <StyledSpinner />
+          </StyledSpinnerContainer>
+        );
+      }
+      return (<div style={{ height: '40px' }} ref={(el) => { this.messagesTop = el; }} />);
+    };
+
     return (
       <ThemeProvider theme={theme}>
         <StyledChat>
-          <MessageList scrollRef={this._setParentScroll}>
+          <MessageList scrollRef={this._setParentScroll} onScroll={this._onScroll}>
+            {scroller()}
             {parsedMessages.filter(group => group.length > 0).map(this._renderGroup)}
             {typingIndicator ?  <Message authorName={otherAuthor.name} avatarUrl={otherAuthor.avatarUrl} isOwn={false} ><TypingIndicator /></Message>: null}
             {quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSend} active={true} /> : null}
-            <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
+            <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesBottom = el; }} />
           </MessageList>
           <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur}>
             <TextInput />
