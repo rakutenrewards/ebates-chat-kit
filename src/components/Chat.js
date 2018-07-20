@@ -379,13 +379,15 @@ export default class Chat extends React.Component {
           this.setState({
             paginateLoading: true
           });
-          setTimeout(() => {
-            this.setState({
-              paginateCounter: this.state.paginateCounter + this.props.paginate,
-              paginateLoading: false,
-              scrollPosition: bottomOffset
-            });
-          }, 500);
+          _.debounce(() => {
+            setTimeout(() => {
+              this.setState({
+                paginateCounter: this.state.paginateCounter + this.props.paginate,
+                paginateLoading: false,
+                scrollPosition: bottomOffset
+              });
+            }, 250);
+          }, 500, true)();
         }
       }
     }, 16);
