@@ -421,14 +421,14 @@ export default class Chat extends React.Component {
     const { messages, typingIndicator, quickReplies, paginateLoading, paginateCounter } = this.state;
 
     const index = Math.max(messages.length - paginateCounter, 0);
-    let splicedMessages;
+    let slicedMessages;
     if (paginate) {
-      splicedMessages = messages.slice(index);
+      slicedMessages = messages.slice(index);
     } else {
-      splicedMessages = messages;
+      slicedMessages = messages;
     }
 
-    const parsedMessages = splicedMessages.reduce((result, current) => {
+    const parsedMessages = slicedMessages.reduce((result, current) => {
       const prev = result[result.length-1];
       if (!prev.length || prev[prev.length - 1].isOwn === current.isOwn) {
         result[result.length - 1].push(current);
