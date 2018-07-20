@@ -252,6 +252,7 @@ export default class Chat extends React.Component {
 
     this.parentScroll = React.createRef();
     this._setParentScroll = this._setParentScroll.bind(this);
+    this.scrollToPaginate = this.scrollToPaginate.bind(this);
 
     this.turnTypingIndicatorOn = () => {
       this.setState({ typingIndicator: true });
@@ -353,7 +354,7 @@ export default class Chat extends React.Component {
           {message.title && <MessageTitle title={message.title} subtitle={message.subtitle} />}
           {message.imageUrl && (
             <MessageMedia>
-              {message.url ? <a href={message.url}><img src={message.imageUrl} /></a> : <img src={message.imageUrl} />}
+              {message.url ? <a href={message.url}><img src={message.imageUrl} onLoad={this.scrollToPaginate} /></a> : <img src={message.imageUrl} onLoad={this.scrollToPaginate} />}
             </MessageMedia>
           )}
           {message.text && <MessageText>{message.text}</MessageText>}
@@ -396,6 +397,10 @@ export default class Chat extends React.Component {
     }
   }
 
+  scrollToPaginate = () => {
+    this.parentScroll.scrollTop = this.messagesBottom.offsetTop - this.state.scrollPosition;
+  }
+
   componentDidMount() {
     this.scrollToBottom();
   }
@@ -403,7 +408,7 @@ export default class Chat extends React.Component {
   componentDidUpdate() {
     this.scrollToBottom();
     if ((this.state.scrollPosition && !this.state.paginateLoading) && this.props.paginate) {
-      this.parentScroll.scrollTop = this.messagesBottom.offsetTop - this.state.scrollPosition;
+      this.scrollToPaginate();
     }
   }
 
