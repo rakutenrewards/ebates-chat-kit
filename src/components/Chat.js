@@ -367,6 +367,20 @@ export default class Chat extends React.Component {
       );
     };
 
+    this._loadPaginatedMessages = _.throttle(() => {
+      this.setState({
+        paginateLoading: true
+      });
+      const bottomOffset = this.messagesBottom.offsetTop;
+      setTimeout(() => {
+        this.setState({
+          paginateCounter: this.state.paginateCounter + this.props.paginate,
+          paginateLoading: false,
+          scrollPosition: bottomOffset
+        });
+      }, 1000);
+    }, 1500, { trailing: false });
+
     this._onScroll = _.throttle(() => {
       if (this.messagesTop) {
         const rect = this.messagesTop.getBoundingClientRect();
@@ -374,20 +388,8 @@ export default class Chat extends React.Component {
         const elemBottom = rect.bottom;
         const isVisible = elemTop < window.innerHeight && elemBottom >= 0;
   
-        const bottomOffset = this.messagesBottom.offsetTop;
         if (isVisible && this.state.paginateCounter < this.state.messages.length) {
-          this.setState({
-            paginateLoading: true
-          });
-          _.debounce(() => {
-            setTimeout(() => {
-              this.setState({
-                paginateCounter: this.state.paginateCounter + this.props.paginate,
-                paginateLoading: false,
-                scrollPosition: bottomOffset
-              });
-            }, 250);
-          }, 500, true)();
+          this._loadPaginatedMessages();
         }
       }
     }, 16);
