@@ -69,8 +69,8 @@ class TextInput extends React.Component {
     this._focusTextComposer();
   }
 
-  _setTextareaRef(tag) {
-    this.textarea = tag;
+  _setTextareaRef(el) {
+    this.textarea = el;
   }
 
   render() {
