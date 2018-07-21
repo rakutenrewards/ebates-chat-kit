@@ -45,17 +45,39 @@ class TextInput extends React.Component {
     placeholder: 'Type a message...'
   };
 
+  constructor(props) {
+    super(props);
+    this._focusTextComposer = this._focusTextComposer.bind(this);
+    this._setTextareaRef = this._setTextareaRef.bind(this);
+  }
+
   _contextToInputContext(props, context) {
     const { onChange, onKeyDown, value } = context;
     const textContext = { onChange, onKeyDown, value };
     return Object.assign({}, props, textContext);
   }
 
+  _focusTextComposer() {
+    this.textarea.focus();
+  }
+
+  componentDidUpdate() {
+    this._focusTextComposer();
+  }
+
+  componentDidMount() {
+    this._focusTextComposer();
+  }
+
+  _setTextareaRef(el) {
+    this.textarea = el;
+  }
+
   render() {
     return (
       <TextComposer.Context.Consumer>
         {context =>
-          <StyledInput {...this._contextToInputContext(this.props, context)} autoFocus={true} />
+          <StyledInput {...this._contextToInputContext(this.props, context)} inputRef={this._setTextareaRef} />
         }
       </TextComposer.Context.Consumer>
     );
