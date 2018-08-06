@@ -230,7 +230,7 @@ const StyledChat = styled.div`
   font-family: "Proxima Nova", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
   width:100%; height:100%;
 `;
- 
+
 export default class Chat extends React.Component {
   static propTypes = {
     /** Messages to display */
