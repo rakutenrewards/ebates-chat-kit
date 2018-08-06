@@ -143,7 +143,7 @@ class TextComposer extends React.Component {
         event.preventDefault();
       }
 
-      if (!this._enterPressed(event) || this._enterPressedAsNewline(event)) { 
+      if (!this._enterPressed(event) || this._enterPressedAsNewline(event)) {
         onKeyDown(event);
         return;
       }
