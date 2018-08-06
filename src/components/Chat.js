@@ -20,7 +20,7 @@ const StyledInput = styled(TextArea)`
   height:1.5em;
   line-height:1.5em;
   min-width 0;
-  width:100%;
+  width:86%;
   font-size:1em;
   &:focus,&:active{
     outline:none;
@@ -86,7 +86,6 @@ class TextInput extends React.Component {
 
 
 const StyledTextComposer = styled.div`
-  padding:0.5em;
   background:#fff;
   border-top:1px solid rgba(0,0,0,0.1);
 
@@ -144,7 +143,7 @@ class TextComposer extends React.Component {
         event.preventDefault();
       }
 
-      if (!this._enterPressed(event) || this._enterPressedAsNewline(event)) {
+      if (!this._enterPressed(event) || this._enterPressedAsNewline(event)) { 
         onKeyDown(event);
         return;
       }
@@ -152,6 +151,8 @@ class TextComposer extends React.Component {
       this._send();
       this.props.onKeyDown(event);
     };
+     
+      this._handleSendButton = this._handleSendButton.bind(this);
   }
 
   _send() {
@@ -186,8 +187,12 @@ class TextComposer extends React.Component {
     const { altKey, shiftKey } = event;
     return (this._enterPressed(event) && (altKey || shiftKey));
   }
-
-
+ 
+  _handleSendButton () {
+    this._send();
+  }
+ 
+ 
   render() {
     const { children } = this.props;
     const context = {
@@ -201,18 +206,31 @@ class TextComposer extends React.Component {
       <TextComposer.Context.Provider value={context}>
         <StyledTextComposer {...this.props}>
           {children}
+            <StyledSendButton disabled={!context.value} onClick={this._handleSendButton} >{context.value ? "Send": ""}</StyledSendButton>
         </StyledTextComposer>
       </TextComposer.Context.Provider>
     );
   }
 }
 
+const StyledSendButton = styled.button`
+    font-size: 1em;
+    border: none;
+    width : 10%;
+    background-color: transparent;
+    text-align: right;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    outline: 0;
+    ${props => props.theme.SendButton.css}
+`;
+ 
 const StyledChat = styled.div`
   font-family: "Proxima Nova", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
   width:100%; height:100%;
-
 `;
-
+ 
 export default class Chat extends React.Component {
   static propTypes = {
     /** Messages to display */
