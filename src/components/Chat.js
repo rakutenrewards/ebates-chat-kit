@@ -265,13 +265,11 @@ export default class Chat extends React.Component {
     };
 
     this.addMessages = (msgs) => {
-      this.setState((prevState) => {
-        return {
-          typingIndicator: false,
-          messages: [...prevState.messages, ...msgs],
-          scrollPosition: null
-        };
-      });
+      this.setState((prevState) => ({
+        typingIndicator: false,
+        messages: [...prevState.messages, ...msgs],
+        scrollPosition: null
+      }));
     };
 
     this.addMessage = (msg, typing=false) => {
