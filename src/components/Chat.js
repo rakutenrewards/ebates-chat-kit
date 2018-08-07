@@ -89,6 +89,7 @@ const StyledTextComposer = styled.div`
   background:#fff;
   border-top:1px solid rgba(0,0,0,0.1);
   display: flex;
+  padding-top: 5px;
 
   ${props => {
     const { theme: { TextComposer: textComposerTheme } } = props;
@@ -202,12 +203,16 @@ class TextComposer extends React.Component {
 			onChange: this._handleOnChange,
 			onKeyDown: this._handleKeyDown
     };
+    const style = {
+        opacity: !context.value ? "0" : "1",
+        visibility: !context.value ? "hidden" : "visible"
+   };
 
     return (
       <TextComposer.Context.Provider value={context}>
         <StyledTextComposer {...this.props}>
           {children}
-            <StyledSendButton disabled={!context.value} onClick={this._handleSendButton} >{context.value ? "Send": ""}</StyledSendButton>
+            <StyledSendButton style={style} disabled={!context.value} onClick={this._handleSendButton} >Send</StyledSendButton>
         </StyledTextComposer>
       </TextComposer.Context.Provider>
     );
@@ -224,6 +229,8 @@ const StyledSendButton = styled.button`
     padding-left: 10px;
     padding-bottom: 10px;
     outline: 0;
+    opacity: 0;
+    transition: 0.5s;
     ${props => props.theme.SendButton.css}
 `;
  
