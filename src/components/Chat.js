@@ -212,7 +212,7 @@ class TextComposer extends React.Component {
       <TextComposer.Context.Provider value={context}>
         <StyledTextComposer {...this.props}>
           {children}
-            <StyledSendButton style={style} disabled={!context.value} onClick={this._handleSendButton} >Send</StyledSendButton>
+          <StyledSendButton style={style} disabled={!context.value} onClick={this._handleSendButton} >Send</StyledSendButton>
         </StyledTextComposer>
       </TextComposer.Context.Provider>
     );
@@ -230,7 +230,7 @@ const StyledSendButton = styled.button`
     padding-bottom: 10px;
     outline: 0;
     opacity: 0;
-    transition: 0.5s;
+    transition: 0.3s;
     ${props => props.theme.SendButton.css}
 `;
  
