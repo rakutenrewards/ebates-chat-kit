@@ -20,7 +20,7 @@ const StyledInput = styled(TextArea)`
   height:1.5em;
   line-height:1.5em;
   min-width 0;
-  width:86%;
+  width: 100%;
   font-size:1em;
   &:focus,&:active{
     outline:none;
@@ -88,6 +88,7 @@ class TextInput extends React.Component {
 const StyledTextComposer = styled.div`
   background:#fff;
   border-top:1px solid rgba(0,0,0,0.1);
+  display: flex;
 
   ${props => {
     const { theme: { TextComposer: textComposerTheme } } = props;
@@ -214,11 +215,11 @@ class TextComposer extends React.Component {
 }
 
 const StyledSendButton = styled.button`
+    align-self: flex-end;
     font-size: 1em;
+    width: auto;
     border: none;
-    width : 10%;
     background-color: transparent;
-    text-align: right;
     padding-top: 5px;
     padding-left: 10px;
     padding-bottom: 10px;
