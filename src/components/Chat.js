@@ -20,7 +20,7 @@ const StyledInput = styled(TextArea)`
   height:1.5em;
   line-height:1.5em;
   min-width 0;
-  width: 100%;
+  width:100%;
   font-size:1em;
   &:focus,&:active{
     outline:none;
