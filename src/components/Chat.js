@@ -90,6 +90,7 @@ const StyledTextComposer = styled.div`
   border-top:1px solid rgba(0,0,0,0.1);
   display: flex;
   padding-top: 5px;
+  padding-left: 5px;
 
   ${props => {
     const { theme: { TextComposer: textComposerTheme } } = props;
@@ -231,6 +232,8 @@ const StyledSendButton = styled.button`
     outline: 0;
     opacity: 0;
     transition: 0.3s;
+    cursor: pointer; 
+
     ${props => props.theme.SendButton.css}
 `;
  
