@@ -69,9 +69,10 @@ const StyledMessage = styled.div`
     }
     const { Message, OwnMessage } = theme;
     const style = isOwn ? _.merge({}, Message, OwnMessage) : Message;
-    return {
+    const result = _.merge({
       flexDirection: style.horizontalAlign === 'left' ? 'row' : 'row-reverse'
-    };
+    }, style.css);
+    return result;
   }}
 `;
 

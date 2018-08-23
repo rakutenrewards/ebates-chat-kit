@@ -52,14 +52,15 @@ export const defaultTheme = {
     horizontalAlign: 'left',
     sharpBorderRadius: '0.3em',
     ovalBorderRadius: '1.4em',
-    css: {
-      marginLeft: '5px'
-    }
+    css: { }
   },
   OwnMessage: {
     horizontalAlign: 'right'
   },
   MessageTitle: {
+    css: {}
+  },
+  MessageText: {
     css: {}
   },
   MessageMedia: {
