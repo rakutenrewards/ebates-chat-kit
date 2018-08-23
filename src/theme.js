@@ -58,7 +58,9 @@ export const defaultTheme = {
     horizontalAlign: 'right'
   },
   MessageTitle: {
-    css: {}
+    css: {},
+    Title: { css: {}},
+    Subitle: { css: {}}
   },
   MessageText: {
     css: {}

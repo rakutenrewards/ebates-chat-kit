@@ -5,12 +5,14 @@ import styled from 'styled-components';
 const Title = styled.div`
   font-size:1.1em;
   font-weight: bolder;
+  ${props => props.theme.MessageTitle.Title.css}
 `;
 
 const Subtitle = styled.div`
   font-size:0.8em;
   font-weight: lighter;
   opacity:0.7;
+  ${props => props.theme.MessageTitle.Subtitle.css}
 `;
 
 const TitltContainer = styled.div`
