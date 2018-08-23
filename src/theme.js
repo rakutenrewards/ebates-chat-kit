@@ -92,7 +92,9 @@ export const defaultTheme = {
     colorInactive: '#666666',
     css: {
       fontFamily: `"Proxima Nova", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif`
-    }
+    },
+    cssHover: {},
+    cssFocus: {}
   },
   MessageList: {
     css: {}
