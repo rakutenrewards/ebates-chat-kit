@@ -59,6 +59,7 @@ const StyledQuickReplies = styled.div`
   flex-wrap: wrap;
   text-align: center;
   justify-content: center;
+  ${props => props.theme.QuickReplies.css}
 `;
 
 export default class QuickReplies extends React.Component {

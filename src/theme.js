@@ -84,6 +84,9 @@ export const defaultTheme = {
     imageHeight: '75px',
     imageWidth: '75px'
   },
+  QuickReplies: {
+    css: {}
+  },
   QuickReply: {
     color: '#23AE4A',
     colorInactive: '#666666',
