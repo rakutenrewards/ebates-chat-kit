@@ -16,6 +16,7 @@ const StyledText = styled.div`
     text-decoration: underline;
     ${props => props.isOwn ? props.theme.OwnBubble.links.css : props.theme.Bubble.links.css};
   }
+  ${props => props.theme.MessageText.css}
 `;
 
 export class MessageText extends React.Component {
