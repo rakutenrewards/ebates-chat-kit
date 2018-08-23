@@ -38,3 +38,16 @@ With Media:
   </MessageButtons>
 </Message>
 ```
+
+```js
+<Message>
+  <MessageMedia>
+    <img src="https://static.ebates.com/img/store/10105/toms.jpg" />
+  </MessageMedia>
+  <MessageTitle title="4% Cash Back" subtitle="There's currently 4% Cash Back at TOMS! and this is a very long text" />
+  <MessageButtons>
+    <MessageButton label="Go to recipe..." primary />
+    <MessageButton label="More" value="more-button" onClick={(l, v) => alert(`"${l}" with value of "${v}"`)} />
+  </MessageButtons>
+</Message>
+```
