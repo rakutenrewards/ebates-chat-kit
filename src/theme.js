@@ -60,7 +60,7 @@ export const defaultTheme = {
   MessageTitle: {
     css: {},
     Title: { css: {}},
-    Subitle: { css: {}}
+    Subtitle: { css: {}}
   },
   MessageText: {
     css: {}
