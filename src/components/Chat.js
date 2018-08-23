@@ -345,12 +345,12 @@ export default class Chat extends React.Component {
 
       return (
         <Message key={key} onLoad={this.scrollToBottom}>
-          {message.title && <MessageTitle title={message.title} subtitle={message.subtitle} />}
           {message.imageUrl && (
             <MessageMedia>
               {message.url ? <a href={message.url}><img src={message.imageUrl} /></a> : <img src={message.imageUrl} />}
             </MessageMedia>
           )}
+          {message.title && <MessageTitle title={message.title} subtitle={message.subtitle} />}
           {message.text && <MessageText>{message.text}</MessageText>}
           {message.buttons && (
             <MessageButtons>
@@ -365,7 +365,7 @@ export default class Chat extends React.Component {
   scrollToBottom = () => {
     this.parentScroll.scrollTop = this.messagesEnd.offsetTop;
   }
-  
+
   componentDidMount() {
     this.scrollToBottom();
   }
