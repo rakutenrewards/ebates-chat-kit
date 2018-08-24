@@ -35,7 +35,8 @@ class TextInput extends React.Component {
     onHeightChange: PropTypes.func,
     onKeyDown: PropTypes.func,
     placeholder: PropTypes.string,
-    value: PropTypes.string
+    value: PropTypes.string,
+    autofocus: PropTypes.bool
   }
 
   static defaultProps = {
@@ -58,7 +59,9 @@ class TextInput extends React.Component {
   }
 
   _focusTextComposer() {
-    this.textarea.focus();
+    if (this.props.autofocus !== false) {
+      this.textarea.focus();
+    }
   }
 
   componentDidUpdate() {
@@ -77,7 +80,7 @@ class TextInput extends React.Component {
     return (
       <TextComposer.Context.Consumer>
         {context =>
-          <StyledInput {...this._contextToInputContext(this.props, context)} inputRef={this._setTextareaRef} />
+          <StyledInput {...this._contextToInputContext(_.omit(this.props, ['autofocus']), context)} inputRef={this._setTextareaRef} />
         }
       </TextComposer.Context.Consumer>
     );
@@ -376,12 +379,12 @@ export default class Chat extends React.Component {
 
       return (
         <Message key={key} onLoad={this.scrollToBottom}>
-          {message.title && <MessageTitle title={message.title} subtitle={message.subtitle} />}
           {message.imageUrl && (
             <MessageMedia>
               {message.url ? <a href={message.url}><img src={message.imageUrl} /></a> : <img src={message.imageUrl} />}
             </MessageMedia>
           )}
+          {message.title && <MessageTitle title={message.title} subtitle={message.subtitle} />}
           {message.text && <MessageText>{message.text}</MessageText>}
           {message.buttons && (
             <MessageButtons>
@@ -396,7 +399,7 @@ export default class Chat extends React.Component {
   scrollToBottom = () => {
     this.parentScroll.scrollTop = this.messagesEnd.offsetTop;
   }
-  
+
   componentDidMount() {
     this.scrollToBottom();
   }
@@ -410,7 +413,7 @@ export default class Chat extends React.Component {
   }
 
   render() {
-    const { otherAuthor, onFocus, onBlur, theme, sendIconPath } = this.props;
+    const { otherAuthor, onFocus, onBlur, theme, autofocus, sendIconPath } = this.props;
     const { messages, typingIndicator, quickReplies } = this.state;
 
     const parsedMessages = messages.reduce((result, current) => {
@@ -433,7 +436,7 @@ export default class Chat extends React.Component {
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
           <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} sendIconPath={sendIconPath}>
-            <TextInput />
+            <TextInput autofocus={autofocus} />
           </TextComposer>
         </StyledChat>
       </ThemeProvider>

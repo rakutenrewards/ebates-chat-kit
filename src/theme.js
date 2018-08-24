@@ -21,8 +21,13 @@ export const mergeStyles = (props, componentName, propsParser = identityop) => {
 };
 
 export const defaultTheme = {
+  AvatarWrapper: {
+    Own: { css: {} },
+    Other: { css: {} }
+  },
   Avatar: {
-    size: '28px'
+    size: '28px',
+    css: {}
   },
   Bubble: {
     css: {
@@ -52,14 +57,17 @@ export const defaultTheme = {
     horizontalAlign: 'left',
     sharpBorderRadius: '0.3em',
     ovalBorderRadius: '1.4em',
-    css: {
-      marginLeft: '5px'
-    }
+    css: { }
   },
   OwnMessage: {
     horizontalAlign: 'right'
   },
   MessageTitle: {
+    css: {},
+    Title: { css: {}},
+    Subtitle: { css: {}}
+  },
+  MessageText: {
     css: {}
   },
   SendButton: {
@@ -86,12 +94,17 @@ export const defaultTheme = {
     imageHeight: '75px',
     imageWidth: '75px'
   },
+  QuickReplies: {
+    css: {}
+  },
   QuickReply: {
     color: '#23AE4A',
     colorInactive: '#666666',
     css: {
       fontFamily: `"Proxima Nova", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif`
-    }
+    },
+    cssHover: {},
+    cssFocus: {}
   },
   MessageList: {
     css: {}

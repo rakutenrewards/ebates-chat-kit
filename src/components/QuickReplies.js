@@ -20,8 +20,12 @@ const StyledQuickReply = styled.button`
   padding: 0.375em 1em 0.5em;
   &:focus {
     outline:0;
+    ${props => props.theme.QuickReply.cssFocus}
   }
-  &:hover { transform: scale(1.05); }
+  &:hover {
+    transform: scale(1.05);
+    ${props => props.theme.QuickReply.cssHover}
+  }
   ${props => props.theme.QuickReply.css}
 `;
 
@@ -59,6 +63,7 @@ const StyledQuickReplies = styled.div`
   flex-wrap: wrap;
   text-align: center;
   justify-content: center;
+  ${props => props.theme.QuickReplies.css}
 `;
 
 export default class QuickReplies extends React.Component {

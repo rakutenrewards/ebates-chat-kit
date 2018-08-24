@@ -13,6 +13,7 @@ const AvatarWrapper = styled.div`
   line-height:1.6em;
   margin: ${props => props.isOwn ? '0 0 0 10px' : '0 10px 0 0'};
   min-width: ${props => props.theme.Avatar.size};
+  ${props => props.isOwn ? props.theme.AvatarWrapper.Own.css : props.theme.AvatarWrapper.Other.css};
 `;
 
 const StyledAvatar = styled.div`
@@ -23,6 +24,7 @@ const StyledAvatar = styled.div`
     display:block;
     width: ${props => props.theme.Avatar.size};
   }
+  ${props => props.theme.Avatar.css};
 `;
 
 class Avatar extends React.Component {
@@ -69,9 +71,10 @@ const StyledMessage = styled.div`
     }
     const { Message, OwnMessage } = theme;
     const style = isOwn ? _.merge({}, Message, OwnMessage) : Message;
-    return {
+    const result = _.merge({
       flexDirection: style.horizontalAlign === 'left' ? 'row' : 'row-reverse'
-    };
+    }, style.css);
+    return result;
   }}
 `;
 
