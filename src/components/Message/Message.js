@@ -23,6 +23,7 @@ const StyledAvatar = styled.div`
     display:block;
     width: ${props => props.theme.Avatar.size};
   }
+  ${props => props.theme.Avatar.css};
 `;
 
 class Avatar extends React.Component {

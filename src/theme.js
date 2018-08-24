@@ -22,7 +22,8 @@ export const mergeStyles = (props, componentName, propsParser = identityop) => {
 
 export const defaultTheme = {
   Avatar: {
-    size: '28px'
+    size: '28px',
+    css: {}
   },
   Bubble: {
     css: {
