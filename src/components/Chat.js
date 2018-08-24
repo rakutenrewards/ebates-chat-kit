@@ -195,9 +195,9 @@ class TextComposer extends React.Component {
     this._send();
   }
  
- 
   render() {
-    const { children } = this.props;
+    const { children, sendIconPath } = this.props;
+    const sendIndicator = sendIconPath ? '' : 'Send';
     const context = {
       value: this.state.value,
       onButtonClick: this._handleButtonClick,
@@ -213,7 +213,11 @@ class TextComposer extends React.Component {
       <TextComposer.Context.Provider value={context}>
         <StyledTextComposer {...this.props}>
           {children}
-          <StyledSendButton style={style} disabled={!context.value} onClick={this._handleSendButton} >Send</StyledSendButton>
+          <StyledSendButton style={style} disabled={!context.value} onClick={this._handleSendButton} >{sendIndicator}
+              <svg aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width='20' height='20'>
+              <path fill="currentColor" d={sendIconPath}/>
+              </svg>
+          </StyledSendButton>
         </StyledTextComposer>
       </TextComposer.Context.Provider>
     );
@@ -226,15 +230,16 @@ const StyledSendButton = styled.button`
     width: auto;
     border: none;
     background-color: transparent;
-    padding-top: 5px;
-    padding-left: 10px;
-    padding-bottom: 10px;
     outline: 0;
     opacity: 0;
     transition: 0.3s;
     cursor: pointer; 
+    color: pink;
 
-    ${props => props.theme.SendButton.css}
+  ${props => {
+    const { theme: { SendButton: sendButtonTheme } } = props;
+    return Object.assign(sendButtonTheme.css);
+  }}
 `;
  
 const StyledChat = styled.div`
@@ -405,7 +410,7 @@ export default class Chat extends React.Component {
   }
 
   render() {
-    const { otherAuthor, onFocus, onBlur, theme } = this.props;
+    const { otherAuthor, onFocus, onBlur, theme, sendIconPath } = this.props;
     const { messages, typingIndicator, quickReplies } = this.state;
 
     const parsedMessages = messages.reduce((result, current) => {
@@ -427,7 +432,7 @@ export default class Chat extends React.Component {
             {quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSend} active={true} /> : null}
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
-          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur}>
+          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} sendIconPath={sendIconPath}>
             <TextInput />
           </TextComposer>
         </StyledChat>
