@@ -13,6 +13,7 @@ const AvatarWrapper = styled.div`
   line-height:1.6em;
   margin: ${props => props.isOwn ? '0 0 0 10px' : '0 10px 0 0'};
   min-width: ${props => props.theme.Avatar.size};
+  ${props => props.isOwn ? props.theme.AvatarWrapper.Own.css : props.theme.AvatarWrapper.Other.css};
 `;
 
 const StyledAvatar = styled.div`

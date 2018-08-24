@@ -21,6 +21,10 @@ export const mergeStyles = (props, componentName, propsParser = identityop) => {
 };
 
 export const defaultTheme = {
+  AvatarWrapper: {
+    Own: { css: {} },
+    Other: { css: {} }
+  },
   Avatar: {
     size: '28px',
     css: {}
