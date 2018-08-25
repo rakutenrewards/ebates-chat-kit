@@ -199,8 +199,15 @@ class TextComposer extends React.Component {
   }
  
   render() {
-    const { children, sendIconPath } = this.props;
-    const sendIndicator = sendIconPath ? '' : 'Send';
+    const { children, iconFSData } = this.props;
+    const iconContext = {
+       viewBox : iconFSData ? iconFSData.viewBox : '0 0  0 0',
+       width : iconFSData ? iconFSData.width : 0,
+       height : iconFSData ? iconFSData.height : 0,
+       pathD : iconFSData ? iconFSData.pathD : '',
+       sendIndicator : iconFSData ? '' : 'Send'
+    };
+
     const context = {
       value: this.state.value,
       onButtonClick: this._handleButtonClick,
@@ -216,9 +223,9 @@ class TextComposer extends React.Component {
       <TextComposer.Context.Provider value={context}>
         <StyledTextComposer {...this.props}>
           {children}
-          <StyledSendButton style={style} disabled={!context.value} onClick={this._handleSendButton} >{sendIndicator}
-              <svg aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width='20' height='20'>
-              <path fill="currentColor" d={sendIconPath}/>
+          <StyledSendButton style={style} disabled={!context.value} onClick={this._handleSendButton} >{iconContext.sendIndicator}
+              <svg aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox={iconContext.viewBox} width={iconContext.width} height={iconContext.height}>
+              <path fill="currentColor" d={iconContext.pathD}/>
               </svg>
           </StyledSendButton>
         </StyledTextComposer>
@@ -237,7 +244,6 @@ const StyledSendButton = styled.button`
     opacity: 0;
     transition: 0.3s;
     cursor: pointer; 
-    color: pink;
 
   ${props => {
     const { theme: { SendButton: sendButtonTheme } } = props;
@@ -413,7 +419,7 @@ export default class Chat extends React.Component {
   }
 
   render() {
-    const { otherAuthor, onFocus, onBlur, theme, autofocus, sendIconPath } = this.props;
+    const { otherAuthor, onFocus, onBlur, theme, autofocus, iconFSData } = this.props;
     const { messages, typingIndicator, quickReplies } = this.state;
 
     const parsedMessages = messages.reduce((result, current) => {
@@ -435,7 +441,7 @@ export default class Chat extends React.Component {
             {quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSend} active={true} /> : null}
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
-          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} sendIconPath={sendIconPath}>
+          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} iconFSData={iconFSData}>
             <TextInput autofocus={autofocus} />
           </TextComposer>
         </StyledChat>
