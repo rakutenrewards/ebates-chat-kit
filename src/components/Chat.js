@@ -344,7 +344,7 @@ export default class Chat extends React.Component {
       const { onButtonClick } = this.props;
 
       return (
-        <Message key={key} onLoad={this.scrollToBottom}>
+        <Message key={key} isCard={message.isCard} onLoad={this.scrollToBottom}>
           {message.imageUrl && (
             <MessageMedia>
               {message.url ? <a href={message.url}><img src={message.imageUrl} /></a> : <img src={message.imageUrl} />}

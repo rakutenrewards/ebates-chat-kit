@@ -84,12 +84,16 @@ const Content = styled.div`
   overflow:hidden;
 `;
 
-const computeBorderRadius = function (sharpBorderRadius, ovalBorderRadius, isOwn, childIndexName = 'single') {
+const computeBorderRadius = function (sharpBorderRadius, ovalBorderRadius, isOwn, childIndexName = 'single', isCard) {
   const reorder = function reorder(order, arr) {
     return order.map((position) => {
       return arr[position];
     });
   };
+
+  if (isCard) {
+    return [ovalBorderRadius, ovalBorderRadius, ovalBorderRadius, ovalBorderRadius].join(' ');
+  }
 
   const flipStyleHorizontally = reorder.bind(null, [1, 0, 3, 2]);
 
@@ -106,17 +110,18 @@ const computeBorderRadius = function (sharpBorderRadius, ovalBorderRadius, isOwn
 
 
 const StyledBubble = styled.div`
-  border:1px solid rgba(0,0,0,0.05);
   display:inline-block;
   max-width:100%;
   margin-bottom:0.1em;
   overflow: hidden;
   ${props => {
-      const { isOwn, theme: { Bubble, OwnBubble, Message } } = props;
+      const { isOwn, isCard, theme: { Bubble, OwnBubble, Message } } = props;
       const themeCustomCSS = isOwn ? _.merge({}, Bubble.css, OwnBubble.css) : Bubble.css;
-      const borderRadius = { borderRadius: computeBorderRadius(Message.sharpBorderRadius, Message.ovalBorderRadius, props.isOwn, props.childIndexName) };
+      const border = isCard ? { border: Bubble.cardBorder } : { border: Bubble.messageBorder };
+      const borderRadius = { borderRadius: computeBorderRadius(Message.sharpBorderRadius, Message.ovalBorderRadius, props.isOwn, props.childIndexName, isCard) };
       const styleExtras = Object.assign(
         {},
+        border,
         themeCustomCSS,
         borderRadius
       );
@@ -135,6 +140,7 @@ class Bubble extends React.Component {
     children: PropTypes.node,
     isOwn: PropTypes.bool,
     childIndexName: PropTypes.string,
+    isCard: PropTypes.bool, 
     theme: PropTypes.shape()
   }
 
@@ -163,6 +169,8 @@ export default class Message extends React.Component {
     date: PropTypes.string,
     /** Message author - agent (left side) or visitor (right side) */
     isOwn: PropTypes.bool,
+    /** Is the message a card? - Removes background for better aesthetics */
+    isCard: PropTypes.bool,
     onClick: PropTypes.func,
     showMetaOnClick: PropTypes.bool,
     /** Specifies how to render the message within a group of messages */

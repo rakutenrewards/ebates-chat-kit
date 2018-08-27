@@ -27,13 +27,15 @@ const StyledMessageButton = styled.a`
 
   ${props => {
     const color = props.primary ? props.theme.MessageButton.primaryColor : props.theme.MessageButton.secondaryColor;
-    const darkerColor = darken(0.2, color);
+    const darkerColor = props.primary ? props.theme.MessageButton.darker.primaryColor : props.theme.MessageButton.darker.secondaryColor || darken(0.2, color);
+    const fontColor = props.theme.MessageButton.fontColor;
+    const darkerFontColor = props.theme.MessageButton.darker.fontColor || fontColor;
 
     return {
       borderColor: color,
-      color,
+      color: fontColor,
       ':hover': {
-        color: darkerColor,
+        color: darkerFontColor,
         borderColor: darkerColor
       }
     };
