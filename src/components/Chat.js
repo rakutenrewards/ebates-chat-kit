@@ -324,7 +324,7 @@ export default class Chat extends React.Component {
       });
       setTimeout(() => {
         this._onSend(value);
-      }, 500);
+      }, this.props.theme.QuickReplies.animationLength);
     };
 
     this._renderGroup = (group, groupIndex) => {
@@ -413,8 +413,8 @@ export default class Chat extends React.Component {
             {typingIndicator ?  <Message authorName={otherAuthor.name} avatarUrl={otherAuthor.avatarUrl} isOwn={false} ><TypingIndicator /></Message>: null}
             <ReactCSSTransitionGroup
               transitionName="quickreplies-animation"
-              transitionEnterTimeout={500}
-              transitionLeaveTimeout={500}
+              transitionEnterTimeout={theme.QuickReplies.animationLength}
+              transitionLeaveTimeout={theme.QuickReplies.animationLength}
             >
               {quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSendQuickReply} active={true} /> : null}
             </ReactCSSTransitionGroup>
