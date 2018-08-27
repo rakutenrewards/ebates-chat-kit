@@ -25,6 +25,7 @@
     },
     {
       isOwn: false,
+      isCard: true,
       title: "Ribs are amazing!",
       subtitle: "get the recipe while you can...",
       imageUrl: "https://search.chow.com/thumbnail/1280/800/www.chowstatic.com/assets/2014/09/30741_easy_bbq_baby_back_ribs_3000x2000.jpg",
