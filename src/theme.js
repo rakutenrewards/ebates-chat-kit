@@ -82,13 +82,13 @@ export const defaultTheme = {
     css: {}
   },
   MessageButton: {
-    primaryColor: '#666666',
-    secondaryColor: '#666666',
-    fontColor: '#000000',
-    darker: {
-      fontColor: '#000000',
-      primaryColor: '#666666',
-      secondaryColor: '#666666'
+    primaryColor: '#000000',
+    secondaryColor: '#000000',
+    borderColor: '#666666',
+    hover: {
+      primaryColor: '#000000',
+      secondaryColor: '#000000',
+      borderColor: '#666666'
     }
   },
   MessageItems: {
