@@ -199,13 +199,13 @@ class TextComposer extends React.Component {
   }
  
   render() {
-    const { children, svgIconData } = this.props;
+    const { children, svgIconData, sendText } = this.props;
     const iconContext = {
        viewBox : svgIconData ? svgIconData.viewBox : '0 0  0 0',
        width : svgIconData ? svgIconData.width : 0,
        height : svgIconData ? svgIconData.height : 0,
        pathD : svgIconData ? svgIconData.pathD : '',
-       sendIndicator : svgIconData ? '' : 'Send'
+       sendIndicator : svgIconData ? '' : sendText || 'Send'
     };
 
     const context = {
@@ -269,6 +269,8 @@ export default class Chat extends React.Component {
     onBlur: PropTypes.func,
     onSend: PropTypes.func,
     onButtonClick: PropTypes.func,
+    /** Send Text */
+    sendText: PropTypes.string,
     /** Properties to display svg icon */
     svgIcon: PropTypes.shape({
       viewBox: PropTypes.string,
@@ -423,7 +425,7 @@ export default class Chat extends React.Component {
   }
 
   render() {
-    const { otherAuthor, onFocus, onBlur, theme, autofocus, svgSendIcon } = this.props;
+    const { otherAuthor, onFocus, onBlur, theme, autofocus, svgSendIcon, sendText } = this.props;
     const { messages, typingIndicator, quickReplies } = this.state;
 
     const parsedMessages = messages.reduce((result, current) => {
@@ -445,7 +447,7 @@ export default class Chat extends React.Component {
             {quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSend} active={true} /> : null}
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
-          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgIconData={svgSendIcon}>
+          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgIconData={svgSendIcon} sendText={sendText}>
             <TextInput autofocus={autofocus} />
           </TextComposer>
         </StyledChat>
