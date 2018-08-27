@@ -30,6 +30,8 @@ export const defaultTheme = {
     css: {}
   },
   Bubble: {
+    messageBorder: '1px solid rgba(0,0,0,0.05)',
+    cardBorder: '1px solid rgba(0,0,0,0.05)',
     css: {
       backgroundColor: '#F4F4F4',
       color: '#333333',
@@ -80,8 +82,14 @@ export const defaultTheme = {
     css: {}
   },
   MessageButton: {
-    primaryColor: '#666666',
-    secondaryColor: '#666666'
+    primaryColor: '#000000',
+    secondaryColor: '#000000',
+    borderColor: '#666666',
+    hover: {
+      primaryColor: '#000000',
+      secondaryColor: '#000000',
+      borderColor: '#666666'
+    }
   },
   MessageItems: {
     css: {}

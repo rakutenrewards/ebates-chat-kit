@@ -15,7 +15,7 @@ const Subtitle = styled.div`
   ${props => props.theme.MessageTitle.Subtitle.css}
 `;
 
-const TitltContainer = styled.div`
+const TitleContainer = styled.div`
   padding: 0.6em;
 `;
 
@@ -34,10 +34,10 @@ export class MessageTitle extends React.Component {
     const { title, subtitle } = this.props;
     return (
       <StyledMessageTitle>
-        <TitltContainer>
+        <TitleContainer>
           <Title>{title}</Title>
           <Subtitle>{subtitle}</Subtitle>
-        </TitltContainer>
+        </TitleContainer>
       </StyledMessageTitle>
     );
   }
