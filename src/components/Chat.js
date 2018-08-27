@@ -423,7 +423,7 @@ export default class Chat extends React.Component {
   }
 
   render() {
-    const { otherAuthor, onFocus, onBlur, theme, autofocus, svgIconData } = this.props;
+    const { otherAuthor, onFocus, onBlur, theme, autofocus, svgSendIcon } = this.props;
     const { messages, typingIndicator, quickReplies } = this.state;
 
     const parsedMessages = messages.reduce((result, current) => {
@@ -445,7 +445,7 @@ export default class Chat extends React.Component {
             {quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSend} active={true} /> : null}
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
-          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgIconData={svgIconData}>
+          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgIconData={svgSendIcon}>
             <TextInput autofocus={autofocus} />
           </TextComposer>
         </StyledChat>
