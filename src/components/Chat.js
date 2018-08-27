@@ -199,13 +199,13 @@ class TextComposer extends React.Component {
   }
  
   render() {
-    const { children, iconFSData } = this.props;
+    const { children, svgIconData } = this.props;
     const iconContext = {
-       viewBox : iconFSData ? iconFSData.viewBox : '0 0  0 0',
-       width : iconFSData ? iconFSData.width : 0,
-       height : iconFSData ? iconFSData.height : 0,
-       pathD : iconFSData ? iconFSData.pathD : '',
-       sendIndicator : iconFSData ? '' : 'Send'
+       viewBox : svgIconData ? svgIconData.viewBox : '0 0  0 0',
+       width : svgIconData ? svgIconData.width : 0,
+       height : svgIconData ? svgIconData.height : 0,
+       pathD : svgIconData ? svgIconData.pathD : '',
+       sendIndicator : svgIconData ? '' : 'Send'
     };
 
     const context = {
@@ -245,10 +245,7 @@ const StyledSendButton = styled.button`
     transition: 0.3s;
     cursor: pointer; 
 
-  ${props => {
-    const { theme: { SendButton: sendButtonTheme } } = props;
-    return Object.assign(sendButtonTheme.css);
-  }}
+    ${props => props.theme.SendButton.css }
 `;
  
 const StyledChat = styled.div`
@@ -272,6 +269,13 @@ export default class Chat extends React.Component {
     onBlur: PropTypes.func,
     onSend: PropTypes.func,
     onButtonClick: PropTypes.func,
+    /** Properties to display svg icon */
+    svgIcon: PropTypes.shape({
+      viewBox: PropTypes.string,
+      width: PropTypes.string,
+      height: PropTypes.string,
+      pathD:PropTypes.string
+    }),
     /** Theme to use for chat. */
     theme: PropTypes.object
   }
@@ -419,7 +423,7 @@ export default class Chat extends React.Component {
   }
 
   render() {
-    const { otherAuthor, onFocus, onBlur, theme, autofocus, iconFSData } = this.props;
+    const { otherAuthor, onFocus, onBlur, theme, autofocus, svgIconData } = this.props;
     const { messages, typingIndicator, quickReplies } = this.state;
 
     const parsedMessages = messages.reduce((result, current) => {
@@ -441,7 +445,7 @@ export default class Chat extends React.Component {
             {quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSend} active={true} /> : null}
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
-          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} iconFSData={iconFSData}>
+          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgIconData={svgIconData}>
             <TextInput autofocus={autofocus} />
           </TextComposer>
         </StyledChat>
