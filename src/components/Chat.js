@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
 import TextArea from "react-textarea-autosize";
 import _ from 'lodash';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import MessageList from './MessageList';
 import MessageGroup from './MessageGroup';
@@ -317,6 +318,15 @@ export default class Chat extends React.Component {
       onSend(value);
     };
 
+    this._onSendQuickReply = (value) => {
+      this.setState({
+        quickReplies: []
+      });
+      setTimeout(() => {
+        this._onSend(value);
+      }, 500);
+    };
+
     this._renderGroup = (group, groupIndex) => {
       if (group.length === 0) {
         return null;
@@ -363,7 +373,10 @@ export default class Chat extends React.Component {
   }
 
   scrollToBottom = () => {
-    this.parentScroll.scrollTop = this.messagesEnd.offsetTop;
+    this.parentScroll.scrollTo({
+      top: this.messagesEnd.offsetTop,
+      // behavior: "smooth"
+    });
   }
 
   componentDidMount() {
@@ -398,7 +411,13 @@ export default class Chat extends React.Component {
           <MessageList scrollRef={this._setParentScroll}>
             {parsedMessages.filter(group => group.length > 0).map(this._renderGroup)}
             {typingIndicator ?  <Message authorName={otherAuthor.name} avatarUrl={otherAuthor.avatarUrl} isOwn={false} ><TypingIndicator /></Message>: null}
-            {quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSend} active={true} /> : null}
+            <ReactCSSTransitionGroup
+              transitionName="quickreplies-animation"
+              transitionEnterTimeout={500}
+              transitionLeaveTimeout={500}
+            >
+              {quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSendQuickReply} active={true} /> : null}
+            </ReactCSSTransitionGroup>
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
           <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur}>

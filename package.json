@@ -46,6 +46,7 @@
     "polished": "^1.9.2",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.3.2",
     "react-styleguidist": "^7.0.14",
     "react-test-renderer": "^16.3.2",
