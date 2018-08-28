@@ -103,6 +103,7 @@ export const defaultTheme = {
     imageWidth: '75px'
   },
   QuickReplies: {
+    animationLength: 0,
     css: {}
   },
   QuickReply: {
