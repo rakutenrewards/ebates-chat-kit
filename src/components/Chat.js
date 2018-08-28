@@ -92,8 +92,7 @@ const StyledTextComposer = styled.div`
   background:#fff;
   border-top:1px solid rgba(0,0,0,0.1);
   display: flex;
-  padding-top: 5px;
-  padding-left: 5px;
+  padding: 0.5em;
 
   ${props => {
     const { theme: { TextComposer: textComposerTheme } } = props;
