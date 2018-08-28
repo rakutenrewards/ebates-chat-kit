@@ -108,6 +108,7 @@ class TextComposer extends React.Component {
     onKeyDown: PropTypes.func,
     onSend: PropTypes.func,
     value: PropTypes.string,
+    displaySendButton: PropTypes.bool,
     svgSendIcon: PropTypes.shape({
       viewBox: PropTypes.string,
       width: PropTypes.string,
@@ -205,7 +206,7 @@ class TextComposer extends React.Component {
   }
  
   render() {
-    const { children, svgSendIcon, isMobile, displaySendButton } = this.props;
+    const { children, svgSendIcon, displaySendButton } = this.props;
     const iconContext = {
        viewBox : svgSendIcon ? svgSendIcon.viewBox : '0 0  0 0',
        width : svgSendIcon ? svgSendIcon.width : 0,
@@ -229,7 +230,7 @@ class TextComposer extends React.Component {
       <TextComposer.Context.Provider value={context}>
         <StyledTextComposer {...this.props}>
           {children}
-          {(displaySendButton || isMobile) &&
+          {displaySendButton &&
           <StyledSendButton style={style} disabled={!context.value} onClick={this._handleSendButton} >{sendText}
               <svg aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox={iconContext.viewBox} width={iconContext.width} height={iconContext.height}>
               <path fill="currentColor" d={iconContext.pathD}/>
@@ -279,6 +280,8 @@ export default class Chat extends React.Component {
     onButtonClick: PropTypes.func,
     /** Send Text */
     sendText: PropTypes.string,
+    /**Display send button */
+    displaySendButton: PropTypes.bool,
     /** Properties to display svg icon */
     svgSendIcon: PropTypes.shape({
       viewBox: PropTypes.string,
@@ -296,7 +299,8 @@ export default class Chat extends React.Component {
     onSend: () => {},
     onFocus: () => {},
     onBlur: () => {},
-    onButtonClick: () => {}
+    onButtonClick: () => {},
+    displaySendButton: false
   }
 
   constructor(props) {
@@ -433,7 +437,7 @@ export default class Chat extends React.Component {
   }
 
   render() {
-    const { otherAuthor, onFocus, onBlur, theme, autofocus, svgSendIcon, isMobile } = this.props;
+    const { otherAuthor, onFocus, onBlur, theme, autofocus, svgSendIcon, displaySendButton } = this.props;
     const { messages, typingIndicator, quickReplies } = this.state;
 
     const parsedMessages = messages.reduce((result, current) => {
@@ -455,7 +459,7 @@ export default class Chat extends React.Component {
             {quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSend} active={true} /> : null}
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
-          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgSendIcon={svgSendIcon} isMobile={isMobile}>
+          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgSendIcon={svgSendIcon} displaySendButton={displaySendButton}>
             <TextInput autofocus={autofocus} />
           </TextComposer>
         </StyledChat>
