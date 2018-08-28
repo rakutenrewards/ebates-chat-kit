@@ -89,9 +89,10 @@ class TextInput extends React.Component {
 
 
 const StyledTextComposer = styled.div`
-  padding:0.5em;
   background:#fff;
   border-top:1px solid rgba(0,0,0,0.1);
+  display: flex;
+  padding: 0.5em;
 
   ${props => {
     const { theme: { TextComposer: textComposerTheme } } = props;
@@ -106,10 +107,18 @@ class TextComposer extends React.Component {
     onChange: PropTypes.func,
     onKeyDown: PropTypes.func,
     onSend: PropTypes.func,
-    value: PropTypes.string
+    value: PropTypes.string,
+    displaySendButton: PropTypes.bool,
+    svgSendIcon: PropTypes.shape({
+      viewBox: PropTypes.string,
+      width: PropTypes.string,
+      height: PropTypes.string,
+      pathD: PropTypes.string
+    })
   };
 
   static defaultProps = {
+    displaySendButton: false,
     sendOnEnter: true,
     onButtonClick: noop,
     onChange: noop,
@@ -155,6 +164,8 @@ class TextComposer extends React.Component {
       this._send();
       this.props.onKeyDown(event);
     };
+     
+      this._handleSendButton = this._handleSendButton.bind(this);
   }
 
   _send() {
@@ -189,31 +200,66 @@ class TextComposer extends React.Component {
     const { altKey, shiftKey } = event;
     return (this._enterPressed(event) && (altKey || shiftKey));
   }
-
-
+ 
+  _handleSendButton () {
+    this._send();
+  }
+ 
   render() {
-    const { children } = this.props;
+    const { children, svgSendIcon, displaySendButton } = this.props;
+    const iconContext = {
+       viewBox : svgSendIcon ? svgSendIcon.viewBox : '0 0  0 0',
+       width : svgSendIcon ? svgSendIcon.width : 0,
+       height : svgSendIcon ? svgSendIcon.height : 0,
+       pathD : svgSendIcon ? svgSendIcon.pathD :  ''
+    };
+    const sendText = svgSendIcon ? "" : 'Send';
+
     const context = {
       value: this.state.value,
       onButtonClick: this._handleButtonClick,
 			onChange: this._handleOnChange,
 			onKeyDown: this._handleKeyDown
     };
+    const style = {
+        opacity: context.value ? "1" : "0",
+        visibility: context.value ?  "visible" : "hidden"
+   };
 
     return (
       <TextComposer.Context.Provider value={context}>
         <StyledTextComposer {...this.props}>
           {children}
+          {displaySendButton &&
+          <StyledSendButton style={style} disabled={!context.value} onClick={this._handleSendButton} >{sendText}
+              <svg aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox={iconContext.viewBox} width={iconContext.width} height={iconContext.height}>
+              <path fill="currentColor" d={iconContext.pathD}/>
+              </svg>
+          </StyledSendButton>
+          }
         </StyledTextComposer>
       </TextComposer.Context.Provider>
     );
   }
 }
 
+const StyledSendButton = styled.button`
+    align-self: flex-end;
+    font-size: 1em;
+    width: auto;
+    border: none;
+    background-color: transparent;
+    outline: 0;
+    opacity: 0;
+    transition: 0.3s;
+    cursor: pointer; 
+
+    ${props => props.theme.SendButton.css }
+`;
+ 
 const StyledChat = styled.div`
   font-family: "Proxima Nova", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
   width:100%; height:100%;
-
 `;
 
 export default class Chat extends React.Component {
@@ -232,6 +278,17 @@ export default class Chat extends React.Component {
     onBlur: PropTypes.func,
     onSend: PropTypes.func,
     onButtonClick: PropTypes.func,
+    /** Send Text */
+    sendText: PropTypes.string,
+    /**Display send button */
+    displaySendButton: PropTypes.bool,
+    /** Properties to display svg icon */
+    svgSendIcon: PropTypes.shape({
+      viewBox: PropTypes.string,
+      width: PropTypes.string,
+      height: PropTypes.string,
+      pathD: PropTypes.string
+    }),
     /** Theme to use for chat. */
     theme: PropTypes.object
   }
@@ -242,7 +299,8 @@ export default class Chat extends React.Component {
     onSend: () => {},
     onFocus: () => {},
     onBlur: () => {},
-    onButtonClick: () => {}
+    onButtonClick: () => {},
+    displaySendButton: false
   }
 
   constructor(props) {
@@ -379,7 +437,7 @@ export default class Chat extends React.Component {
   }
 
   render() {
-    const { otherAuthor, onFocus, onBlur, theme, autofocus } = this.props;
+    const { otherAuthor, onFocus, onBlur, theme, autofocus, svgSendIcon, displaySendButton } = this.props;
     const { messages, typingIndicator, quickReplies } = this.state;
 
     const parsedMessages = messages.reduce((result, current) => {
@@ -401,7 +459,7 @@ export default class Chat extends React.Component {
             {quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSend} active={true} /> : null}
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
-          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur}>
+          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgSendIcon={svgSendIcon} displaySendButton={displaySendButton}>
             <TextInput autofocus={autofocus} />
           </TextComposer>
         </StyledChat>

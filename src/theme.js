@@ -72,6 +72,9 @@ export const defaultTheme = {
   MessageText: {
     css: {}
   },
+  SendButton: {
+    css: {}
+  },
   MessageMedia: {
     css: {}
   },
