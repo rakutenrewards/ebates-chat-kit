@@ -8,6 +8,7 @@ const blink = keyframes`
 `;
 
 const StyledTypingIndicator = styled.div`
+  will-change: opacity;
   padding: 6px 12px 6px 12px;
   display: table;
   margin: 0 auto;
