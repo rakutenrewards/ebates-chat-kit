@@ -4,12 +4,11 @@ import styled, { keyframes } from 'styled-components';
 const blink = keyframes`
   50% {
     opacity: 1;
-    transform: translate3d(0,30%,0);
   }
 `;
 
 const StyledTypingIndicator = styled.div`
-  will-change: transform;
+  will-change: opacity;
   padding: 6px 12px 6px 12px;
   display: table;
   margin: 0 auto;
