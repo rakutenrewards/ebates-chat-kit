@@ -107,7 +107,13 @@ class TextComposer extends React.Component {
     onChange: PropTypes.func,
     onKeyDown: PropTypes.func,
     onSend: PropTypes.func,
-    value: PropTypes.string
+    value: PropTypes.string,
+    svgSendIcon: PropTypes.shape({
+      viewBox: PropTypes.string,
+      width: PropTypes.string,
+      height: PropTypes.string,
+      pathD: PropTypes.string
+    })
   };
 
   static defaultProps = {
@@ -199,14 +205,14 @@ class TextComposer extends React.Component {
   }
  
   render() {
-    const { children, svgIconData, isMobile, displaySendButton } = this.props;
+    const { children, svgSendIcon, isMobile, displaySendButton } = this.props;
     const iconContext = {
-       viewBox : svgIconData ? svgIconData.viewBox : '0 0  0 0',
-       width : svgIconData ? svgIconData.width : 0,
-       height : svgIconData ? svgIconData.height : 0,
-       pathD : svgIconData ? svgIconData.pathD :  ''
+       viewBox : svgSendIcon ? svgSendIcon.viewBox : '0 0  0 0',
+       width : svgSendIcon ? svgSendIcon.width : 0,
+       height : svgSendIcon ? svgSendIcon.height : 0,
+       pathD : svgSendIcon ? svgSendIcon.pathD :  ''
     };
-    const sendText = svgIconData ? "" : 'Send';
+    const sendText = svgSendIcon ? "" : 'Send';
 
     const context = {
       value: this.state.value,
@@ -274,7 +280,7 @@ export default class Chat extends React.Component {
     /** Send Text */
     sendText: PropTypes.string,
     /** Properties to display svg icon */
-    svgIcon: PropTypes.shape({
+    svgSendIcon: PropTypes.shape({
       viewBox: PropTypes.string,
       width: PropTypes.string,
       height: PropTypes.string,
@@ -449,7 +455,7 @@ export default class Chat extends React.Component {
             {quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSend} active={true} /> : null}
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
-          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgIconData={svgSendIcon} isMobile={isMobile}>
+          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgSendIcon={svgSendIcon} isMobile={isMobile}>
             <TextInput autofocus={autofocus} />
           </TextComposer>
         </StyledChat>
