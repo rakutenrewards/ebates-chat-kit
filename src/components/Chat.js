@@ -473,7 +473,7 @@ export default class Chat extends React.Component {
               transitionEnterTimeout={theme.QuickReplies.animationLength}
               transitionLeaveTimeout={theme.QuickReplies.animationLength}
             >
-              {quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSendQuickReply} active={true} /> : null}
+              {quickReplies && quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSendQuickReply} active={true} /> : null}
             </ReactCSSTransitionGroup>
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
