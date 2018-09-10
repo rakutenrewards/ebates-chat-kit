@@ -49,7 +49,7 @@ class TextInput extends React.Component {
 
   constructor(props) {
     super(props);
-    this._focusTextComposer = this._focusTextComposer.bind(this);
+    this.focusTextComposer = this.focusTextComposer.bind(this);
     this._setTextareaRef = this._setTextareaRef.bind(this);
   }
 
@@ -59,18 +59,18 @@ class TextInput extends React.Component {
     return Object.assign({}, props, textContext);
   }
 
-  _focusTextComposer() {
+  focusTextComposer() {
     if (this.props.autofocus !== false) {
       this.textarea.focus();
     }
   }
 
   componentDidUpdate() {
-    this._focusTextComposer();
+    this.focusTextComposer();
   }
 
   componentDidMount() {
-    this._focusTextComposer();
+    this.focusTextComposer();
   }
 
   _setTextareaRef(el) {
@@ -428,12 +428,18 @@ export default class Chat extends React.Component {
         </Message>
       );
     };
+
+    this.textInput = React.createRef();
   }
 
   scrollToBottom = () => {
     this.parentScroll.scrollTo({
       top: this.messagesEnd.offsetTop
     });
+  }
+
+  focusTextComposer = () => {
+    this.textInput.current.focusTextComposer();
   }
 
   componentDidMount() {
@@ -478,7 +484,7 @@ export default class Chat extends React.Component {
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
           <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgSendIcon={svgSendIcon} displaySendButton={displaySendButton}>
-            <TextInput autofocus={autofocus} />
+            <TextInput autofocus={autofocus} ref={this.textInput} />
           </TextComposer>
         </StyledChat>
       </ThemeProvider>
