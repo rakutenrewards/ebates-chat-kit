@@ -431,9 +431,7 @@ export default class Chat extends React.Component {
   }
 
   scrollToBottom = () => {
-    this.parentScroll.scrollTo({
-      top: this.messagesEnd.offsetTop
-    });
+    this.parentScroll.scrollTop = this.messagesEnd.offsetTop;
   }
 
   componentDidMount() {
