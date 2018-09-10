@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Autolinker from "autolinker";
+import xss from 'xss';
 
 /** @component */
 const StyledText = styled.div`
@@ -32,6 +33,7 @@ export class MessageText extends React.Component {
 
   render() {
     const { children, autolink, isOwn } = this.props;
+    let safeHtml;
 
     if (!autolink) {
       return (
@@ -65,7 +67,8 @@ export class MessageText extends React.Component {
     return (
       <StyledText isOwn={isOwn}>{React.Children.map(children, (child) => {
         if (typeof child === "string") {
-          return (<span dangerouslySetInnerHTML={{__html:autolinker.link(child)}} />);
+          safeHtml = xss(child);
+          return (<span dangerouslySetInnerHTML={{__html:autolinker.link(safeHtml)}} />);
         }
 
         return child;
