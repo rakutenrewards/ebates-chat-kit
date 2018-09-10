@@ -33,7 +33,6 @@ export class MessageText extends React.Component {
 
   render() {
     const { children, autolink, isOwn } = this.props;
-    let safeHtml;
 
     if (!autolink) {
       return (
@@ -67,7 +66,7 @@ export class MessageText extends React.Component {
     return (
       <StyledText isOwn={isOwn}>{React.Children.map(children, (child) => {
         if (typeof child === "string") {
-          safeHtml = xss(child);
+          let safeHtml = xss(child);
           return (<span dangerouslySetInnerHTML={{__html:autolinker.link(safeHtml)}} />);
         }
 
