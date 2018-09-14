@@ -43,17 +43,20 @@ export default class MessageList extends React.Component {
     const { children } = this.props;
 
     return (
-      <StyledMessageList onScroll={this._handleScroll} {...this.props}>
-        <div component="div" style={{overflowY:'scroll', WebkitOverflowScrolling:'touch', height:'100%', width:'100%'}} ref={this.props.scrollRef}>
-          {React.Children.map(children, (child) => {
-            if (!child) {
-              return null;
-            }
-            return (
-              <div>{child}</div>
-            );
-          })}
-        </div>
+      <StyledMessageList
+        onScroll={this._handleScroll}
+        innerRef={this.props.innerRef}
+        style={{overflowY:'scroll', WebkitOverflowScrolling:'touch'}}
+        {...this.props}
+      >
+        {React.Children.map(children, (child) => {
+          if (!child) {
+            return null;
+          }
+          return (
+            <div>{child}</div>
+          );
+        })}
       </StyledMessageList>
     );
   }
