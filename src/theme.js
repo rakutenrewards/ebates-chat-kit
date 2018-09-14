@@ -21,6 +21,9 @@ export const mergeStyles = (props, componentName, propsParser = identityop) => {
 };
 
 export const defaultTheme = {
+  Chat: {
+    css: {}
+  },
   AvatarWrapper: {
     Own: { css: {} },
     Other: { css: {} }

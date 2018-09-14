@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
-import TextArea from "react-textarea-autosize";
+import TextArea from 'react-textarea-autosize';
 import _ from 'lodash';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
@@ -81,7 +81,7 @@ class TextInput extends React.Component {
     return (
       <TextComposer.Context.Consumer>
         {context =>
-          <StyledInput {...this._contextToInputContext(_.omit(this.props, ['autofocus']), context)} inputRef={this._setTextareaRef} />
+          <StyledInput {...this._contextToInputContext(_.omit(this.props, ['autofocus', 'scrollToBottom']), context)} onHeightChange={this.props.scrollToBottom} inputRef={this._setTextareaRef} />
         }
       </TextComposer.Context.Consumer>
     );
@@ -261,6 +261,8 @@ const StyledSendButton = styled.button`
 const StyledChat = styled.div`
   font-family: "Proxima Nova", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
   width:100%; height:100%;
+
+  ${props => props.theme.Chat.css }
 `;
 
 export default class Chat extends React.Component {
@@ -469,7 +471,7 @@ export default class Chat extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <StyledChat>
-          <MessageList scrollRef={this._setParentScroll}>
+          <MessageList innerRef={this._setParentScroll}>
             {parsedMessages.filter(group => group.length > 0).map(this._renderGroup)}
             {typingIndicator ?  <Message authorName={otherAuthor.name} avatarUrl={otherAuthor.avatarUrl} isOwn={false} ><TypingIndicator /></Message>: null}
             <ReactCSSTransitionGroup
@@ -482,7 +484,7 @@ export default class Chat extends React.Component {
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
           <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgSendIcon={svgSendIcon} displaySendButton={displaySendButton}>
-            <TextInput autofocus={autofocus} ref={this.textInput} />
+            <TextInput autofocus={autofocus} scrollToBottom={this.scrollToBottom} ref={this.textInput} />
           </TextComposer>
         </StyledChat>
       </ThemeProvider>
