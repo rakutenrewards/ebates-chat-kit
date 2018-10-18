@@ -25,6 +25,8 @@ const StyledMessageButton = styled.a`
     outline:none;
   }
 
+  ${props =>  props.theme.MessageButton.css }
+
   ${props => {
     const color = props.primary ? props.theme.MessageButton.primaryColor : props.theme.MessageButton.secondaryColor;
     const hoverColor = props.primary ? props.theme.MessageButton.hover.primaryColor : props.theme.MessageButton.hover.secondaryColor;

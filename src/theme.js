@@ -88,6 +88,7 @@ export const defaultTheme = {
     css: {}
   },
   MessageButton: {
+    css: {},
     primaryColor: '#000000',
     secondaryColor: '#000000',
     borderColor: '#666666',
