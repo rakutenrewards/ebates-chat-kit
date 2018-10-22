@@ -25,13 +25,12 @@ const StyledMessageButton = styled.a`
     outline:none;
   }
 
-  ${props =>  props.theme.MessageButton.css }
-
   ${props => {
     const color = props.primary ? props.theme.MessageButton.primaryColor : props.theme.MessageButton.secondaryColor;
     const hoverColor = props.primary ? props.theme.MessageButton.hover.primaryColor : props.theme.MessageButton.hover.secondaryColor;
     const borderColor = props.theme.MessageButton.borderColor;
     const hoverBorderColor = props.theme.MessageButton.hover.borderColor || borderColor;
+    const theme = props.theme.MessageButton.css;
 
     return {
       color,
@@ -39,7 +38,8 @@ const StyledMessageButton = styled.a`
       ':hover': {
         color: hoverColor,
         borderColor: hoverBorderColor
-      }
+      },
+      theme
     };
   }}
 `;
