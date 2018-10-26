@@ -10,7 +10,15 @@ const StyledMedia = styled.div`
     height:auto;
     margin:0 auto;
   }
-  ${props => props.theme.MessageMedia.css}
+
+  ${props => {
+    const img = props.theme.MessageMedia.img;
+    const css = props.theme.MessageMedia.css;
+    return {
+      img,
+      css
+    };
+  }}
 `;
 
 const ImageContainer = styled.div`
