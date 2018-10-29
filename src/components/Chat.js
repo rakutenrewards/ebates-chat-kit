@@ -109,6 +109,7 @@ class TextComposer extends React.Component {
     onKeyDown: PropTypes.func,
     onSend: PropTypes.func,
     value: PropTypes.string,
+    sendText: PropTypes.string,
     displaySendButton: PropTypes.bool,
     svgSendIcon: PropTypes.shape({
       viewBox: PropTypes.string,
@@ -119,6 +120,7 @@ class TextComposer extends React.Component {
   };
 
   static defaultProps = {
+    sendText: 'Send',
     displaySendButton: false,
     sendOnEnter: true,
     onButtonClick: noop,
@@ -207,14 +209,15 @@ class TextComposer extends React.Component {
   }
  
   render() {
-    const { children, svgSendIcon, displaySendButton } = this.props;
+    const { children, svgSendIcon, displaySendButton, sendText } = this.props;
     const iconContext = {
        viewBox : svgSendIcon ? svgSendIcon.viewBox : '0 0  0 0',
        width : svgSendIcon ? svgSendIcon.width : 0,
        height : svgSendIcon ? svgSendIcon.height : 0,
        pathD : svgSendIcon ? svgSendIcon.pathD :  ''
     };
-    const sendText = svgSendIcon ? "" : 'Send';
+
+    const sendButtonText = svgSendIcon ? "" : sendText;
 
     const context = {
       value: this.state.value,
@@ -232,7 +235,7 @@ class TextComposer extends React.Component {
         <StyledTextComposer {...this.props}>
           {children}
           {displaySendButton &&
-          <StyledSendButton style={style} disabled={!context.value} onClick={this._handleSendButton} >{sendText}
+          <StyledSendButton style={style} disabled={!context.value} onClick={this._handleSendButton} >{sendButtonText}
               <svg aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox={iconContext.viewBox} width={iconContext.width} height={iconContext.height}>
               <path fill="currentColor" d={iconContext.pathD}/>
               </svg>
@@ -303,7 +306,8 @@ export default class Chat extends React.Component {
     onFocus: () => {},
     onBlur: () => {},
     onButtonClick: () => {},
-    displaySendButton: false
+    displaySendButton: false,
+    sendText: 'Send'
   }
 
   constructor(props) {
@@ -455,7 +459,7 @@ export default class Chat extends React.Component {
   }
 
   render() {
-    const { otherAuthor, onFocus, onBlur, theme, autofocus, svgSendIcon, displaySendButton } = this.props;
+    const { otherAuthor, onFocus, onBlur, theme, autofocus, svgSendIcon, displaySendButton, sendText } = this.props;
     const { messages, typingIndicator, quickReplies } = this.state;
 
     const parsedMessages = messages.reduce((result, current) => {
@@ -483,7 +487,7 @@ export default class Chat extends React.Component {
             </ReactCSSTransitionGroup>
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
-          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgSendIcon={svgSendIcon} displaySendButton={displaySendButton}>
+          <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgSendIcon={svgSendIcon} displaySendButton={displaySendButton} sendText={sendText}>
             <TextInput autofocus={autofocus} scrollToBottom={this.scrollToBottom} ref={this.textInput} />
           </TextComposer>
         </StyledChat>
