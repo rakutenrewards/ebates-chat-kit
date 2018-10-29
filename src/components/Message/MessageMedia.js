@@ -10,7 +10,6 @@ const StyledMedia = styled.div`
     height:auto;
     margin:0 auto;
   }
-
   ${props => props.theme.MessageMedia.css}
 `;
 
