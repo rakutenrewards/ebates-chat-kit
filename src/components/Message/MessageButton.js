@@ -37,7 +37,7 @@ const StyledMessageButton = styled.a`
         color: hoverColor,
         borderColor: hoverBorderColor
       }
-    }, props.theme.MessageButton.css);
+    },props.theme.MessageButton.css);
   }}
 `;
 
