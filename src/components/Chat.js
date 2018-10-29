@@ -109,6 +109,7 @@ class TextComposer extends React.Component {
     onKeyDown: PropTypes.func,
     onSend: PropTypes.func,
     value: PropTypes.string,
+    sendText: PropTypes.string,
     displaySendButton: PropTypes.bool,
     svgSendIcon: PropTypes.shape({
       viewBox: PropTypes.string,
@@ -119,6 +120,7 @@ class TextComposer extends React.Component {
   };
 
   static defaultProps = {
+    sendText: 'Send',
     displaySendButton: false,
     sendOnEnter: true,
     onButtonClick: noop,

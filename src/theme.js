@@ -79,8 +79,7 @@ export const defaultTheme = {
     css: {}
   },
   MessageMedia: {
-    css: {},
-    img: {}
+    css: {}
   },
   MessageGroup: {
     css: {}

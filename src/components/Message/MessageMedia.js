@@ -11,14 +11,7 @@ const StyledMedia = styled.div`
     margin:0 auto;
   }
 
-  ${props => {
-    const img = props.theme.MessageMedia.img;
-    const css = props.theme.MessageMedia.css;
-    return {
-      img,
-      css
-    };
-  }}
+  ${props => props.theme.MessageMedia.css}
 `;
 
 const ImageContainer = styled.div`

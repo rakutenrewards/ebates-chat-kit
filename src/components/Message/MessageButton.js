@@ -26,26 +26,19 @@ const StyledMessageButton = styled.a`
   }
 
   ${props => {
-    const color = props.primary ? {color: props.theme.MessageButton.primaryColor} : {color: props.theme.MessageButton.secondaryColor};
+    const color = props.primary ? props.theme.MessageButton.primaryColor : props.theme.MessageButton.secondaryColor;
     const hoverColor = props.primary ? props.theme.MessageButton.hover.primaryColor : props.theme.MessageButton.hover.secondaryColor;
-    const borderColor = { borderColor: props.theme.MessageButton.borderColor};
+    const borderColor = props.theme.MessageButton.borderColor;
     const hoverBorderColor = props.theme.MessageButton.hover.borderColor || borderColor;
     const theme = props.theme.MessageButton.css;
-    const hover = {
+    return Object.assign({},{
+      color,
+      borderColor,
       ':hover': {
         color: hoverColor,
         borderColor: hoverBorderColor
       }
-    };
-    
-    const styleExtras = Object.assign(
-      {},
-      theme,
-      color,
-      borderColor,
-      hover
-    );
-    return styleExtras;
+    }, theme);
   }}
 `;
 
