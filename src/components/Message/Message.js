@@ -140,7 +140,7 @@ class Bubble extends React.Component {
     children: PropTypes.node,
     isOwn: PropTypes.bool,
     childIndexName: PropTypes.string,
-    isCard: PropTypes.bool, 
+    isCard: PropTypes.bool,
     theme: PropTypes.shape()
   }
 
