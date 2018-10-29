@@ -30,14 +30,14 @@ const StyledMessageButton = styled.a`
     const hoverColor = props.primary ? props.theme.MessageButton.hover.primaryColor : props.theme.MessageButton.hover.secondaryColor;
     const borderColor = props.theme.MessageButton.borderColor;
     const hoverBorderColor = props.theme.MessageButton.hover.borderColor || borderColor;
-    return Object.assign({},{
+    return Object.assign({}, {
       color,
       borderColor,
       ':hover': {
         color: hoverColor,
         borderColor: hoverBorderColor
       }
-    },props.theme.MessageButton.css);
+    }, props.theme.MessageButton.css);
   }}
 `;
 
