@@ -255,8 +255,11 @@ const StyledSendButton = styled.button`
     background-color: transparent;
     outline: 0;
     opacity: 0;
-    transition: 0.3s;
-    cursor: pointer; 
+    transition: 0.3s, color 0.1s;
+    cursor: pointer;
+    &:hover {
+      ${props => props.theme.SendButton.cssHover}
+    }
 
     ${props => props.theme.SendButton.css }
 `;
