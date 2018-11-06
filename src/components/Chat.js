@@ -331,6 +331,7 @@ export default class Chat extends React.Component {
 
     this.setQuickReplies = (replies) => {
       this.setState({
+        typingIndicator: false,
         quickReplies: replies
       });
     };
