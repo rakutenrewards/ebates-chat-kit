@@ -481,7 +481,7 @@ export default class Chat extends React.Component {
         <StyledChat>
           <MessageList innerRef={this._setParentScroll}>
             {parsedMessages.filter(group => group.length > 0).map(this._renderGroup)}
-            {typingIndicator ?  <Message authorName={otherAuthor.name} avatarUrl={otherAuthor.avatarUrl} isOwn={false} ><TypingIndicator /></Message>: null}
+            {typingIndicator ?  <Message authorName={otherAuthor.name} isOwn={false} ><TypingIndicator /></Message>: null}
             <ReactCSSTransitionGroup
               transitionName="quickreplies-animation"
               transitionEnterTimeout={theme.QuickReplies.animationLength}
