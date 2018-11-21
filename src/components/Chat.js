@@ -37,7 +37,8 @@ class TextInput extends React.Component {
     onKeyDown: PropTypes.func,
     placeholder: PropTypes.string,
     value: PropTypes.string,
-    autofocus: PropTypes.bool
+    autofocus: PropTypes.bool,
+    maxlength: PropTypes.number
   }
 
   static defaultProps = {
@@ -167,7 +168,7 @@ class TextComposer extends React.Component {
       this._send();
       this.props.onKeyDown(event);
     };
-     
+
       this._handleSendButton = this._handleSendButton.bind(this);
   }
 
@@ -203,11 +204,11 @@ class TextComposer extends React.Component {
     const { altKey, shiftKey } = event;
     return (this._enterPressed(event) && (altKey || shiftKey));
   }
- 
+
   _handleSendButton () {
     this._send();
   }
- 
+
   render() {
     const { children, svgSendIcon, displaySendButton, sendText } = this.props;
     const iconContext = {
@@ -256,14 +257,14 @@ const StyledSendButton = styled.button`
     outline: 0;
     opacity: 0;
     transition: 0.3s;
-    cursor: pointer; 
+    cursor: pointer;
     &:hover {
       ${props => props.theme.SendButton.cssHover}
     }
 
     ${props => props.theme.SendButton.css }
 `;
- 
+
 const StyledChat = styled.div`
   font-family: "Proxima Nova", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
   width:100%; height:100%;
@@ -299,7 +300,11 @@ export default class Chat extends React.Component {
       pathD: PropTypes.string
     }),
     /** Theme to use for chat. */
-    theme: PropTypes.object
+    theme: PropTypes.object,
+    /** Autofocus property for Chat text area **/
+    autofocus: PropTypes.bool,
+    /** Maxlength property for Chat text area **/
+    maxlength: PropTypes.number
   }
 
   static defaultProps = {
@@ -463,7 +468,7 @@ export default class Chat extends React.Component {
   }
 
   render() {
-    const { otherAuthor, onFocus, onBlur, theme, autofocus, svgSendIcon, displaySendButton, sendText } = this.props;
+    const { otherAuthor, onFocus, onBlur, theme, autofocus, maxlength, svgSendIcon, displaySendButton, sendText } = this.props;
     const { messages, typingIndicator, quickReplies } = this.state;
 
     const parsedMessages = messages.reduce((result, current) => {
@@ -492,7 +497,7 @@ export default class Chat extends React.Component {
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
           <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgSendIcon={svgSendIcon} displaySendButton={displaySendButton} sendText={sendText}>
-            <TextInput autofocus={autofocus} scrollToBottom={this.scrollToBottom} ref={this.textInput} />
+            <TextInput autofocus={autofocus} maxlength={maxlength} scrollToBottom={this.scrollToBottom} ref={this.textInput} />
           </TextComposer>
         </StyledChat>
       </ThemeProvider>
