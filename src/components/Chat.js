@@ -38,7 +38,7 @@ class TextInput extends React.Component {
     placeholder: PropTypes.string,
     value: PropTypes.string,
     autofocus: PropTypes.bool,
-    maxlength: PropTypes.number
+    maxLength: PropTypes.number
   }
 
   static defaultProps = {
@@ -304,7 +304,7 @@ export default class Chat extends React.Component {
     /** Autofocus property for Chat text area **/
     autofocus: PropTypes.bool,
     /** Maxlength property for Chat text area **/
-    maxlength: PropTypes.number
+    maxLength: PropTypes.number
   }
 
   static defaultProps = {
@@ -468,7 +468,7 @@ export default class Chat extends React.Component {
   }
 
   render() {
-    const { otherAuthor, onFocus, onBlur, theme, autofocus, maxlength, svgSendIcon, displaySendButton, sendText } = this.props;
+    const { otherAuthor, onFocus, onBlur, theme, autofocus, maxLength, svgSendIcon, displaySendButton, sendText } = this.props;
     const { messages, typingIndicator, quickReplies } = this.state;
 
     const parsedMessages = messages.reduce((result, current) => {
@@ -497,7 +497,7 @@ export default class Chat extends React.Component {
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
           <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgSendIcon={svgSendIcon} displaySendButton={displaySendButton} sendText={sendText}>
-            <TextInput autofocus={autofocus} maxlength={maxlength} scrollToBottom={this.scrollToBottom} ref={this.textInput} />
+            <TextInput autofocus={autofocus} maxLength={maxLength} scrollToBottom={this.scrollToBottom} ref={this.textInput} />
           </TextComposer>
         </StyledChat>
       </ThemeProvider>
