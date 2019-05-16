@@ -26,6 +26,8 @@ const StyledInput = styled(TextArea)`
   &:focus,&:active{
     outline:none;
   }
+
+  ${props => props.theme.TextInput.css }
 `;
 
 class TextInput extends React.Component {

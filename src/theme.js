@@ -133,5 +133,8 @@ export const defaultTheme = {
     IconButton: {
       activeColor: '#23AE4A'
     }
+  },
+  TextInput: {
+    css: {}
   }
 };
