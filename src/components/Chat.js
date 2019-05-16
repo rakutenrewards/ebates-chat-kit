@@ -22,7 +22,6 @@ const StyledInput = styled(TextArea)`
   line-height:1.5em;
   min-width 0;
   flex: auto;
-  overflow: hidden;
   font-size:1em;
   &:focus,&:active{
     outline:none;
