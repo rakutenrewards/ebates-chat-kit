@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-
 function computeBorderRadius(sharpBorderRadius, ovalBorderRadius, isOwn, childIndexName = 'single') {
   const reorder = function reorder(order, arr) {
     return order.map((position) => {

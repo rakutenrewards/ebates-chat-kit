@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import _ from 'lodash';
+import throttle from 'lodash/throttle';
 
 const noop = () => {};
 
@@ -34,7 +34,7 @@ export default class MessageList extends React.Component {
   constructor(props) {
     super(props);
 
-    this._handleScroll = _.throttle((event) => {
+    this._handleScroll = throttle((event) => {
       this.props.onScroll(event);
     }, 300);
   }

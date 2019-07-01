@@ -1,4 +1,4 @@
-import _  from 'lodash';
+import merge  from 'lodash/merge';
 
 const identityop = (v) => { return v; };
 
@@ -10,7 +10,7 @@ export const mergeStyles = (props, componentName, propsParser = identityop) => {
   const parser = propsParser ? propsParser : (v) => { return v; };
 
   // TODO: should it be possible to specify common props in theme object?
-  const merged = _.merge(
+  const merged = merge(
     parser(themeProps),
     themeProps.css || {},
     parser(props),
