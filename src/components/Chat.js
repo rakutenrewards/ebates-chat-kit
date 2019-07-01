@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
 import TextArea from 'react-textarea-autosize';
-import _ from 'lodash';
+import omit from 'lodash/omit';
+import trimEnd from 'lodash/trimEnd';
+import debounce from 'lodash/debounce';
+import partial from 'lodash/partial';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import MessageList from './MessageList';
@@ -82,7 +85,7 @@ class TextInput extends React.Component {
     return (
       <TextComposer.Context.Consumer>
         {context =>
-          <StyledInput {...this._contextToInputContext(_.omit(this.props, ['autofocus', 'scrollToBottom']), context)} onHeightChange={this.props.scrollToBottom} inputRef={this._setTextareaRef} />
+          <StyledInput {...this._contextToInputContext(omit(this.props, ['autofocus', 'scrollToBottom']), context)} onHeightChange={this.props.scrollToBottom} inputRef={this._setTextareaRef} />
         }
       </TextComposer.Context.Consumer>
     );
@@ -178,7 +181,7 @@ class TextComposer extends React.Component {
     }
 
     const { value } = this.state;
-    const trimmedValue = _.trimEnd(value);
+    const trimmedValue = trimEnd(value);
 
     this.props.onSend(trimmedValue);
     this.setState({ value: ''});
@@ -368,7 +371,7 @@ export default class Chat extends React.Component {
       this._applyPendingMessages();
     };
 
-    this._applyPendingMessages = _.debounce(() => {
+    this._applyPendingMessages = debounce(() => {
       const { messages, pendingMessages } = this.state;
       this.setState({
         typingIndicator: false,
@@ -418,7 +421,7 @@ export default class Chat extends React.Component {
 
       return (
         <MessageGroup {...groupProps}>
-          {group.map(_.partial(this._renderMessage, groupProps.key))}
+          {group.map(partial(this._renderMessage, groupProps.key))}
         </MessageGroup>
       );
     };

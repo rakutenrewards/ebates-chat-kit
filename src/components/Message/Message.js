@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import _ from 'lodash';
+import merge from 'lodash/merge';
 
 const AvatarWrapper = styled.div`
   display:flex;
@@ -70,8 +70,8 @@ const StyledMessage = styled.div`
       return {};
     }
     const { Message, OwnMessage } = theme;
-    const style = isOwn ? _.merge({}, Message, OwnMessage) : Message;
-    const result = _.merge({
+    const style = isOwn ? merge({}, Message, OwnMessage) : Message;
+    const result = merge({
       flexDirection: style.horizontalAlign === 'left' ? 'row' : 'row-reverse'
     }, style.css);
     return result;
@@ -116,7 +116,7 @@ const StyledBubble = styled.div`
   overflow: hidden;
   ${props => {
       const { isOwn, isCard, theme: { Bubble, OwnBubble, Message } } = props;
-      const themeCustomCSS = isOwn ? _.merge({}, Bubble.css, OwnBubble.css) : Bubble.css;
+      const themeCustomCSS = isOwn ? merge({}, Bubble.css, OwnBubble.css) : Bubble.css;
       const border = isCard ? { border: Bubble.cardBorder } : { border: Bubble.messageBorder };
       const borderRadius = { borderRadius: computeBorderRadius(Message.sharpBorderRadius, Message.ovalBorderRadius, props.isOwn, props.childIndexName, isCard) };
       const styleExtras = Object.assign(
