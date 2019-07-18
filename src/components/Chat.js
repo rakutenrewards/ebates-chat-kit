@@ -6,7 +6,6 @@ import omit from 'lodash/omit';
 import trimEnd from 'lodash/trimEnd';
 import debounce from 'lodash/debounce';
 import partial from 'lodash/partial';
-import { TransitionGroup } from 'react-transition-group';
 
 import MessageList from './MessageList';
 import MessageGroup from './MessageGroup';
@@ -494,19 +493,14 @@ export default class Chat extends React.Component {
           <MessageList innerRef={this._setParentScroll}>
             {parsedMessages.filter(group => group.length > 0).map(this._renderGroup)}
             {typingIndicator ?  <Message authorName={otherAuthor.name} isOwn={false} ><TypingIndicator /></Message>: null}
-            <TransitionGroup>
-              {quickReplies && quickReplies.length > 0
-                ? (
-                  <QuickReplies
-                    replies={quickReplies}
-                    onSelect={this._onSendQuickReply}
-                    active={true}
-                    animationLength={theme.QuickReplies.animationLength}
-                  />
-                )
-                : null
-              }
-            </TransitionGroup>
+            {quickReplies && quickReplies.length && (
+              <QuickReplies
+                replies={quickReplies}
+                onSelect={this._onSendQuickReply}
+                active={true}
+                animationLength={theme.QuickReplies.animationLength}
+              />
+            )}
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
           <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgSendIcon={svgSendIcon} displaySendButton={displaySendButton} sendText={sendText}>

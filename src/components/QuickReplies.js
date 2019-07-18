@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { CSSTransition } from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const noop = () => {};
 
@@ -105,18 +105,20 @@ export default class QuickReplies extends React.Component {
 
     return (
       <StyledQuickReplies>
-        {replies.map((r, idx) => (
-          <CSSTransition
-            key={`reply-${idx}-${r}`}
-            classNames="quickreplies-animation"
-            timeout={{
-              enter: animationLength,
-              exit: animationLength
-            }}
-          >
-            <QuickReply active={active} value={r} onSelect={this._handleOnSelect}/>
-          </CSSTransition>
-        ))}
+        <TransitionGroup>
+          {replies.map((r, idx) => (
+            <CSSTransition
+              key={`reply-${idx}-${r}`}
+              classNames="quickreplies-animation"
+              timeout={{
+                enter: animationLength,
+                exit: animationLength
+              }}
+            >
+              <QuickReply active={active} value={r} onSelect={this._handleOnSelect}/>
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
       </StyledQuickReplies>
     );
   }
