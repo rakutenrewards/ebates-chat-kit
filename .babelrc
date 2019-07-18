@@ -1,15 +1,20 @@
 {
   "presets": [
-    ["env", { "debug": false, "modules": false }],
-    "react"
+    ["@babel/preset-env", {
+      "debug": false,
+      "modules": false
+    }],
+    ["@babel/preset-react", {
+      "useBuiltIns": true
+    }]
   ],
   "env": {
     "test": {
-      "presets": [["env"], "react"]
+      "presets": ["@babel/preset-env", "@babel/preset-react"]
     }
   },
   "plugins": [
-    "transform-class-properties",
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
     "babel-plugin-styled-components"
   ]
 }

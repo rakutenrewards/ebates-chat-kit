@@ -6,7 +6,7 @@ import omit from 'lodash/omit';
 import trimEnd from 'lodash/trimEnd';
 import debounce from 'lodash/debounce';
 import partial from 'lodash/partial';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { TransitionGroup } from 'react-transition-group';
 
 import MessageList from './MessageList';
 import MessageGroup from './MessageGroup';
@@ -17,16 +17,18 @@ import { defaultTheme } from '../theme';
 const noop = () => {};
 
 const StyledInput = styled(TextArea)`
-  apperance:none;
-  border:0;
-  resize:none;
-  background-color:#fff;
-  height:1.5em;
-  line-height:1.5em;
-  min-width 0;
+  apperance: none;
+  border: 0;
+  resize: none;
+  background-color: #fff;
+  height: 1.5em;
+  line-height: 1.5em;
+  min-width: 0;
   flex: auto;
-  font-size:1em;
-  &:focus,&:active{
+  font-size: 1em;
+
+  &:focus,
+  &:active {
     outline:none;
   }
 `;
@@ -55,6 +57,7 @@ class TextInput extends React.Component {
     super(props);
     this.focusTextComposer = this.focusTextComposer.bind(this);
     this._setTextareaRef = this._setTextareaRef.bind(this);
+    this.blah = new Promise((resolve) => resolve());
   }
 
   _contextToInputContext(props, context) {
@@ -94,8 +97,8 @@ class TextInput extends React.Component {
 
 
 const StyledTextComposer = styled.div`
-  background:#fff;
-  border-top:1px solid rgba(0,0,0,0.1);
+  background: #fff;
+  border-top: 1px solid rgba(0,0,0,0.1);
   display: flex;
   padding: 0.5em;
 
@@ -491,13 +494,19 @@ export default class Chat extends React.Component {
           <MessageList innerRef={this._setParentScroll}>
             {parsedMessages.filter(group => group.length > 0).map(this._renderGroup)}
             {typingIndicator ?  <Message authorName={otherAuthor.name} isOwn={false} ><TypingIndicator /></Message>: null}
-            <ReactCSSTransitionGroup
-              transitionName="quickreplies-animation"
-              transitionEnterTimeout={theme.QuickReplies.animationLength}
-              transitionLeaveTimeout={theme.QuickReplies.animationLength}
-            >
-              {quickReplies && quickReplies.length > 0 ? <QuickReplies replies={quickReplies} onSelect={this._onSendQuickReply} active={true} /> : null}
-            </ReactCSSTransitionGroup>
+            <TransitionGroup>
+              {quickReplies && quickReplies.length > 0
+                ? (
+                  <QuickReplies
+                    replies={quickReplies}
+                    onSelect={this._onSendQuickReply}
+                    active={true}
+                    animationLength={theme.QuickReplies.animationLength}
+                  />
+                )
+                : null
+              }
+            </TransitionGroup>
             <div style={{ float:"left", clear: "both", height: '0px', width: '0px', padding: '0px', margin: '0px', visibility: 'hidden' }} ref={(el) => { this.messagesEnd = el; }} />
           </MessageList>
           <TextComposer onSend={this._onSend} onFocus={onFocus} onBlur={onBlur} svgSendIcon={svgSendIcon} displaySendButton={displaySendButton} sendText={sendText}>
