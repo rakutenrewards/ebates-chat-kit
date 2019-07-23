@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const noop = () => {};
 
@@ -70,12 +71,14 @@ export default class QuickReplies extends React.Component {
   static propTypes = {
     replies: PropTypes.arrayOf(PropTypes.string),
     onSelect: PropTypes.func,
-    active: PropTypes.bool
+    active: PropTypes.bool,
+    animationLength: PropTypes.number
   }
 
   static defaultProps = {
     active: true,
-    onSelect: noop
+    onSelect: noop,
+    animationLength: 0
   }
 
   constructor(props) {
@@ -97,12 +100,25 @@ export default class QuickReplies extends React.Component {
   }
 
   render() {
-    const { replies } = this.props;
+    const { replies, animationLength } = this.props;
     const { active } = this.state;
-    const replyControls =  replies.map((r, idx) => (<QuickReply key={`reply-${idx}-${r}`} active={active} value={r} onSelect={this._handleOnSelect}/>));
+
     return (
       <StyledQuickReplies>
-        {replyControls}
+        <TransitionGroup>
+          {replies.map((r, idx) => (
+            <CSSTransition
+              key={`reply-${idx}-${r}`}
+              classNames="quickreplies-animation"
+              timeout={{
+                enter: animationLength,
+                exit: animationLength
+              }}
+            >
+              <QuickReply active={active} value={r} onSelect={this._handleOnSelect}/>
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
       </StyledQuickReplies>
     );
   }

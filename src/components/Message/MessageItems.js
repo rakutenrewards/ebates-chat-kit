@@ -9,4 +9,5 @@ const MessageItems = styled.div`
   ${props => props.theme.MessageItems.css}
 `;
 
+/** @component */
 export default MessageItems;

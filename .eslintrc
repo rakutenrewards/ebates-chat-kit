@@ -1,6 +1,8 @@
 {
   "parser": "babel-eslint",
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended"
+  ],
   "plugins": [
     "react",
     "jest"
@@ -20,7 +22,7 @@
   },
   "settings": {
     "react": {
-      "pragma": "h"
+      "version": "detect"
     }
   },
   "globals": {

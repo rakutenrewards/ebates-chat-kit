@@ -1,0 +1,10 @@
+.git
+
+# third party and static directories
+node_modules
+
+# build and stats directories
+dist
+build
+
+README.md

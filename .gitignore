@@ -68,3 +68,10 @@ typings/
 .next
 /styleguide/build
 /styleguide/index.html
+
+# Stats and bundle analysis
+stats.html
+
+# VS Code
+.vscode
+jsconfig.json

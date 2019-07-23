@@ -35,6 +35,7 @@ module.exports = {
       ]
     }
   ],
+  skipComponentsWithoutExample: true,
   template: {
     head: {
       links: [
