@@ -56,7 +56,6 @@ class TextInput extends React.Component {
     super(props);
     this.focusTextComposer = this.focusTextComposer.bind(this);
     this._setTextareaRef = this._setTextareaRef.bind(this);
-    this.blah = new Promise((resolve) => resolve());
   }
 
   _contextToInputContext(props, context) {
