@@ -6,14 +6,13 @@ import omit from 'lodash/omit';
 import trimEnd from 'lodash/trimEnd';
 import debounce from 'lodash/debounce';
 import partial from 'lodash/partial';
+import noop from 'lodash/noop';
 
 import MessageList from './MessageList';
 import MessageGroup from './MessageGroup';
 import QuickReplies from './QuickReplies';
 import { Message, MessageText, MessageMedia, MessageTitle, MessageButtons, MessageButton, TypingIndicator } from './Message';
 import { defaultTheme } from '../theme';
-
-const noop = () => {};
 
 const StyledInput = styled(TextArea)`
   apperance: none;
@@ -214,7 +213,17 @@ class TextComposer extends React.Component {
   }
 
   render() {
-    const { children, svgSendIcon, displaySendButton, sendText } = this.props;
+    const {
+      children,
+      svgSendIcon,
+      displaySendButton,
+      sendText,
+      // eslint-disable-next-line no-unused-vars
+      onSend,
+      // eslint-disable-next-line no-unused-vars
+      onButtonClick,
+      ...otherProps
+    } = this.props;
     const iconContext = {
        viewBox : svgSendIcon ? svgSendIcon.viewBox : '0 0  0 0',
        width : svgSendIcon ? svgSendIcon.width : 0,
@@ -237,7 +246,7 @@ class TextComposer extends React.Component {
 
     return (
       <TextComposer.Context.Provider value={context}>
-        <StyledTextComposer {...this.props}>
+        <StyledTextComposer {...otherProps}>
           {children}
           {displaySendButton &&
           <StyledSendButton style={style} disabled={!context.value} onClick={this._handleSendButton} >{sendButtonText}
@@ -315,10 +324,10 @@ export default class Chat extends React.Component {
   static defaultProps = {
     theme: defaultTheme,
     messages: [],
-    onSend: () => {},
-    onFocus: () => {},
-    onBlur: () => {},
-    onButtonClick: () => {},
+    onSend: noop,
+    onFocus: noop,
+    onBlur: noop,
+    onButtonClick: noop,
     displaySendButton: false,
     sendText: 'Send'
   }
