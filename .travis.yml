@@ -15,7 +15,7 @@ script:
   - yarn test
   - yarn build
   - yarn docs
-  - npm run deploy:npm
+  - yarn deploy:npm
 
 deploy:
   - provider: npm
