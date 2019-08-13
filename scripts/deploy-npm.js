@@ -1,6 +1,5 @@
 const chalk = require('chalk');
 const fs = require('fs');
-const { exec } = require('child-process-promise');
 const pkg = require('../package.json');
 
 function updateVersionNumber() {
@@ -19,7 +18,7 @@ function updateVersionNumber() {
 async function run() {
   try {
     console.log("Updating the package's version number...");
-    var newVersion = updateVersionNumber();
+    const newVersion = updateVersionNumber();
 
     console.log(chalk`{green DONE!}`);
     console.log(`Updating to version ${newVersion}`);

@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import throttle from 'lodash/throttle';
-
-const noop = () => {};
+import noop from 'lodash/noop';
 
 const StyledMessageList = styled.div`
   padding: 0 0 0.5em 0.5em;

@@ -1,9 +1,6 @@
 {
   "presets": [
-    ["@babel/preset-env", {
-      "debug": false,
-      "modules": false
-    }],
+    "@babel/preset-env",
     ["@babel/preset-react", {
       "useBuiltIns": true
     }]
