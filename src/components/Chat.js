@@ -289,7 +289,7 @@ const StyledChat = styled.div`
 
 const remove_html_tags = (html_string) => {
   return html_string.replace(htmlTagRegex, "");
-}
+};
 
 export default class Chat extends React.Component {
   static propTypes = {
