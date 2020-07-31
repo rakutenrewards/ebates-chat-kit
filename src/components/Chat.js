@@ -14,6 +14,7 @@ import QuickReplies from './QuickReplies';
 import { Message, MessageText, MessageMedia, MessageTitle, MessageButtons, MessageButton, TypingIndicator } from './Message';
 import { defaultTheme } from '../theme';
 
+const htmlTagRegex = /(<([^>]+)>)/ig;
 const StyledInput = styled(TextArea)`
   apperance: none;
   border: 0;
@@ -286,6 +287,10 @@ const StyledChat = styled.div`
   ${props => props.theme.Chat.css }
 `;
 
+const remove_html_tags = (html_string) => {
+  return html_string.replace(htmlTagRegex, "");
+};
+
 export default class Chat extends React.Component {
   static propTypes = {
     /** Messages to display */
@@ -393,7 +398,7 @@ export default class Chat extends React.Component {
     this._onSend = (value) => {
       const { onSend } = this.props;
       const newMsg = {
-        text: value,
+        text: remove_html_tags(value),
         isOwn: true
       };
 
@@ -404,7 +409,7 @@ export default class Chat extends React.Component {
 
       onSend(value);
     };
-
+    
     this._onSendQuickReply = (value) => {
       this.setState({
         quickReplies: []
